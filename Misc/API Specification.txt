@@ -1,0 +1,74 @@
+For incorrect requests we return something like 'Bad Request', but it's not very important exactly what response code we use.
+
+GET /gameboard
+{
+    players: [
+    {
+        username: "qwe",    
+        diamonds: 1,
+        score: 1,
+        position: {
+            x: 1,
+            y: 1
+        }
+    },
+    {
+        username: "asd",    
+        diamonds = 2,
+        score: 2,
+        position: {
+            x: 2,
+            y: 2
+        }
+    }
+    ],
+    diamonds = [
+    {
+        x = 1,
+        y = 1
+    },
+    {
+        x = 2,
+        y = 2
+    }]
+}
+
+POST /play
+Authorization: Bearer {token}
+{
+}
+
+RESPONSE: /gameboard
+
+
+GET /highscore
+{
+scores: [
+    {
+        username: "qwe",
+        score: 100
+    },
+    {
+        username: "asd",
+        score: 90
+    },
+]
+}
+
+
+POST /move
+Authorization: Bearer {token}
+{
+    direction: "North" // "North", "East", "South", "West"
+}
+
+RESPONSE: /gameboard
+
+
+POST /register
+{
+    email: "qwe@qwe.com",
+    publicUsername: "Gamern"
+}
+
+RESPONSE: Token (GUID or similar)
