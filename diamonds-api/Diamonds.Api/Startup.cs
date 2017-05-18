@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Diamonds.Api.Common.Storage;
 
 namespace Diamonds.Api
 {
@@ -28,6 +29,7 @@ namespace Diamonds.Api
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
+            services.AddScoped<IStorage, MemoryStorage>();
             services.AddMvc();
         }
 

@@ -5,10 +5,9 @@ using System.Threading.Tasks;
 
 namespace Diamonds.Api.Common.Entities
 {
-    public class Bot
+    public class BotRegistrationInput
     {
-        public string Name { get; set; }
         public string Email { get; set; }
-        public string Token { get; set; } = Guid.NewGuid().ToString();
+        public string Name { get; set; }
     }
 }

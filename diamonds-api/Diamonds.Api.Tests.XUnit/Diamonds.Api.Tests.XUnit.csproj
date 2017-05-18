@@ -37,7 +37,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Diamonds.Api\Diamonds.Api.csproj" />
-    <ProjectReference Include="..\SpecFlow.NetCore\SpecFlow.NetCore.csproj" />
   </ItemGroup>
 
 </Project>
