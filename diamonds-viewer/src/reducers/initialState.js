@@ -1,3 +1,9 @@
 export default {
-    rows: [[1,2],[3,4,5]]
+    gameboard: {
+        rows: [[]],
+        bots: [
+
+        ],
+        highscores: []
+    }
 }

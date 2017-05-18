@@ -3,18 +3,18 @@
 POST /bots
     BODY: {
         email: string,
-        botName: string
+        name: string
     }
     RESPONSE:
-        201 {botToken}
-        400 existing botName/email/other
+        201 botToken
+        400 existing name/email/other
 
 
 List boards
 ===========
 GET /boards
     RESPONSE:
-        200 {boardIds: [1]}
+        200 Board[]
 
 
 Join a specific board
@@ -24,7 +24,7 @@ POST /boards/{boardId}/join
         botToken: string
     }
     RESPONSE:
-        200 {boardToken}
+        200 boardToken
         409 Full board
 
 
@@ -37,7 +37,7 @@ PUT /boards/{boardId}/move
         direction: Direction
     }
     RESPONSE:
-        200 GameBoard
+        200 Board
         400 other error
         401 boardToken expired
         404 Invalid board
@@ -50,7 +50,7 @@ GET /boards/{boardId}
     HEADER:
         Authorization: Bearer {boardToken}
     RESPONSE:
-        200 GameBoard
+        200 Board
         401 Token expired
 
 
@@ -72,15 +72,15 @@ enum Direction {
     North, South, West, East
 }
 
-interface GameBoard {
-    botInfos: BotInfo[];
+interface Board {
+    bots: Bot[];
     diamonds: Position[];
     boardId: string;
     width: Integer;
     height: Integer;
 }
 
-interface BotInfo {
+interface Bot {
     name: string;
     base: Position;
     position: Position;
@@ -94,7 +94,7 @@ interface Position {
 }
 
 interface Highscore {
-    botName: string;
+    name: string;
     score: Integer;
 }
 
