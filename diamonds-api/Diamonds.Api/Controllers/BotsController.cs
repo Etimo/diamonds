@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Diamonds.Api.Controllers
 {
     [Route("api/[controller]")]
-    public class ValuesController : Controller
+    public class BotsController : Controller
     {
         public const string AppVersion = "1.33.7";
 

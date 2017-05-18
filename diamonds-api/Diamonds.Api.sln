@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Diamonds.Api.Tests.XUnit", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpecFlow.NetCore", "SpecFlow.NetCore\SpecFlow.NetCore.csproj", "{85AE616F-5B2D-48C4-8BEC-18F5BBD2476F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diamonds.Api", "Diamonds.Api\Diamonds.Api.csproj", "{8DC4F8B6-4217-4A32-AB4D-93B289F96A2B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Diamonds.Api", "Diamonds.Api\Diamonds.Api.csproj", "{8DC4F8B6-4217-4A32-AB4D-93B289F96A2B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

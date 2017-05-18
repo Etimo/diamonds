@@ -1,4 +1,4 @@
-Register a new bot
+﻿Register a new bot
 ==================
 POST /bots
     BODY: {
@@ -81,7 +81,7 @@ interface GameBoard {
 }
 
 interface BotInfo {
-    botName: string;
+    name: string;
     base: Position;
     position: Position;
     score: Integer;
