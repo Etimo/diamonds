@@ -24,7 +24,7 @@ POST /boards/{boardId}/join
         botToken: string
     }
     RESPONSE:
-        200 Joined {token, GameBoard, Position}
+        200 {boardToken}
         409 Full board
 
 
@@ -32,14 +32,14 @@ Perform a move on a specific board
 ==================================
 PUT /boards/{boardId}/move
     HEADER:
-        Authorization: Bearer {token}
+        Authorization: Bearer {boardToken}
     BODY: {
         direction: Direction
     }
     RESPONSE:
         200 GameBoard
         400 other error
-        401 token expired
+        401 boardToken expired
         404 Invalid board
         409 Invalid move
 
@@ -48,7 +48,7 @@ Get current board state
 =======================
 GET /boards/{boardId}
     HEADER:
-        Authorization: Bearer {token}
+        Authorization: Bearer {boardToken}
     RESPONSE:
         200 GameBoard
         401 Token expired
