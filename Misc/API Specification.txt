@@ -6,7 +6,7 @@ POST /bots
         botName: string
     }
     RESPONSE:
-        201 {}
+        201 {botToken}
         400 existing botName/email/other
 
 
@@ -21,7 +21,7 @@ Join a specific board
 =====================
 POST /boards/{boardId}/join
     BODY: {
-        botName: string
+        botToken: string
     }
     RESPONSE:
         200 Joined {token, GameBoard, Position}
