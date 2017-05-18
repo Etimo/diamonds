@@ -1,8 +1,9 @@
-import * as types from '../constants/actionTypes'
+import * as actionTypes from '../constants/actionTypes'
 
-export const requestBoardUpdate = () => {
-    console.log('Reached action creator!')
-    return {
-        type: types.REQUEST_BOARD_UPDATE
-    }
-}
+export const requestBoardUpdate = () => ({
+    type: actionTypes.REQUEST_BOARD_UPDATE
+})
+
+export const requestHighscoreUpdate = () => ({
+    type: actionTypes.REQUEST_HIGHSCORE_UPDATE
+})
