@@ -17,7 +17,7 @@ namespace Diamonds.Api.Tests
         [When(@"I request the version")]
         public void WhenIRequestTheVersion()
         {
-            var controller = new ValuesController();
+            var controller = new BotsController();
 
             var result = controller.Get();
             ScenarioContext.Current.Add("versionResult", result);
@@ -34,7 +34,7 @@ namespace Diamonds.Api.Tests
         public void ThenTheResultIsConstant()
         {
             var versionResult = (OkObjectResult)ScenarioContext.Current["versionResult"];
-            Assert.Equal(versionResult.Value, ValuesController.AppVersion);
+            Assert.Equal(versionResult.Value, BotsController.AppVersion);
         }
 
     }
