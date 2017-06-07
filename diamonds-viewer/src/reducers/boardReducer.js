@@ -1,6 +1,8 @@
 import * as actionTypes from '../constants/actionTypes'
 import initialState from './initialState'
 
+// const apiUrl = "http://localhost:4000/bots";
+
 const getEmptyGameboard = (width, height) => {
     const gameboard = []
     for (let i = 0; i < width; i++) {
@@ -17,7 +19,7 @@ const boardReducer = (state = initialState.gameboard, action) => {
     switch (action.type) {
         case actionTypes.BOARD_UPDATE_RECEIVED:
             const newGameboard = getEmptyGameboard(action.gameboard.width, action.gameboard.height)
-
+            //console.log(action);
             action.gameboard.bots.map(bot => {
                 newGameboard[bot.position.x][bot.position.y] = {
                     ...newGameboard[bot.position.x][bot.position.y],

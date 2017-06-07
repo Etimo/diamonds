@@ -1,27 +1,28 @@
 import React from 'react'
-
-const style = {
-    border: '1px solid black',
-    height: '1em',
-    width: '1em',
-    textAlign: 'center'
-}
+import styles from '../styles/cell.css'
+import imgDiamond from '../images/diamond.svg'
+import imgBase from '../images/home.svg'
+import imgRobot from '../images/robot.svg'
+import imgBotBase from '../images/botBase.svg'
+import imgBotDiamond from '../images/botDiamond.svg'
+import imgBaseDiamond from '../images/baseDiamond.svg'
+import imgBotBaseDiamond from '../images/botBaseDiamond.svg'
 
 const Cell = (props) => {
 
     const c = props.content
-    
-    const character = c.botName && c.diamond && c.base ? 'A'
-    : c.base && c.botName ? 'H'
-    : c.botName && c.diamond ? 'X'
-    : c.base && c.diamond ? '?'
-    : c.base ? 'B'
-    : c.botName ? 'P'
-    : c.diamond ? 'D'
+
+    const character = c.botName && c.diamond && c.base ? imgBotBaseDiamond
+    : c.base && c.botName ? imgBotBase
+    : c.botName && c.diamond ? imgBotDiamond
+    : c.base && c.diamond ? imgBaseDiamond
+    : c.base ? imgBase
+    : c.botName ? imgRobot
+    : c.diamond ? imgDiamond
     : ' ';
 
     return (
-        <td style={style}>{character}</td>
+        <div className={`cell ${styles.cell}`} ><img className={`${styles.cellImg}`} src={character}></img></div>
     )
 }
 

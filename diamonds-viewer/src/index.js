@@ -11,7 +11,7 @@ import App from './containers/App';
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 const sagaMiddleware = createSagaMiddleware()
 
-const store = createStore(combineReducers({gameboard: boardReducer}), 
+const store = createStore(combineReducers({gameboard: boardReducer}),
         composeEnhancers(applyMiddleware(sagaMiddleware)))
 
 sagaMiddleware.run(updateSaga)

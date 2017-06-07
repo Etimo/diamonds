@@ -1,18 +1,15 @@
 import React from 'react'
 import Row from './Row'
-
-const style = {
-    tableLayout: 'fixed',
-    borderCollapse: 'collapse'
-}
+import styles from '../styles/board.css'
 
 const Board = (props) => {
-    return ( <table style={style} ><tbody>
+    return (
+      <div className={styles.board}>
         {props.rows.map((content, key) => {
-            return (<Row key={key} content={content} />)
+          return (<Row key={key} content={content} />)
         })}
-        </tbody></table>
+      </div>
     )
 }
 
-export default Board
+export default Board;
