@@ -1,0 +1,15 @@
+/*BOARD*/
+.board{
+  border: 1px solid #333;
+  border-radius: 4px;
+  margin-right: 10px;
+  height:100%;
+}
+
+@media (max-width: 760px) {
+
+  .board{
+    height: 100%;
+    margin: 0 10px 30px;
+  }
+}

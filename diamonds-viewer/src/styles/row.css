@@ -1,0 +1,5 @@
+.row{
+  display: flex;
+  flex-basis: fill;
+  align-items: stretch;
+}

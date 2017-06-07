@@ -1,0 +1,62 @@
+*{
+  font-family: 'PT Sans', sans-serif;
+  color: #2C3E50;
+  margin:0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+
+/*highscore, playerlist and update btn*/
+.info{
+  width: auto;
+  margin: 0 10px 10px;
+}
+
+.btn{
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #1ABC9C;
+  border: 1px solid #1ABC9C;
+  border-radius: 4px;
+  color: #fff;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+
+}
+.btn:hover{
+  background-color: #0f7a65;
+}
+.btn:active{
+  background-color: #0b5c4c;
+}
+
+
+@media (min-width: 1600px) {
+  .info{
+    width: 30%;
+    margin: 0 0 0 20px;
+  }
+
+  caption{
+    font-size: 1.5em;
+  }
+}
+
+
+@media (max-width: 760px) {
+
+  .container{
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}

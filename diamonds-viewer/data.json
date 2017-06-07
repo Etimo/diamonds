@@ -1,0 +1,66 @@
+{
+    "bots": [
+        {
+          "name": "Jane Jet",
+          "base": {"x": 6, "y": 2},
+          "position": {"x": 6, "y": 2},
+          "score": 5,
+          "diamonds": 0,
+          "timeLeft": 15000
+        },
+        {
+          "name": "John",
+          "base": {"x": 5, "y": 8},
+          "position": {"x": 9, "y": 9},
+          "score": 2,
+          "diamonds": 2
+        },
+        {
+          "name": "J",
+          "base": {"x": 7, "y": 9},
+          "position": {"x": 6, "y": 3},
+          "score": 8,
+          "diamonds": 5
+        }
+    ],
+
+    "diamonds": [
+        {
+          "x": 5,
+          "y": 6
+        },
+        {
+          "x": 8,
+          "y": 9
+        },
+        {
+          "x": 9,
+          "y": 9
+        },
+        {
+          "x": 3,
+          "y": 1
+        },
+        {
+          "x": 6,
+          "y": 2
+        }
+    ],
+
+    "highscores": [
+      {
+        "name": "Oscar",
+        "score": 999
+      },
+      {
+        "name": "Johan",
+        "score": 99
+      },
+      {
+        "name": "Joakim",
+        "score": 1
+      }
+    ]
+
+
+}
