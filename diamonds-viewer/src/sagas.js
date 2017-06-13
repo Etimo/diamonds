@@ -4,102 +4,43 @@ import axios from 'axios'
 
 import * as actionTypes from './constants/actionTypes'
 
-const apiUrl = "http://localhost:4000/";
-
-
+const baseUrl = "http://localhost:4000";
+const boardUrl = `${baseUrl}/boards`;
 
 function* pollForUpdates() {
-    //while(true) {
-        //yield delay(500)
-        // const newGameboard = yield call(axios.get, ['/gameboard/1'])
-
+    // while(true) {
+        yield delay(1000);
         //getting bots, diamonds from api
-        const bots = yield call(axios.get, apiUrl+'bots');
-        const diamonds = yield call(axios.get, apiUrl+'diamonds');
+        const boardId = 1;
+        const board = yield call(axios.get, `${boardUrl}/${boardId}`);
 
         const newGameboard = {
-          bots: bots.data,
-          diamonds: diamonds.data,
-          boardId: 1,
+          bots: board.data.bots,
+          diamonds: board.data.diamonds,
+          boardId: board.data.boardId,
           width: 10,
           height: 10
         }
 
-
-        // const newGameboard = {
-        //     bots: [
-        //         {
-        //             name: 'Bot one',
-        //             base: {
-        //                 x: 0,
-        //                 y: 0
-        //             },
-        //             position: {
-        //                 x: 1,
-        //                 y: 1
-        //             },
-        //             score: 1,
-        //             diamonds: 2,
-        //             timeLeft: 60*5*1000
-        //         },
-        //         {
-        //             name: 'Bot two',
-        //             base: {
-        //                 x: 7,
-        //                 y: 7
-        //             },
-        //             position: {
-        //                 x: 9,
-        //                 y: 9
-        //             },
-        //             score: 2,
-        //             diamonds: 5,
-        //             timeLeft: 15000
-        //         }
-        //     ],
-        //     diamonds: [
-        //         {
-        //             x: 5,
-        //             y: 6
-        //         },
-        //         {
-        //             x: 8,
-        //             y: 9
-        //         },
-        //         {
-        //             x: 9,
-        //             y: 9
-        //         }
-        //     ],
-        //     boardId: 1,
-        //     width: 10,
-        //     height: 10
-        // }
         yield put({type: actionTypes.BOARD_UPDATE_RECEIVED, gameboard: newGameboard})
-    //}
+    // }
 }
 
 export function* updateSaga() {
-    yield takeEvery(actionTypes.REQUEST_BOARD_UPDATE, pollForUpdates)
+    yield takeEvery(actionTypes.REQUEST_BOARD_UPDATE, pollForUpdates);
 }
 
 function* pollForHighscores() {
-  const player = yield call(axios.get, apiUrl+'highscores');
-  const newHighscores = player.data;
-    // const newHighscores = [{
-    //     name: 'Oscar',
-    //     score: 999
-    // },
-    // {
-    //     name: 'Johan',
-    //     score: 99
-    // },
-    // {
-    //     name: 'Joakim',
-    //     score: 1
-    // }]
 
-    yield put({type: actionTypes.HIGHSCORE_UPDATE_RECEIVED, highscores: newHighscores})
+//   while(true) {
+      yield delay(10000);
+
+  const player = yield call(axios.get, `${baseUrl}/highscores`);
+  const newHighscores = player.data;
+
+
+    yield put({type: actionTypes.HIGHSCORE_UPDATE_RECEIVED, highscores: newHighscores});
+//   }
 }
 
 export function* highscoreSaga() {
