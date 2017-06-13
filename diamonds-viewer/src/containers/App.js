@@ -41,28 +41,6 @@ class App extends Component{
   }
 
 }
-// const App = (props) => {
-//   const startApp = () => {
-//           props.actions.requestBoardUpdate()
-//           props.actions.requestHighscoreUpdate()
-//   }
-//
-//   console.log('Rendered app!')
-//   return (
-//     <div>
-//       <Header/>
-//       <div className={styles.container}>
-//         <Board rows={props.rows} />
-//
-//         <div className={styles.info}>
-//           <button className={styles.btn} onClick={startApp}>Update</button>
-//           <PlayerList bots={props.bots} />
-//           <HighscoreList highscores={props.highscores} />
-//         </div>
-//       </div>
-//     </div>
-//   )
-// }
 
 const mapStateToProps = (state) => {
   return {

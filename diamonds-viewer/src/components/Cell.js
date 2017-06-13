@@ -10,7 +10,7 @@ import imgBotBaseDiamond from '../images/botBaseDiamond.svg'
 
 const Cell = (props) => {
 
-    const c = props.content
+    const c = props.content;
 
     const character = c.botName && c.diamond && c.base ? imgBotBaseDiamond
     : c.base && c.botName ? imgBotBase
@@ -19,10 +19,26 @@ const Cell = (props) => {
     : c.base ? imgBase
     : c.botName ? imgRobot
     : c.diamond ? imgDiamond
-    : ' ';
+    : ''
+
+    let image = null;
+    let name = null;
+    // let base = null;
+
+    if(character){
+      image = <img className={styles.cellImg} src={character}/>;
+    }
+    
+    name = c.botName ? <p className={styles.cellSign}>{c.botName}</p>
+    : c.base ? <p className={styles.cellSign}>{c.base}</p>
+    : ''
 
     return (
-        <div className={`cell ${styles.cell}`} ><img className={`${styles.cellImg}`} src={character}></img></div>
+        <div className={`cell ${styles.cell}`} >
+          {name}
+          {image}
+          
+        </div>
     )
 }
 

@@ -18,21 +18,20 @@ const getEmptyGameboard = (width, height) => {
 const boardReducer = (state = initialState.gameboard, action) => {
     switch (action.type) {
         case actionTypes.BOARD_UPDATE_RECEIVED:
-            const newGameboard = getEmptyGameboard(action.gameboard.width, action.gameboard.height)
-            //console.log(action);
+            const newGameboard = getEmptyGameboard(action.gameboard.height, action.gameboard.width)
             action.gameboard.bots.map(bot => {
-                newGameboard[bot.position.x][bot.position.y] = {
-                    ...newGameboard[bot.position.x][bot.position.y],
+                newGameboard[bot.position.y][bot.position.x] = {
+                    ...newGameboard[bot.position.y][bot.position.x],
                     botName: bot.name
                 }
-                newGameboard[bot.base.x][bot.base.y] = {
-                    ...newGameboard[bot.base.x][bot.base.y],
+                newGameboard[bot.base.y][bot.base.x] = {
+                    ...newGameboard[bot.base.y][bot.base.x],
                     base: bot.name
                 }
             })
             action.gameboard.diamonds.map(diamond => {
-                newGameboard[diamond.x][diamond.y] = {
-                    ...newGameboard[diamond.x][diamond.y],
+                newGameboard[diamond.y][diamond.x] = {
+                    ...newGameboard[diamond.y][diamond.x],
                     diamond: true,
                 }
             })

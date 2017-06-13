@@ -1,6 +1,6 @@
 import React from 'react'
-import styles from '../styles/table.css';
 import playerlist from '../styles/playerlist.css';
+import styles from '../styles/table.css';
 import imgDiamond from '../images/diamond.svg'
 
 const PlayerList = props => (
@@ -15,12 +15,12 @@ const PlayerList = props => (
         </tr>
       </thead>
       <tbody>
-        { props.bots.map(bot => (
+        { props.bots.map((bot, num) => (
+          
             <tr key={bot.name}>
               <td> { bot.name }</td>
-              <td>{[...Array(bot.diamonds)].map(() => <img className={playerlist.diamond} src={imgDiamond}/>)}</td>
-
-              <td> { bot.score } points</td>
+              <td>{'*'.repeat(bot.diamonds)}</td>
+              <td> { bot.score }</td>
               <td>{ bot.timeLeft / 1000 }</td>
             </tr>
         )) }

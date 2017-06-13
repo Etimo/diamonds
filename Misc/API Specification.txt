@@ -76,8 +76,8 @@ interface Board {
     bots: Bot[];
     diamonds: Position[];
     boardId: string;
-    width: Integer;
-    height: Integer;
+    width: Integer;  // ska dessa vara med? förstör css etc om dynamiska
+    height: Integer; // ""
 }
 
 interface Bot {
@@ -86,6 +86,7 @@ interface Bot {
     position: Position;
     score: Integer;
     diamonds: Integer;
+    timeLeft: Integer; // milliseconds
 }
 
 interface Position {
