@@ -2,8 +2,9 @@
 .board{
   border: 1px solid #333;
   border-radius: 4px;
-  margin-right: 10px;
+  margin-right: 60px;
   height:100%;
+
 }
 
 @media (max-width: 760px) {

@@ -16,8 +16,9 @@
 
 /*highscore, playerlist and update btn*/
 .info{
-  width: auto;
+  /*width: auto;*/
   margin: 0 10px 10px;
+  flex: 0 0 1;
 }
 
 .btn{
