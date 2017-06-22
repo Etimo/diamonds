@@ -1,4 +1,5 @@
-﻿using Diamonds.Common.Entities;
+﻿using System;
+using Diamonds.Common.Entities;
 
 namespace Diamonds.Common.Models
 {

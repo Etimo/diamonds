@@ -9,12 +9,20 @@ namespace Diamonds.Common.Storage
 {
     public class MemoryStorage : IStorage
     {
-        private List<Bot> bots = new List<Bot>();
+        private List<Bot> _bots = new List<Bot>
+        {
+            new Bot
+            {
+                Name = "indrif",
+                Email = "daniel.winther@etimo.se",
+                Token = "d25b58a2-dda0-476e-b53b-65c080e9e267"
+            }
+        };
         private List<Board> _boards = new List<Board>
         {
             new Board
             {
-                BoardId = "1", Height = 10, Width = 10,
+                Id = "1", Height = 10, Width = 10,
                 Bots = new List<BoardBot>{
                     new BoardBot {
                         Name = "Jane Jet",
@@ -25,7 +33,7 @@ namespace Diamonds.Common.Storage
                         MillisecondsLeft = 5 * 60 * 1000
                     },
                     new BoardBot {
-                        Name = "Johnny Rucker",
+                        Name = "indrif",
                         Base = new Position { X = 5, Y = 8 },
                         Position = new Position { X = 0, Y = 0 },
                         Score = 2,
@@ -61,7 +69,7 @@ namespace Diamonds.Common.Storage
                 Name = input.Name,
                 Email = input.Email
             };
-            bots.Add(bot);
+            _bots.Add(bot);
             return bot;
         }
 
@@ -70,14 +78,19 @@ namespace Diamonds.Common.Storage
             return _boards;
         }
 
+        public Board GetBoard(string id)
+        {
+            return _boards.SingleOrDefault<Board>(board => board.Id.Equals(id));
+        }
+
         public Bot GetBot(BotRegistrationInput input)
         {
-            return bots.SingleOrDefault<Bot>(bot => bot.Name.Equals(input.Name) || bot.Email.Equals(input.Email));
+            return _bots.SingleOrDefault<Bot>(bot => bot.Name.Equals(input.Name) || bot.Email.Equals(input.Email));
         }
 
         public Bot GetBot(string token)
         {
-            return bots.SingleOrDefault<Bot>(bot => bot.Token.Equals(token));
+            return _bots.SingleOrDefault<Bot>(bot => bot.Token.Equals(token));
         }
 
         public void UpdateBoard(Board board)

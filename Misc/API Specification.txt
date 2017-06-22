@@ -25,21 +25,23 @@ POST /boards/{boardId}/join
     }
     RESPONSE:
         200 boardToken
-        409 Full board
+        403 Invalid botToken
+        404 Invalid board
+        409 Full board, Bot already joined
 
 
 Perform a move on a specific board
 ==================================
 PUT /boards/{boardId}/move
-    HEADER:
-        Authorization: Bearer {boardToken}
     BODY: {
+        botToken: string,
         direction: Direction
     }
     RESPONSE:
         200 Board
         400 other error
         401 boardToken expired
+        403 Invalid botToken
         404 Invalid board
         409 Invalid move
 
@@ -47,8 +49,9 @@ PUT /boards/{boardId}/move
 Get current board state
 =======================
 GET /boards/{boardId}
-    HEADER:
-        Authorization: Bearer {boardToken}
+    BODY: {
+        botToken: string
+    }
     RESPONSE:
         200 Board
         401 Token expired
