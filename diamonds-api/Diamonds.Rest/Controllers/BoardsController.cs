@@ -58,7 +58,10 @@ namespace Diamonds.Rest.Controllers
             }
 
             board.AddBot(bot);
-            return Ok(bot);
+            return Ok(new JoinOutput
+            {
+                BoardToken = bot.BoardToken
+            });
         }
     }
 }
