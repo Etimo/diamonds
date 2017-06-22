@@ -1,4 +1,5 @@
-﻿using Diamonds.Common.Entities;
+﻿using System;
+using Diamonds.Common.Entities;
 
 namespace Diamonds.Common.Models
 {
@@ -10,7 +11,7 @@ namespace Diamonds.Common.Models
         public int Diamonds { get; set; }
         public int MillisecondsLeft { get; set; }
         public int Score { get; set; }
-
+        public string BotId { get; set; }
     }
 
 }
