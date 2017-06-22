@@ -18,14 +18,15 @@ namespace Diamonds.Tests.ApiTests
             var controller = new BoardsController(new MemoryStorage());
 
             // Act
-            var response = controller.Get();
+            var response = controller.Get();        
 
             // Assert
             var versionResult = (OkObjectResult)response;
             var boards = (IEnumerable<Board>) versionResult.Value;
 
             Assert.Equal(1, boards.Count());
-            Assert.Equal("77", boards.First().BoardId);
+            Assert.Equal(3, boards.First().Bots.Count());
+            Assert.Equal(7, boards.First().Diamonds.Count());
         }
     }
 }
