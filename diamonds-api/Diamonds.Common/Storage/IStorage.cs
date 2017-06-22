@@ -10,5 +10,6 @@ namespace Diamonds.Common.Storage
         Bot GetBot(string token);
         Bot AddBot(BotRegistrationInput input);
         IEnumerable<Board> GetBoards();
+        void UpdateBoard(Board board);
     }
 }
