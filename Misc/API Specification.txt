@@ -25,7 +25,9 @@ POST /boards/{boardId}/join
     }
     RESPONSE:
         200 boardToken
-        409 Full board
+        403 Invalid botToken
+        404 Invalid board
+        409 Full board, Bot already joined
 
 
 Perform a move on a specific board
