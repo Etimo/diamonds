@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 using Diamonds.Common.Storage;
+using System;
 
 namespace Diamonds.Rest
 {
@@ -26,6 +27,9 @@ namespace Diamonds.Rest
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IStorage, MemoryStorage>();
+            MongoDBStorage.ConnectionString = Configuration.GetSection("ConnectionString").Value; 
+            MongoDBStorage.DatabaseName = Configuration.GetSection("DatabaseName").Value; 
+            MongoDBStorage.IsSSL = Convert.ToBoolean(Configuration.GetSection("IsSSL").Value); 
 
             // Add framework services.
             services.AddMvc();

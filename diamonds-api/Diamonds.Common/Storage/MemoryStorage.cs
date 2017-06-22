@@ -22,7 +22,7 @@ namespace Diamonds.Common.Storage
         {
             new Board
             {
-                BoardId = "1", Height = 10, Width = 10,
+                Id = "1", Height = 10, Width = 10,
                 Bots = new List<BoardBot>{
                     new BoardBot {
                         Name = "Jane Jet",
@@ -80,7 +80,7 @@ namespace Diamonds.Common.Storage
 
         public Board GetBoard(string id)
         {
-            return _boards.SingleOrDefault<Board>(board => board.BoardId.Equals(id));
+            return _boards.SingleOrDefault<Board>(board => board.Id.Equals(id));
         }
 
         public Bot GetBot(BotRegistrationInput input)
