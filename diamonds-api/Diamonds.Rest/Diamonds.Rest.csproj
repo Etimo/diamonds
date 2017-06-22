@@ -19,6 +19,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Diamonds.Common\Diamonds.Common.csproj" />
+    <ProjectReference Include="..\Diamonds.GameEngine\Diamonds.GameEngine.csproj" />
   </ItemGroup>
 
 </Project>

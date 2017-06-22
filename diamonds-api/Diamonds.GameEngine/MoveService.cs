@@ -1,19 +1,21 @@
 ﻿using System;
 using Diamonds.Common.Storage;
 using Diamonds.Common.Enums;
-using Diamonds.Common.GameEngine;
+using Diamonds.Common.GameEngine.Move;
 using System.Linq;
 using Diamonds.Common.Entities;
 using Diamonds.Common.Models;
 using System.Collections.Generic;
+using Diamonds.Common.GameEngine.DiamondGenerator;
 
 namespace Diamonds.GameEngine
 {
-    public class GameEngine : IGameEngine
+    public class MoveService : IMoveService
     {
         private readonly IStorage _storage;
+        private readonly IDiamondGeneratorService _boardDiamondManager;
 
-        public GameEngine(IStorage storage)
+        public MoveService(IStorage storage, IDiamondGeneratorService boardDiamondManager)
         {
             _storage = storage;
         }
@@ -21,13 +23,16 @@ namespace Diamonds.GameEngine
         public MoveResultCode Move(string boardId, string botId, Direction direction)
         {
             // TODO: This should be executed synchronously
-            var board = GetBoard(boardId);
+            var board = _storage.GetBoard(boardId);
             var resultCode = PerformMoveAndUpdateBoard(board, botId, direction);
 
             if (resultCode != MoveResultCode.Ok)
             {
                 return resultCode;
             }
+
+            // TODO: Consider moving the call to _boardDiamondManager away from this class
+            board.Diamonds = _boardDiamondManager.GenerateDiamondsIfNeeded(board);
 
             _storage.UpdateBoard(board);
 
@@ -51,13 +56,7 @@ namespace Diamonds.GameEngine
 
             return MoveResultCode.Ok;
         }
-
-        private Board GetBoard(string boardId)
-        {
-            return _storage.GetBoards()
-                .Single(b => b.BoardId == boardId);
-        }
-
+        
         private void AttemptDeliverInBase(Position position, BoardBot bot)
         {
             var positionIsOwnBase = position.Equals(bot.Base);

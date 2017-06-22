@@ -6,6 +6,9 @@ using Microsoft.Extensions.Logging;
 
 using Diamonds.Common.Storage;
 using System;
+using Diamonds.Common.GameEngine.DiamondGenerator;
+using Diamonds.GameEngine;
+using Diamonds.Common.GameEngine.Move;
 
 namespace Diamonds.Rest
 {
@@ -31,6 +34,8 @@ namespace Diamonds.Rest
             MongoDBStorage.IsSSL = Convert.ToBoolean(Configuration.GetValue<bool>("MongoDb:IsSSL"));
 
             services.AddScoped<IStorage, MongoDBStorage>();
+            services.AddScoped<IMoveService, MoveService>();
+            services.AddScoped<IDiamondGeneratorService, DiamondGeneratorService>();
 
             // Add framework services.
             services.AddMvc();

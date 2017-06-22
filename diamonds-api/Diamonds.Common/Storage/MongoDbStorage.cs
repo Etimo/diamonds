@@ -49,14 +49,14 @@ namespace Diamonds.Common.Storage
         public Bot GetBot(BotRegistrationInput input)
         {
             var collection = _database.GetCollection<Bot>("Bots");
-            var result = collection.Find(m => m.Name.Equals(input.Name) || m.Email.Equals(input.Email)).FirstOrDefault();
+            var result = collection.Find(m => m.Name.Equals(input.Name) || m.Email.Equals(input.Email)).SingleOrDefault();
             return result;
         }
 
         public Bot GetBot(string token)
         {
             var collection = _database.GetCollection<Bot>("Bots");
-            var result = collection.Find(m => m.Token.Equals(token)).FirstOrDefault();
+            var result = collection.Find(m => m.Token.Equals(token)).SingleOrDefault();
             return result;
         }
 
@@ -82,7 +82,7 @@ namespace Diamonds.Common.Storage
         public Board GetBoard(string id)
         {
             var collection = _database.GetCollection<Board>("Boards");
-            var result = collection.Find(m => m.Id.Equals(id)).FirstOrDefault();
+            var result = collection.Find(m => m.Id.Equals(id)).Single();
             return result;
         }
 

@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Diamonds.Common.GameEngine
+namespace Diamonds.Common.GameEngine.Move
 {
-    public interface IGameEngine
+    public interface IMoveService
     {
         MoveResultCode Move(string boardId, string botId, Direction direction);
     }
