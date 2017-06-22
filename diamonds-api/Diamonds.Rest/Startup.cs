@@ -26,10 +26,11 @@ namespace Diamonds.Rest
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<IStorage, MemoryStorage>();
-            MongoDBStorage.ConnectionString = Configuration.GetSection("ConnectionString").Value; 
-            MongoDBStorage.DatabaseName = Configuration.GetSection("DatabaseName").Value; 
-            MongoDBStorage.IsSSL = Convert.ToBoolean(Configuration.GetSection("IsSSL").Value); 
+            MongoDBStorage.ConnectionString = Configuration.GetValue<string>("MongoDb:ConnectionString");
+            MongoDBStorage.DatabaseName = Configuration.GetValue<string>("MongoDb:DatabaseName");
+            MongoDBStorage.IsSSL = Convert.ToBoolean(Configuration.GetValue<bool>("MongoDb:IsSSL"));
+
+            services.AddScoped<IStorage, MongoDBStorage>();
 
             // Add framework services.
             services.AddMvc();

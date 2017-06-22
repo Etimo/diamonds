@@ -10,6 +10,15 @@ namespace Diamonds.Common.Storage
 
     public class MongoDBStorage : IStorage
     {
+        private readonly Board _defaultBoard = new Board
+        {
+            Id = "1",
+            Height = 10,
+            Width = 10,
+            Bots = new List<BoardBot>(),
+            Diamonds = new List<Position>()
+        };
+
         public static string ConnectionString { get; set; }
         public static string DatabaseName { get; set; }
         public static bool IsSSL { get; set; }
@@ -27,6 +36,9 @@ namespace Diamonds.Common.Storage
                 }
                 var mongoClient = new MongoClient(settings);
                 _database = mongoClient.GetDatabase(DatabaseName);
+
+                var board = GetBoard("1");
+                if (board == null) CreateBoard(_defaultBoard);
             }
             catch (Exception ex)
             {
@@ -72,7 +84,7 @@ namespace Diamonds.Common.Storage
             var collection = _database.GetCollection<Board>("Boards");
             var result = collection.Find(m => m.Id.Equals(id)).FirstOrDefault();
             return result;
-       }
+        }
 
         public void CreateBoard(Board board)
         {

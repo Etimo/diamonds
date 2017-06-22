@@ -95,13 +95,13 @@ namespace Diamonds.Common.Storage
         
         public void UpdateBoard(Board board)
         {
-            _boards.Clear();
+            _boards.Remove(board);
             _boards.Add(board);
         }
 
         public void CreateBoard(Board board)
         {
-            throw new NotImplementedException();
+            _boards.Add(board);
         }
     }
 }
