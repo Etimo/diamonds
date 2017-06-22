@@ -25,6 +25,8 @@ POST /boards/{boardId}/join
     }
     RESPONSE:
         200 boardToken
+        403 Invalid botToken
+        404 Invalid board
         409 Full board
 
 
