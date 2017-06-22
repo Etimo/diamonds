@@ -1,4 +1,5 @@
-﻿using Diamonds.Common.Entities;
+﻿using System.Collections.Generic;
+using Diamonds.Common.Entities;
 using Diamonds.Common.Models;
 
 namespace Diamonds.Common.Storage
@@ -8,7 +9,6 @@ namespace Diamonds.Common.Storage
         Bot GetBot(BotRegistrationInput input);
         Bot GetBot(string token);
         Bot AddBot(BotRegistrationInput input);
-
-
+        IEnumerable<Board> GetBoards();
     }
 }

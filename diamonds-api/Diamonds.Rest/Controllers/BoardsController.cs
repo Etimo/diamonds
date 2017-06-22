@@ -12,32 +12,25 @@ namespace Diamonds.Rest.Controllers
     [Route("[controller]")]
     public class BoardsController : Controller
     {
-        IStorage storage;
+        IStorage _storage;
 
         public BoardsController(IStorage storage)
         {
-            this.storage = storage;
+            this._storage = storage;
         }
 
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(new List<Board>
-                {
-                    new Board
-                    {
-                        BoardId = "77", Height = 99, Width = 99,
-                        Bots = new List<BoardBot>(),
-                        Diamonds = new List<Position>()
-                }
-            });
+            var boards = _storage.GetBoards();
+            return Ok(boards);
         }
 
         [Route("{id}/join")]
         public IActionResult Post([FromHeader] JoinInput input, string id)
         {
             var auth = this.Request.Headers["Authorization"];
-            var bot = storage.GetBot(auth);
+            var bot = _storage.GetBot(auth);
             //X-Token
             // Authorza: bearer token
             // existing bot?
