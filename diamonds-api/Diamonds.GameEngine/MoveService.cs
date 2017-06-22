@@ -18,6 +18,7 @@ namespace Diamonds.GameEngine
         public MoveService(IStorage storage, IDiamondGeneratorService boardDiamondManager)
         {
             _storage = storage;
+            _boardDiamondManager = boardDiamondManager;
         }
 
         public MoveResultCode Move(string boardId, string botId, Direction direction)
@@ -82,7 +83,9 @@ namespace Diamonds.GameEngine
             }
 
             bot.Diamonds += 1;
-            board.Diamonds = board.Diamonds.Where(p => p.Equals(position) == false);
+            board.Diamonds = board.Diamonds
+                .Where(p => p.Equals(position) == false)
+                .ToList();
             
             // TODO: Remember to generate new diamonds when the total diamond count is too low. We don't know yet where this should be in the code.
         }

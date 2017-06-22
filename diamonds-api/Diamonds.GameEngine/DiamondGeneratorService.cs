@@ -13,7 +13,7 @@ namespace Diamonds.GameEngine
         const decimal MaxRatioOfDiamonds = 0.01m;
         static Random _random = new Random();
 
-        public IEnumerable<Position> GenerateDiamondsIfNeeded(Board board)
+        public List<Position> GenerateDiamondsIfNeeded(Board board)
         {
             var numberOfBoardCells = board.Height * board.Width;
 

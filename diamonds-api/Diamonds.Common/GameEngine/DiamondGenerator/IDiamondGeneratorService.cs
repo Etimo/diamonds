@@ -7,6 +7,6 @@ namespace Diamonds.Common.GameEngine.DiamondGenerator
 {
     public interface IDiamondGeneratorService
     {
-        IEnumerable<Position> GenerateDiamondsIfNeeded(Board board);
+        List<Position> GenerateDiamondsIfNeeded(Board board);
     }
 }
