@@ -84,6 +84,7 @@ interface Board {
 }
 
 interface Bot {
+    botId: string;
     name: string;
     base: Position;
     position: Position;

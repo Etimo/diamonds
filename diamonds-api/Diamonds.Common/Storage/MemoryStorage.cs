@@ -92,5 +92,16 @@ namespace Diamonds.Common.Storage
         {
             return _bots.SingleOrDefault<Bot>(bot => bot.Token.Equals(token));
         }
+        
+        public void UpdateBoard(Board board)
+        {
+            _boards.Clear();
+            _boards.Add(board);
+        }
+
+        public void CreateBoard(Board board)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

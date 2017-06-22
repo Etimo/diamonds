@@ -11,7 +11,7 @@ namespace Diamonds.Common.Models
         public int Diamonds { get; set; }
         public int MillisecondsLeft { get; set; }
         public int Score { get; set; }
-
+        public string BotId { get; set; }
     }
 
 }

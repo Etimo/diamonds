@@ -37,7 +37,7 @@ namespace Diamonds.Common.Storage
         public Bot GetBot(BotRegistrationInput input)
         {
             var collection = _database.GetCollection<Bot>("Bots");
-            var result = collection.FindAsync(m => m.Name.Equals(input.Name) || m.Email.Equals(input.Email)).FirstOrDefault();
+            var result = collection.Find(m => m.Name.Equals(input.Name) || m.Email.Equals(input.Email)).FirstOrDefault();
             return result;
         }
 
