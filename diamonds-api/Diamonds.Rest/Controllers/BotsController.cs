@@ -19,11 +19,11 @@ namespace Diamonds.Rest.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post(BotRegistrationInput input)
+        public IActionResult Post([FromBody] BotRegistrationInput input)
         {
             var bot = storage.GetBot(input);
-            
-            if (bot == null)
+
+            if (bot != null)
             {
                 return StatusCode(409);
             }

@@ -10,8 +10,8 @@ namespace Diamonds.Common.Entities
         public string Id { get; set; }
         public int Width { get; set; }
         public int Height { get; set; }
-        public IEnumerable<BoardBot> Bots { get; set; }
-        public IEnumerable<Position> Diamonds { get; set; }
+        public List<BoardBot> Bots { get; set; }
+        public List<Position> Diamonds { get; set; }
 
         public bool IsFull()
         {
@@ -27,7 +27,8 @@ namespace Diamonds.Common.Entities
             return Bots.Any(item => item.Name.Equals(bot.Name));
         }
 
-        private Position GetRandomPosition() {
+        private Position GetRandomPosition()
+        {
             return new Position
             {
                 X = (int)(Width * new Random().NextDouble()),
@@ -55,7 +56,7 @@ namespace Diamonds.Common.Entities
 
         public string AddBot(Bot bot)
         {
-            Bots.Append(CreateBoardBot(bot));
+            Bots.Add(CreateBoardBot(bot));
             bot.BoardToken = Guid.NewGuid().ToString();
             return bot.BoardToken;
         }

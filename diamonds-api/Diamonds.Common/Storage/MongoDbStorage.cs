@@ -42,7 +42,7 @@ namespace Diamonds.Common.Storage
             }
             catch (Exception ex)
             {
-                throw new Exception("Can not access to db server.", ex);
+                throw new Exception("Storage error.", ex);
             }
         }
 

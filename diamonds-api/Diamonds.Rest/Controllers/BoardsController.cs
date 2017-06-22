@@ -58,6 +58,8 @@ namespace Diamonds.Rest.Controllers
             }
 
             board.AddBot(bot);
+            _storage.UpdateBoard(board);
+
             return Ok(new JoinOutput
             {
                 BoardToken = bot.BoardToken
