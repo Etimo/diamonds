@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Diamonds.Common.Entities;
 using Diamonds.Common.Models;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace Diamonds.Common.Storage
@@ -35,31 +36,58 @@ namespace Diamonds.Common.Storage
 
         public Bot GetBot(BotRegistrationInput input)
         {
-            throw new NotImplementedException();
+            var collection = _database.GetCollection<Bot>("Bots");
+            var result = collection.FindAsync(m => m.Name.Equals(input.Name) || m.Email.Equals(input.Email)).FirstOrDefault();
+            return result;
         }
 
         public Bot GetBot(string token)
         {
-            throw new NotImplementedException();
+            var collection = _database.GetCollection<Bot>("Bots");
+            var result = collection.Find(m => m.Token.Equals(token)).FirstOrDefault();
+            return result;
         }
 
         public Bot AddBot(BotRegistrationInput input)
         {
-            throw new NotImplementedException();
+            Bot bot = new Bot
+            {
+                Name = input.Name,
+                Email = input.Email
+            };
+            _database.GetCollection<Bot>("Bots").InsertOne(bot);
+            return bot;
         }
 
         public IEnumerable<Board> GetBoards()
         {
-            var collection = _database.GetCollection<Board>("boards");
+            var collection = _database.GetCollection<Board>("Boards");
             var result = collection.Find(m => true);
-            
             var boards = result.ToList();
             return boards;
         }
 
         public Board GetBoard(string id)
         {
-            throw new NotImplementedException();
+            var collection = _database.GetCollection<Board>("Boards");
+            var result = collection.Find(m => m.Id.Equals(id)).FirstOrDefault();
+            return result;
+       }
+
+        public void CreateBoard(Board board)
+        {
+            var collection = _database.GetCollection<Board>("Boards");
+            collection.InsertOne(board);
+        }
+
+        public void UpdateBoard(Board board)
+        {
+            var collection = _database.GetCollection<Board>("Boards");
+            collection.ReplaceOne(
+                new BsonDocument("_id", board.Id),
+                board,
+                new UpdateOptions { IsUpsert = true }
+            );
         }
     }
 }

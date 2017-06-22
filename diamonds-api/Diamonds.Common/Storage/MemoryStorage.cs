@@ -92,7 +92,5 @@ namespace Diamonds.Common.Storage
         {
             return _bots.SingleOrDefault<Bot>(bot => bot.Token.Equals(token));
         }
-
-
     }
 }
