@@ -33,7 +33,7 @@ namespace Diamonds.Common.Storage
                         MillisecondsLeft = 5 * 60 * 1000
                     },
                     new BoardBot {
-                        Name = "Johnny Rucker",
+                        Name = "indrif",
                         Base = new Position { X = 5, Y = 8 },
                         Position = new Position { X = 0, Y = 0 },
                         Score = 2,

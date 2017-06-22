@@ -24,7 +24,7 @@ namespace Diamonds.Common.Entities
 
         public bool HasBot(Bot bot)
         {
-            return Bots.Any(item => item.Name == bot.Name);
+            return Bots.Any(item => item.Name.Equals(bot.Name));
         }
 
         private Position GetRandomPosition() {
