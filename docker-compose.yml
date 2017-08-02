@@ -1,0 +1,30 @@
+version: '2'
+services:
+    frontend:
+        depends_on:
+            - 'api'
+        build:
+            context: ./diamonds-viewer
+            dockerfile: Dockerfile
+        ports:
+            - '80:80'
+        image: 45.77.89.90:5000/etimo-diamonds-frontend
+    api:
+        depends_on:
+            - 'mongo'
+        build:
+            context: ./diamonds-api
+            dockerfile: Dockerfile
+        ports:
+            - '4000:4000'
+        image: 45.77.89.90:5000/etimo-diamonds-api
+    mongo:
+        image: 'mongo:3.4.6'
+        ports:
+            - '27017:27017'
+        volumes:
+            - 'mongo:/data/db'
+
+volumes:
+    mongo:
+

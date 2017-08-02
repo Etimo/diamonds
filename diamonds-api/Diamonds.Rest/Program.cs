@@ -15,9 +15,9 @@ namespace Diamonds.Rest
             var host = new WebHostBuilder()
                 .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())
-                .UseIISIntegration()
                 .UseStartup<Startup>()
                 .UseApplicationInsights()
+                .UseUrls("http://0.0.0.0:4000")
                 .Build();
 
             host.Run();

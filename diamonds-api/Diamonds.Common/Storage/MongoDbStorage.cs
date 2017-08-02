@@ -82,7 +82,7 @@ namespace Diamonds.Common.Storage
         public Board GetBoard(string id)
         {
             var collection = _database.GetCollection<Board>("Boards");
-            var result = collection.Find(m => m.Id.Equals(id)).Single();
+            var result = collection.Find(m => m.Id.Equals(id)).SingleOrDefault();
             return result;
         }
 
