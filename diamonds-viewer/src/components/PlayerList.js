@@ -1,7 +1,7 @@
 import React from 'react'
 import playerlist from '../styles/playerlist.css';
 import styles from '../styles/table.css';
-import imgDiamond from '../images/diamond.svg'
+import imgDiamond from '../images/diamond.svg' // eslint-disable-line no-unused-vars
 
 const PlayerList = props => (
     <table className={styles.table}>

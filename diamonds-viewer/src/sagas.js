@@ -4,15 +4,12 @@ import axios from 'axios'
 
 import * as actionTypes from './constants/actionTypes'
 
-const baseUrl = "http://localhost:4000";
-const boardUrl = `${baseUrl}/boards`;
-
 function* pollForUpdates() {
     // while(true) {
-        yield delay(1000);
+        //yield delay(1000);
         //getting bots, diamonds from api
         const boardId = 1;
-        const board = yield call(axios.get, `${boardUrl}/${boardId}`);
+        const board = yield call(axios.get, `api/boards/${boardId}`);
 
         const newGameboard = {
           bots: board.data.bots,
@@ -33,9 +30,9 @@ export function* updateSaga() {
 function* pollForHighscores() {
 
 //   while(true) {
-      yield delay(10000);
+      //yield delay(10000);
 
-  const player = yield call(axios.get, `${baseUrl}/highscores`);
+  const player = yield call(axios.get, 'api/highscore');
   const newHighscores = player.data;
 
 

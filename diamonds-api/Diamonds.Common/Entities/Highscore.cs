@@ -2,8 +2,8 @@
 {
     public class Highscore
     {
-        //    botName: string;
-        //score: Integer;
+        public string botName;
+        public int score;
     }
 
 }

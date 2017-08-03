@@ -101,5 +101,15 @@ namespace Diamonds.Common.Storage
                 new UpdateOptions { IsUpsert = true }
             );
         }
+
+        public IEnumerable<Highscore> GetHighscores() {
+            var collection = _database.GetCollection<Highscore>("Highscores");
+            var result = collection
+                .Find(m => true).SortByDescending(h => h.score)
+                .Limit(10);
+            var topTenHighscores = result.ToList();
+
+            return topTenHighscores;
+        }
     }
 }

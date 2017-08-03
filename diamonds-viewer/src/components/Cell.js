@@ -26,7 +26,7 @@ const Cell = (props) => {
     // let base = null;
 
     if(character){
-      image = <img className={styles.cellImg} src={character}/>;
+      image = <img alt="Player" className={styles.cellImg} src={character}/>;
     }
     
     name = c.botName ? <p className={styles.cellSign}>{c.botName}</p>

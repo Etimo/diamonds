@@ -103,5 +103,10 @@ namespace Diamonds.Common.Storage
         {
             _boards.Add(board);
         }
+
+        public IEnumerable<Highscore> GetHighscores()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

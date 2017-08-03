@@ -13,5 +13,7 @@ namespace Diamonds.Common.Storage
         Board GetBoard(string id);
         void UpdateBoard(Board board);
         void CreateBoard(Board board);
+
+        IEnumerable<Highscore> GetHighscores();
     }
 }

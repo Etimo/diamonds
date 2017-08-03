@@ -26,6 +26,18 @@ namespace Diamonds.Rest.Controllers
             return Ok(boards);
         }
 
+        [HttpGet]
+        [Route("{id}")]
+        public IActionResult GetBoard(string id) {
+
+            var board = _storage.GetBoard(id);
+            if (board == null) {
+                return NotFound();
+            }
+
+            return Ok(board);
+        }
+
         [Route("{id}/join")]
         public IActionResult Post([FromBody] JoinInput input, string id)
         {

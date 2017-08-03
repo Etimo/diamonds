@@ -19,7 +19,7 @@ const boardReducer = (state = initialState.gameboard, action) => {
     switch (action.type) {
         case actionTypes.BOARD_UPDATE_RECEIVED:
             const newGameboard = getEmptyGameboard(action.gameboard.height, action.gameboard.width)
-            action.gameboard.bots.map(bot => {
+            action.gameboard.bots.forEach(bot => {
                 newGameboard[bot.position.y][bot.position.x] = {
                     ...newGameboard[bot.position.y][bot.position.x],
                     botName: bot.name
@@ -29,7 +29,7 @@ const boardReducer = (state = initialState.gameboard, action) => {
                     base: bot.name
                 }
             })
-            action.gameboard.diamonds.map(diamond => {
+            action.gameboard.diamonds.forEach(diamond => {
                 newGameboard[diamond.y][diamond.x] = {
                     ...newGameboard[diamond.y][diamond.x],
                     diamond: true,

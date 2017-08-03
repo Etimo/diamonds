@@ -18,11 +18,6 @@ class App extends Component{
     this.props.actions.requestHighscoreUpdate();
   }
 
-  // startApp(){
-  //   this.props.actions.requestBoardUpdate();
-  //   this.props.actions.requestHighscoreUpdate();
-  // }
-
   render(){
     return (
       <div>
@@ -31,7 +26,6 @@ class App extends Component{
           <Board rows={this.props.rows} />
 
           <div className={styles.info}>
-            {/*<button className={styles.btn} onClick={this.startApp}>Update</button>*/}
             <PlayerList bots={this.props.bots} />
             <HighscoreList highscores={this.props.highscores} />
           </div>
