@@ -2,12 +2,11 @@ FROM node:8.2.1-alpine
 
 RUN mkdir -p /build
 WORKDIR /build
-ADD . /build
+ADD package.json /build
+RUN yarn install
 
-RUN npm install -g -s --no-progress
-RUN yarn
+ADD . /build
 RUN yarn build
-RUN yarn cache clean
 
 FROM nginx:1.13.3-alpine
 

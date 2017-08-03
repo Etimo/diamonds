@@ -78,5 +78,23 @@ namespace Diamonds.Rest.Controllers
             }
             );
         }
+
+        [HttpPost]
+        [Route("{id}/move")]
+        public IActionResult Move([FromBody] MoveInput input, string id)
+        {
+            var bot = _storage.GetBot(input.botToken);
+
+            if (bot == null) {
+                return StatusCode(403);
+            }
+
+            var board = _storage.GetBoard(id);
+
+            if (board == null) {
+                return StatusCode(404);
+            }
+            throw new NotImplementedException();
+        }
     }
 }
