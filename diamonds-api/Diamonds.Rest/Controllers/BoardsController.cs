@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Diamonds.Common.Entities;
 using Diamonds.Common.Storage;
 using Diamonds.Common.Models;
+using Diamonds.Common.GameEngine.Move;
 
 namespace Diamonds.Rest.Controllers
 {
@@ -13,13 +14,14 @@ namespace Diamonds.Rest.Controllers
     public class BoardsController : Controller
     {
         IStorage _storage;
+        IMoveService _moveService;
 
-        public BoardsController(IStorage storage)
+        public BoardsController(IStorage storage, IMoveService moveService)
         {
             this._storage = storage;
+            this._moveService = moveService;
         }
 
-        [HttpGet]
         public IActionResult Get()
         {
             var boards = _storage.GetBoards();
@@ -79,10 +81,13 @@ namespace Diamonds.Rest.Controllers
             );
         }
 
-        [HttpPost]
         [Route("{id}/move")]
-        public IActionResult Move([FromBody] MoveInput input, string id)
+        public IActionResult Post([FromBody] MoveInput input, string id)
         {
+            if (input.isValid() == false) {
+                return StatusCode(400);
+            }
+            
             var bot = _storage.GetBot(input.botToken);
 
             if (bot == null) {
@@ -94,7 +99,18 @@ namespace Diamonds.Rest.Controllers
             if (board == null) {
                 return StatusCode(404);
             }
-            throw new NotImplementedException();
+
+            if (board.HasBot(bot) == false) {
+                return StatusCode(403);
+            }
+
+            var moveResult = _moveService.Move(id, bot.Id, input.direction);
+
+            if (moveResult == MoveResultCode.CanNotMoveInThatDirection) {
+                return StatusCode(409);
+            }
+
+            return GetBoard(id);
         }
     }
 }

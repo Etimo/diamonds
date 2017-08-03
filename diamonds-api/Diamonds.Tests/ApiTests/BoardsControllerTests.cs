@@ -15,7 +15,7 @@ namespace Diamonds.Tests.ApiTests
         public void CanGetBoards()
         {
             // Arrange
-            var controller = new BoardsController(new MemoryStorage());
+            var controller = new BoardsController(new MemoryStorage(), null);
 
             // Act
             var response = controller.Get();        
