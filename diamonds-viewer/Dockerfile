@@ -2,10 +2,10 @@ FROM node:8.2.1-alpine
 
 RUN mkdir -p /build
 WORKDIR /build
-ADD ./package.json /build
+ADD ./package.json .
 RUN yarn install
 
-ADD . /build
+ADD . .
 RUN yarn build
 
 FROM nginx:1.13.3-alpine
