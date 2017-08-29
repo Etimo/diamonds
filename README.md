@@ -7,7 +7,8 @@ Prerequisites:
 
 Bring everything up locally:
 
-    docker-compose up
+    docker-compose up --build
+(--build flag rebuilds the application, which is for now necessary until we've set up proper dev containers)
     
 Bring everything down locally:
 
