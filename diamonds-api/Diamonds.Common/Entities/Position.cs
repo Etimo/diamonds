@@ -1,6 +1,6 @@
 ﻿namespace Diamonds.Common.Entities
 {
-    public struct Position
+    public class Position
     {
         public int X { get; set; }
         public int Y { get; set; }
@@ -9,6 +9,12 @@
         {
             X = x;
             Y = y;
+        }
+
+        public override bool Equals(object obj)
+        {
+            var p = obj as Position;
+            return p.X == X && p.Y == Y;
         }
     }
 

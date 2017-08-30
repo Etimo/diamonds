@@ -29,11 +29,10 @@ namespace Diamonds.Common.Entities
 
         private Position GetRandomPosition()
         {
-            return new Position
-            {
-                X = (int)(Width * new Random().NextDouble()),
-                Y = (int)(Width * new Random().NextDouble())
-            };
+            return new Position(
+                (int)(Width * new Random().NextDouble()),
+                (int)(Width * new Random().NextDouble())
+            );
         }
 
         // 5 minutes hard coded for now

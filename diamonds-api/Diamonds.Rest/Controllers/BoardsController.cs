@@ -72,6 +72,7 @@ namespace Diamonds.Rest.Controllers
             }
 
             board.AddBot(bot);
+            _storage.UpdateBot(bot);
             _storage.UpdateBoard(board);
 
             return Ok(new JoinOutput
