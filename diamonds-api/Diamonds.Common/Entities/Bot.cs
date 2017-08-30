@@ -11,6 +11,5 @@ namespace Diamonds.Common.Entities
         public string Name { get; set; }
         public string Email { get; set; }
         public string Token { get; set; } = Guid.NewGuid().ToString();
-        public string BoardToken { get; set; }
     }
 }

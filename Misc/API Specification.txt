@@ -6,8 +6,16 @@ POST /bots
         name: string
     }
     RESPONSE:
-        201 botToken
-        400 existing name/email/other
+        200 {botToken}
+        409 existing name/email
+
+
+Get bot info
+============
+GET /bots/{botToken}
+    RESPONSE:
+        200 {bot}
+        404 invalid botToken
 
 
 List boards
@@ -24,7 +32,7 @@ POST /boards/{boardId}/join
         botToken: string
     }
     RESPONSE:
-        200 boardToken
+        200 {botToken}
         403 Invalid botToken
         404 Invalid board
         409 Full board, Bot already joined
@@ -40,7 +48,7 @@ PUT /boards/{boardId}/move
     RESPONSE:
         200 Board
         400 other error
-        401 boardToken expired
+        # -> Aktuellt fortf? 401 boardToken expired
         403 Invalid botToken
         404 Invalid board
         409 Invalid move
@@ -49,12 +57,9 @@ PUT /boards/{boardId}/move
 Get current board state
 =======================
 GET /boards/{boardId}
-    BODY: {
-        botToken: string
-    }
     RESPONSE:
         200 Board
-        401 Token expired
+        404 Invalid board
 
 
 Get global highscore list

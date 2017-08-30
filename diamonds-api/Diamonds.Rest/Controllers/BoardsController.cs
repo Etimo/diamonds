@@ -78,14 +78,9 @@ namespace Diamonds.Rest.Controllers
             }
 
             board.AddBot(bot);
-            _storage.UpdateBot(bot);
             _storage.UpdateBoard(board);
 
-            return Ok(new JoinOutput
-            {
-                BoardToken = bot.BoardToken
-            }
-            );
+            return Ok();
         }
 
         [Route("{id}/move")]
@@ -111,7 +106,7 @@ namespace Diamonds.Rest.Controllers
                 return StatusCode(403);
             }
 
-            var moveResult = _moveService.Move(id, bot.Id, input.direction);
+            var moveResult = _moveService.Move(id, bot.Name, input.direction);
 
             if (moveResult == MoveResultCode.CanNotMoveInThatDirection) {
                 return StatusCode(409);
