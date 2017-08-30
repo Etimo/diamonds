@@ -87,7 +87,7 @@ namespace Diamonds.Rest.Controllers
             if (input.isValid() == false) {
                 return StatusCode(400);
             }
-            
+
             var bot = _storage.GetBot(input.botToken);
 
             if (bot == null) {

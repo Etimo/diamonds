@@ -35,6 +35,8 @@ namespace Diamonds.GameEngine
             // TODO: Consider moving the call to _boardDiamondManager away from this class
             board.Diamonds = _boardDiamondManager.GenerateDiamondsIfNeeded(board);
 
+            // update time left on bot
+
             _storage.UpdateBoard(board);
 
             return MoveResultCode.Ok;
