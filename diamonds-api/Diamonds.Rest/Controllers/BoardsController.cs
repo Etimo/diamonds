@@ -78,6 +78,7 @@ namespace Diamonds.Rest.Controllers
             }
 
             board.AddBot(bot);
+            _storage.UpdateBot(bot);
             _storage.UpdateBoard(board);
 
             return Ok(new JoinOutput
@@ -93,7 +94,7 @@ namespace Diamonds.Rest.Controllers
             if (input.isValid() == false) {
                 return StatusCode(400);
             }
-            
+
             var bot = _storage.GetBot(input.botToken);
 
             if (bot == null) {

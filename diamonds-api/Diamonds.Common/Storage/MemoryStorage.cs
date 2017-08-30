@@ -26,24 +26,24 @@ namespace Diamonds.Common.Storage
                 Bots = new List<BoardBot>{
                     new BoardBot {
                         Name = "Jane Jet",
-                        Base = new Position { X = 6, Y = 2 },
-                        Position = new Position { X = 8, Y = 0 },
+                        Base = new Position(6, 2),
+                        Position = new Position(8, 0),
                         Score = 5,
                         Diamonds = 0,
                         MillisecondsLeft = 5 * 60 * 1000
                     },
                     new BoardBot {
                         Name = "indrif",
-                        Base = new Position { X = 5, Y = 8 },
-                        Position = new Position { X = 0, Y = 0 },
+                        Base = new Position(5, 8),
+                        Position = new Position(0, 0),
                         Score = 2,
                         Diamonds = 2,
                         MillisecondsLeft = 5 * 60 * 1000
                     },
                     new BoardBot {
                         Name = "Elton Jan",
-                        Base = new Position { X = 7, Y = 9 },
-                        Position = new Position { X = 2, Y = 3 },
+                        Base = new Position(7, 9),
+                        Position = new Position(2, 3),
                         Score = 8,
                         Diamonds = 5,
                         MillisecondsLeft = 5 * 60 * 1000
@@ -51,13 +51,13 @@ namespace Diamonds.Common.Storage
                 },
                 Diamonds = new List<Position>
                 {
-                    new Position { X = 1, Y = 1 },
-                    new Position { X = 0, Y = 0 },
-                    new Position { X = 8, Y = 9 },
-                    new Position { X = 9, Y = 9 },
-                    new Position { X = 5, Y = 1 },
-                    new Position { X = 6, Y = 2 },
-                    new Position { X = 1, Y = 9 }
+                    new Position(1, 1),
+                    new Position(0, 0),
+                    new Position(8, 9),
+                    new Position(9, 9),
+                    new Position(5, 1),
+                    new Position(6, 2),
+                    new Position(1, 9)
                 }
             }
         };
@@ -105,6 +105,11 @@ namespace Diamonds.Common.Storage
         }
 
         public IEnumerable<Highscore> GetHighscores()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateBot(Bot bot)
         {
             throw new NotImplementedException();
         }

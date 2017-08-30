@@ -29,18 +29,15 @@ namespace Diamonds.Common.Entities
 
         private Position GetRandomPosition()
         {
-            return new Position
-            {
-                X = (int)(Width * new Random().NextDouble()),
-                Y = (int)(Width * new Random().NextDouble())
-            };
+            return new Position(
+                (int)(Width * new Random().NextDouble()),
+                (int)(Width * new Random().NextDouble())
+            );
         }
 
-        private int GetNewTotalTime()
-        {
-            return 5 * 60 * 1000; // 5 minutes hard coded for now
-        }
-
+        // 5 minutes hard coded for now
+        public static int TotalGameTime => 5 * 60 * 1000;
+ 
         private BoardBot CreateBoardBot(Bot bot)
         {
             return new BoardBot
@@ -50,7 +47,8 @@ namespace Diamonds.Common.Entities
                 Position = GetRandomPosition(),
                 Score = 0,
                 Diamonds = 0,
-                MillisecondsLeft = GetNewTotalTime()
+                TimeJoined = DateTime.Now,
+                MillisecondsLeft = TotalGameTime
             };
         }
 
