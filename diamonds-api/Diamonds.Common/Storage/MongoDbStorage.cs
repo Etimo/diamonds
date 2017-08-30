@@ -125,6 +125,10 @@ namespace Diamonds.Common.Storage
 
         public void SaveHighscore(Highscore score)
         {
+            if(string.IsNullOrWhiteSpace(score.Id)) {
+                score.Id = Guid.NewGuid().ToString();
+            }
+
             var collection = _database.GetCollection<Highscore>("Highscores");
             collection.InsertOne(score);
         }

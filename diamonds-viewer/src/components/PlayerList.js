@@ -21,7 +21,7 @@ const PlayerList = props => (
               <td> { bot.name }</td>
               <td>{'*'.repeat(bot.diamonds)}</td>
               <td> { bot.score }</td>
-              <td>{ bot.timeLeft / 1000 }</td>
+              <td>{ bot.millisecondsLeft / 1000 }</td>
             </tr>
         )) }
 

@@ -16,14 +16,15 @@ namespace Diamonds.Common.Entities
 
         public void UpdateTimeLeft()
         {
-            var span = (DateTime.Now - TimeJoined);
+            var endTime = TimeJoined.AddMilliseconds(Board.TotalGameTime);
+            var span = (endTime - DateTime.UtcNow);
             MillisecondsLeft = (int)span.TotalMilliseconds;
         }
 
         public bool IsGameOver()
         {
             var endTime = TimeJoined.AddMilliseconds(Board.TotalGameTime);
-            var isGameOver = (endTime > DateTime.Now);
+            var isGameOver = (endTime > DateTime.UtcNow);
 
             return isGameOver;
         }

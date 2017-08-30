@@ -42,12 +42,13 @@ namespace Diamonds.Common.Entities
         {
             return new BoardBot
             {
+                BotId = bot.Id,
                 Name = bot.Name,
                 Base = GetRandomPosition(),
                 Position = GetRandomPosition(),
                 Score = 0,
                 Diamonds = 0,
-                TimeJoined = DateTime.Now,
+                TimeJoined = DateTime.UtcNow,
                 MillisecondsLeft = TotalGameTime
             };
         }

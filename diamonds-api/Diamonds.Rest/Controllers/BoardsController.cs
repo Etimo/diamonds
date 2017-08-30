@@ -111,10 +111,11 @@ namespace Diamonds.Rest.Controllers
             var state = (TimerState)stateObj;
             var board = _storage.GetBoard(state.BoardId);
 
-            var bot = board.Bots.SingleOrDefault(b => b.BotId.Equals(state.BotId));
+            var bot = board.Bots.SingleOrDefault(b => !string.IsNullOrWhiteSpace(b.BotId) && b.BotId.Equals(state.BotId));
             if (bot == null) return;
 
             board.Bots.Remove(bot);
+            _storage.UpdateBoard(board);
 
             var score = new Highscore
             {
