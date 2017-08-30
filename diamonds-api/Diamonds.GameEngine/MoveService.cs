@@ -21,11 +21,11 @@ namespace Diamonds.GameEngine
             _boardDiamondManager = boardDiamondManager;
         }
 
-        public MoveResultCode Move(string boardId, string botId, Direction direction)
+        public MoveResultCode Move(string boardId, string botName, Direction direction)
         {
             // TODO: This should be executed synchronously
             var board = _storage.GetBoard(boardId);
-            var resultCode = PerformMoveAndUpdateBoard(board, botId, direction);
+            var resultCode = PerformMoveAndUpdateBoard(board, botName, direction);
 
             if (resultCode != MoveResultCode.Ok)
             {
@@ -42,9 +42,9 @@ namespace Diamonds.GameEngine
             return MoveResultCode.Ok;
         }
 
-        private MoveResultCode PerformMoveAndUpdateBoard(Board board, string botId, Direction direction)
+        private MoveResultCode PerformMoveAndUpdateBoard(Board board, string botName, Direction direction)
         {
-            var bot = board.Bots.Single(b => b.BotId == botId);
+            var bot = board.Bots.Single(b => b.Name == botName);
             var previousPosition = bot.Position;
             var attemptedNextPosition = CalculateNewPosition(previousPosition, direction);
             var canMoveToAttemptedNextPosition = CanMoveToPosition(board, bot, attemptedNextPosition);
@@ -56,6 +56,8 @@ namespace Diamonds.GameEngine
 
             AttemptPickUpDiamond(attemptedNextPosition, board, bot);
             AttemptDeliverInBase(attemptedNextPosition, bot);
+
+            bot.Position = attemptedNextPosition;
 
             return MoveResultCode.Ok;
         }

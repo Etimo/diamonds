@@ -52,11 +52,9 @@ namespace Diamonds.Common.Entities
             };
         }
 
-        public string AddBot(Bot bot)
+        public void AddBot(Bot bot)
         {
             Bots.Add(CreateBoardBot(bot));
-            bot.BoardToken = Guid.NewGuid().ToString();
-            return bot.BoardToken;
         }
     }
 

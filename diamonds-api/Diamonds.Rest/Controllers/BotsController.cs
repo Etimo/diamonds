@@ -18,6 +18,18 @@ namespace Diamonds.Rest.Controllers
             this.storage = storage;
         }
 
+        [Route("{id}")]
+        public IActionResult Get(string id)
+        {
+            var bot = storage.GetBot(id);
+
+            if (bot == null)
+            {
+                return NotFound();
+            }
+            return Ok(bot);
+        }
+
         [HttpPost]
         public IActionResult Post([FromBody] BotRegistrationInput input)
         {

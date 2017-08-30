@@ -8,6 +8,7 @@ using Diamonds.Common.Storage;
 using Diamonds.Common.Models;
 using Diamonds.Common.GameEngine.Move;
 using System.Threading;
+using Diamonds.Common.GameEngine.DiamondGenerator;
 
 namespace Diamonds.Rest.Controllers
 {
@@ -16,11 +17,13 @@ namespace Diamonds.Rest.Controllers
     {
         IStorage _storage;
         IMoveService _moveService;
+        IDiamondGeneratorService _diamondGeneratorService;
 
-        public BoardsController(IStorage storage, IMoveService moveService)
+        public BoardsController(IStorage storage, IMoveService moveService, IDiamondGeneratorService diamondGeneratorService)
         {
             this._storage = storage;
             this._moveService = moveService;
+            this._diamondGeneratorService = diamondGeneratorService;
         }
 
         public IActionResult Get()
@@ -39,6 +42,10 @@ namespace Diamonds.Rest.Controllers
             if (board == null)
             {
                 return NotFound();
+            }
+
+            if(board.Bots.Count == 0 && board.Diamonds.Count == 0){
+                board.Diamonds = _diamondGeneratorService.GenerateDiamondsIfNeeded(board);
             }
 
             return Ok(board);
@@ -76,15 +83,11 @@ namespace Diamonds.Rest.Controllers
             }
 
             board.AddBot(bot);
-            _storage.UpdateBot(bot);
             _storage.UpdateBoard(board);
 
             SetExpireCallbackForBot(bot, id);
 
-            return Ok(new JoinOutput
-            {
-                BoardToken = bot.BoardToken
-            });
+            return Ok();
         }
         private void SetExpireCallbackForBot(Bot bot, string id)
         {
@@ -150,7 +153,7 @@ namespace Diamonds.Rest.Controllers
                 return StatusCode(403);
             }
 
-            var moveResult = _moveService.Move(id, bot.Id, input.direction);
+            var moveResult = _moveService.Move(id, bot.Name, input.direction);
 
             if (moveResult == MoveResultCode.CanNotMoveInThatDirection)
             {
