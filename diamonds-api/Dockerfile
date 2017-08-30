@@ -1,4 +1,4 @@
-FROM microsoft/aspnetcore-build
+FROM microsoft/aspnetcore-build:1.1.2
 
 RUN mkdir -p /app/Diamonds.Common /app/Diamonds.GameEngine /app/Diamonds.Rest
 
@@ -14,7 +14,7 @@ COPY . .
 
 RUN dotnet publish --output /out/ --configuration Release
 
-FROM microsoft/aspnetcore
+FROM microsoft/aspnetcore:1.1.2
 WORKDIR /app
 COPY --from=0 /out .
 ENTRYPOINT ["dotnet", "Diamonds.Rest.dll"]
