@@ -111,5 +111,15 @@ namespace Diamonds.Common.Storage
 
             return topTenHighscores;
         }
+
+        public void UpdateBot(Bot bot)
+        {
+            var collection = _database.GetCollection<Bot>("Bots");
+            collection.ReplaceOne(
+                new BsonDocument("_id", bot.Id),
+                bot,
+                new UpdateOptions { IsUpsert = true }
+            );
+        }
     }
 }

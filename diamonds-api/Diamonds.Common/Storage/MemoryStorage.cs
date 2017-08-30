@@ -108,5 +108,10 @@ namespace Diamonds.Common.Storage
         {
             throw new NotImplementedException();
         }
+
+        public void UpdateBot(Bot bot)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
