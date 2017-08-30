@@ -5,8 +5,8 @@ import axios from 'axios'
 import * as actionTypes from './constants/actionTypes'
 
 function* pollForUpdates() {
-    // while(true) {
-        //yield delay(1000);
+    while(true) {
+        yield delay(2000);
         //getting bots, diamonds from api
         const boardId = 1;
         const board = yield call(axios.get, `api/boards/${boardId}`);
@@ -20,7 +20,7 @@ function* pollForUpdates() {
         }
 
         yield put({type: actionTypes.BOARD_UPDATE_RECEIVED, gameboard: newGameboard})
-    // }
+    }
 }
 
 export function* updateSaga() {
@@ -29,15 +29,15 @@ export function* updateSaga() {
 
 function* pollForHighscores() {
 
-//   while(true) {
-      //yield delay(10000);
+  while(true) {
+      yield delay(5000);
 
   const player = yield call(axios.get, 'api/highscore');
   const newHighscores = player.data;
 
 
     yield put({type: actionTypes.HIGHSCORE_UPDATE_RECEIVED, highscores: newHighscores});
-//   }
+  }
 }
 
 export function* highscoreSaga() {

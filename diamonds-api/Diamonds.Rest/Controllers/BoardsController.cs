@@ -7,6 +7,7 @@ using Diamonds.Common.Entities;
 using Diamonds.Common.Storage;
 using Diamonds.Common.Models;
 using Diamonds.Common.GameEngine.Move;
+using Diamonds.Common.GameEngine.DiamondGenerator;
 
 namespace Diamonds.Rest.Controllers
 {
@@ -15,11 +16,13 @@ namespace Diamonds.Rest.Controllers
     {
         IStorage _storage;
         IMoveService _moveService;
+        IDiamondGeneratorService _diamondGeneratorService;
 
-        public BoardsController(IStorage storage, IMoveService moveService)
+        public BoardsController(IStorage storage, IMoveService moveService, IDiamondGeneratorService diamondGeneratorService)
         {
             this._storage = storage;
             this._moveService = moveService;
+            this._diamondGeneratorService = diamondGeneratorService;
         }
 
         public IActionResult Get()
@@ -35,6 +38,9 @@ namespace Diamonds.Rest.Controllers
             var board = _storage.GetBoard(id);
             if (board == null) {
                 return NotFound();
+            }
+            if(board.Bots.Count == 0 && board.Diamonds.Count == 0){
+                board.Diamonds = _diamondGeneratorService.GenerateDiamondsIfNeeded(board);
             }
 
             return Ok(board);
