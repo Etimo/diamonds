@@ -2,8 +2,8 @@
 {
     public class Highscore
     {
-        public string botName;
-        public int score;
+        public string BotName { get; set;}
+        public int Score { get; set;}
     }
 
 }

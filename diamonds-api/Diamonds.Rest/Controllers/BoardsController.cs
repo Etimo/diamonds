@@ -7,6 +7,7 @@ using Diamonds.Common.Entities;
 using Diamonds.Common.Storage;
 using Diamonds.Common.Models;
 using Diamonds.Common.GameEngine.Move;
+using System.Threading;
 
 namespace Diamonds.Rest.Controllers
 {
@@ -30,10 +31,13 @@ namespace Diamonds.Rest.Controllers
 
         [HttpGet]
         [Route("{id}")]
-        public IActionResult GetBoard(string id) {
+        public IActionResult GetBoard(string id)
+        {
 
             var board = _storage.GetBoard(id);
-            if (board == null) {
+
+            if (board == null)
+            {
                 return NotFound();
             }
 
@@ -75,39 +79,81 @@ namespace Diamonds.Rest.Controllers
             _storage.UpdateBot(bot);
             _storage.UpdateBoard(board);
 
+            SetExpireCallbackForBot(bot, id);
+
             return Ok(new JoinOutput
             {
                 BoardToken = bot.BoardToken
-            }
-            );
+            });
+        }
+        private void SetExpireCallbackForBot(Bot bot, string id)
+        {
+
+            // intermediate solution to terminate bot when time expires
+            // maybe replace with endpoint like /end or /score in the future
+            var timerState = new TimerState { BotId = bot.Id, BoardId = id };
+            var onExpireCallback = new TimerCallback(OnBotExpire);
+
+            var timer = new Timer(onExpireCallback, timerState, Board.TotalGameTime, Timeout.Infinite);
+            timerState.TimerReference = timer;
+        }
+
+        private class TimerState
+        {
+            public string BotId { get; set; }
+            public string BoardId { get; set; }
+            public Timer TimerReference { get; set; }
+        }
+
+        private void OnBotExpire(object stateObj)
+        {
+            var state = (TimerState)stateObj;
+            var board = _storage.GetBoard(state.BoardId);
+
+            var bot = board.Bots.SingleOrDefault(b => b.BotId.Equals(state.BotId));
+            if (bot == null) return;
+
+            board.Bots.Remove(bot);
+
+            var score = new Highscore
+            {
+                BotName = bot.Name,
+                Score = bot.Score
+            };
+
+            _storage.SaveHighscore(score);
         }
 
         [Route("{id}/move")]
         public IActionResult Post([FromBody] MoveInput input, string id)
         {
-            if (input.isValid() == false) {
+            if (input.isValid() == false)
+            {
                 return StatusCode(400);
             }
 
             var bot = _storage.GetBot(input.botToken);
 
-            if (bot == null) {
+            if (bot == null)
+            {
                 return StatusCode(403);
             }
 
             var board = _storage.GetBoard(id);
 
-            if (board == null) {
+            if (board == null)
+            {
                 return StatusCode(404);
             }
-
-            if (board.HasBot(bot) == false) {
+            if (board.HasBot(bot) == false)
+            {
                 return StatusCode(403);
             }
 
             var moveResult = _moveService.Move(id, bot.Id, input.direction);
 
-            if (moveResult == MoveResultCode.CanNotMoveInThatDirection) {
+            if (moveResult == MoveResultCode.CanNotMoveInThatDirection)
+            {
                 return StatusCode(409);
             }
 

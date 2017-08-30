@@ -113,5 +113,10 @@ namespace Diamonds.Common.Storage
         {
             throw new NotImplementedException();
         }
+
+        public void SaveHighscore(Highscore score)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

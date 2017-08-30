@@ -16,6 +16,11 @@
             var p = obj as Position;
             return p.X == X && p.Y == Y;
         }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 
 }

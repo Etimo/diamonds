@@ -102,10 +102,11 @@ namespace Diamonds.Common.Storage
             );
         }
 
-        public IEnumerable<Highscore> GetHighscores() {
+        public IEnumerable<Highscore> GetHighscores()
+        {
             var collection = _database.GetCollection<Highscore>("Highscores");
             var result = collection
-                .Find(m => true).SortByDescending(h => h.score)
+                .Find(m => true).SortByDescending(h => h.Score)
                 .Limit(10);
             var topTenHighscores = result.ToList();
 
@@ -121,5 +122,12 @@ namespace Diamonds.Common.Storage
                 new UpdateOptions { IsUpsert = true }
             );
         }
+
+        public void SaveHighscore(Highscore score)
+        {
+            var collection = _database.GetCollection<Highscore>("Highscores");
+            collection.InsertOne(score);
+        }
+
     }
 }
