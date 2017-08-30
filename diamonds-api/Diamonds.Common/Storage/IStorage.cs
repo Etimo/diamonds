@@ -16,5 +16,6 @@ namespace Diamonds.Common.Storage
         void CreateBoard(Board board);
 
         IEnumerable<Highscore> GetHighscores();
+        void SaveHighscore(Highscore score);
     }
 }

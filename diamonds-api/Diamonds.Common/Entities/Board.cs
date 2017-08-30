@@ -35,8 +35,8 @@ namespace Diamonds.Common.Entities
             );
         }
 
-        // 5 minutes hard coded for now
-        public static int TotalGameTime => 5 * 60 * 1000;
+        // 1 minute (60 0000 ms) hard coded for now
+        public static int TotalGameTime => 60 * 1000;
  
         private BoardBot CreateBoardBot(Bot bot)
         {
