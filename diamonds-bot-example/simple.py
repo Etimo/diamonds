@@ -1,6 +1,7 @@
 import requests
 import json
 import random
+import sys
 from time import sleep
 from colorama import init, Fore, Back, Style
 
@@ -101,6 +102,9 @@ class Bot(object):
             "botToken": self.bot_token
         })
 
+bot_name = sys.argv[1]
+bot_email = sys.argv[2]
+
 try:
     with open(".bot_token", "r") as f:
         bot_token = f.read()
@@ -110,7 +114,7 @@ try:
     print("Welcome back", bot.name)
 except:
     print("No existing bot, register new one")
-    bot = Bot("bot-1@etimo.se", "Bot 1", BASE_URL)
+    bot = Bot(bot_email, bot_name, BASE_URL)
     bot.register()
     bot.list_boards()
     bot.join(1)
