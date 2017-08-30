@@ -39,9 +39,8 @@ namespace Diamonds.Rest.Controllers
             if (board == null) {
                 return NotFound();
             }
-            if(board.Bots.Count == 0 && board.Diamonds.Count == 0){
-                board.Diamonds = _diamondGeneratorService.GenerateDiamondsIfNeeded(board);
-            }
+            board.Diamonds = _diamondGeneratorService.GenerateDiamondsIfNeeded(board);
+            _storage.UpdateBoard(board);
 
             return Ok(board);
         }
