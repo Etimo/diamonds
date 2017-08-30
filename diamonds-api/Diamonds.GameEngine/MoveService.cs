@@ -35,8 +35,6 @@ namespace Diamonds.GameEngine
             // TODO: Consider moving the call to _boardDiamondManager away from this class
             board.Diamonds = _boardDiamondManager.GenerateDiamondsIfNeeded(board);
 
-            // update time left on bot
-
             _storage.UpdateBoard(board);
 
             return MoveResultCode.Ok;
@@ -45,6 +43,7 @@ namespace Diamonds.GameEngine
         private MoveResultCode PerformMoveAndUpdateBoard(Board board, string botName, Direction direction)
         {
             var bot = board.Bots.Single(b => b.Name == botName);
+
             var previousPosition = bot.Position;
             var attemptedNextPosition = CalculateNewPosition(previousPosition, direction);
             var canMoveToAttemptedNextPosition = CanMoveToPosition(board, bot, attemptedNextPosition);
@@ -58,6 +57,9 @@ namespace Diamonds.GameEngine
             AttemptDeliverInBase(attemptedNextPosition, bot);
 
             bot.Position = attemptedNextPosition;
+
+            // update time left on bot
+            bot.UpdateTimeLeft();
 
             return MoveResultCode.Ok;
         }
