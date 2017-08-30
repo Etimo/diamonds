@@ -1,5 +1,10 @@
 Simple bot
 ==========
 
+How to install
+
+`pip install requests colorama`
+
 How to start:
-python3 simple.py <name> <email>
+
+`python simple.py <name> <email>`

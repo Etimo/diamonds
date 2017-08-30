@@ -6,7 +6,7 @@ import * as actionTypes from './constants/actionTypes'
 
 function* pollForUpdates() {
     while(true) {
-        yield delay(2000);
+        yield delay(250);
         //getting bots, diamonds from api
         const boardId = 1;
         const board = yield call(axios.get, `api/boards/${boardId}`);
