@@ -90,6 +90,7 @@ while True:
         delta = directions[current_direction]
         delta_x = delta[0]
         delta_y = delta[1]
+
     # Try to perform move
     result = bot.move(1, delta_x, delta_y)
     if result.status_code == 409 or random.random() > 0.6:
