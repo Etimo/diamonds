@@ -15,7 +15,7 @@ const HighscoreList = props => (
         {props.highscores.map(highscore => (
             <tr key={highscore.name}>
               <td>{highscore.botName}</td>
-              <td >{highscore.score}</td>
+              <td>{highscore.score}</td>
             </tr>
         ))}
         </tbody>
