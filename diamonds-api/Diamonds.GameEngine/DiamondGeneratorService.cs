@@ -9,7 +9,7 @@ namespace Diamonds.GameEngine
 {
     public class DiamondGeneratorService : IDiamondGeneratorService
     {
-        const decimal MinRatioOfDiamonds = 0.005m;
+        const decimal MinRatioOfDiamonds = 0.01m;
         const decimal MaxRatioOfDiamonds = 0.2m;
         static Random _random = new Random();
 
@@ -19,7 +19,7 @@ namespace Diamonds.GameEngine
 
             var currentRatioOfDiamonds = (decimal) board.Diamonds.Count() / numberOfBoardCells;
 
-            var shouldGenerateDiamonds = currentRatioOfDiamonds < 2;
+            var shouldGenerateDiamonds = currentRatioOfDiamonds < MinRatioOfDiamonds;
 
             if (shouldGenerateDiamonds == false)
             {
