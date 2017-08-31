@@ -54,6 +54,7 @@ directions = [(1,0), (0,1), (-1,0), (0,-1)]
 goal_position = None
 current_position = None
 current_direction = 0
+sweeping_forward = True
 
 # List active boards to find one we can join
 boards = bot.list_boards()
@@ -74,16 +75,21 @@ board = bot.get_board(current_board_id)
 
 # Game play loop
 while True:
+    # Find our info among the bots on the board
+    board_bot = board.get_bot(bot)
+    current_position = board_bot["position"]
+
     if goal_position:
         # We are aiming for a specific position, calculate delta
         delta_x = clamp(goal_position["x"] - current_position["x"], -1, 1)
         delta_y = clamp(goal_position["y"] - current_position["y"], -1, 1)
+        if delta_x != 0:
+            delta_y = 0
+        # print(current_position, goal_position, delta_x, delta_y)
     else:
-        # Just pick a direction and continue roaming
         delta = directions[current_direction]
         delta_x = delta[0]
         delta_y = delta[1]
-
     # Try to perform move
     result = bot.move(1, delta_x, delta_y)
     if result.status_code == 409 or random.random() > 0.6:
@@ -98,13 +104,13 @@ while True:
         # Move successful, analyze new state
         board = Board(result.json())
         board_bot = board.get_bot(bot)
-        if board_bot["diamonds"] == 5:
-            # Move to base
-            base = board_bot["base"]
-            goal_position = base
-            current_position = board_bot["position"]
-        else:
-            # Just roam around
-            goal_position = None
 
-    sleep(1)
+    if board_bot["diamonds"] == 5:
+        # Move to base
+        base = board_bot["base"]
+        goal_position = base
+    else:
+        # Just roam around
+        goal_position = None
+
+    sleep(0.5)
