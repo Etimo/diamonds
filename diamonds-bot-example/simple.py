@@ -85,7 +85,6 @@ while True:
         delta_y = clamp(goal_position["y"] - current_position["y"], -1, 1)
         if delta_x != 0:
             delta_y = 0
-        # print(current_position, goal_position, delta_x, delta_y)
     else:
         delta = directions[current_direction]
         delta_x = delta[0]
@@ -96,16 +95,20 @@ while True:
     if result.status_code == 409 or random.random() > 0.6:
         # Change direction if we were unable to move or just randomly
         current_direction = (current_direction + 1) % len(directions)
+
+        # Read new board state
+        board = bot.get_board(current_board_id)
     elif result.status_code == 403:
         # Game over, we are not allowed to move anymore
         print("Game over!")
         print("Restart bot to run again")
         exit(0)
-    else:
-        # Move successful, analyze new state
-        board = Board(result.json())
-        board_bot = board.get_bot(bot)
 
+    # Get new state
+    board = Board(result.json())
+    board_bot = board.get_bot(bot)
+
+    # Analyze new state
     if board_bot["diamonds"] == 5:
         # Move to base
         base = board_bot["base"]
