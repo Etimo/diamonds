@@ -56,6 +56,11 @@ current_position = None
 current_direction = 0
 sweeping_forward = True
 
+def game_over():
+    print("Game over!")
+    print("Restart bot to run again")
+    exit(0)
+
 # List active boards to find one we can join
 boards = bot.list_boards()
 for board in boards:
@@ -100,13 +105,15 @@ while True:
         board = bot.get_board(current_board_id)
     elif result.status_code == 403:
         # Game over, we are not allowed to move anymore
-        print("Game over!")
-        print("Restart bot to run again")
-        exit(0)
+        game_over()
+    else:
+        board = Board(result.json())
 
     # Get new state
-    board = Board(result.json())
     board_bot = board.get_bot(bot)
+    if not board_bot:
+        # Managed to get game over after move
+        game_over()
 
     # Analyze new state
     if board_bot["diamonds"] == 5:
@@ -117,4 +124,4 @@ while True:
         # Just roam around
         goal_position = None
 
-    sleep(0.5)
+    sleep(0.25)
