@@ -119,6 +119,7 @@ namespace Diamonds.Rest.Controllers
 
             var score = new Highscore
             {
+                Id = bot.Name,
                 BotName = bot.Name,
                 Score = bot.Score
             };

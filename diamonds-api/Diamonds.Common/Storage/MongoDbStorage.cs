@@ -130,7 +130,11 @@ namespace Diamonds.Common.Storage
             }
 
             var collection = _database.GetCollection<Highscore>("Highscores");
-            collection.InsertOne(score);
+            collection.ReplaceOne(
+                new BsonDocument("_id", score.Id),
+                score,
+                new UpdateOptions { IsUpsert = true }
+            );
         }
 
     }
