@@ -152,6 +152,10 @@ namespace Diamonds.Rest.Controllers
             {
                 return StatusCode(403);
             }
+            if (board.CanMove(bot) == false)
+            {
+                return StatusCode(403);
+            }
 
             var moveResult = _moveService.Move(id, bot.Name, input.direction);
 

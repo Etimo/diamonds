@@ -13,12 +13,18 @@ namespace Diamonds.Common.Entities
         public int MillisecondsLeft { get; set; }
         public int Score { get; set; }
         public string BotId { get; set; }
+        public DateTime NextMoveAvailableAt { get; set; }
 
         public void UpdateTimeLeft()
         {
             var endTime = TimeJoined.AddMilliseconds(Board.TotalGameTime);
             var span = (endTime - DateTime.UtcNow);
             MillisecondsLeft = (int)span.TotalMilliseconds;
+        }
+
+        public bool CanMove()
+        {
+            return DateTime.UtcNow >= NextMoveAvailableAt;
         }
 
         public bool IsGameOver()

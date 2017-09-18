@@ -58,8 +58,9 @@ namespace Diamonds.GameEngine
 
             bot.Position = attemptedNextPosition;
 
-            // update time left on bot
+            // update timers on bot
             bot.UpdateTimeLeft();
+            bot.NextMoveAvailableAt = DateTime.UtcNow.AddMilliseconds(board.MinimumDelayBetweenMoves);
 
             return MoveResultCode.Ok;
         }

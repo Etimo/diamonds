@@ -12,6 +12,7 @@ namespace Diamonds.Common.Entities
         public int Height { get; set; }
         public List<BoardBot> Bots { get; set; }
         public List<Position> Diamonds { get; set; }
+        public int MinimumDelayBetweenMoves { get; set; } = DefaultMinimumDelayBetweenMoves;
 
         public bool IsFull()
         {
@@ -24,7 +25,17 @@ namespace Diamonds.Common.Entities
 
         public bool HasBot(Bot bot)
         {
-            return Bots.Any(item => item.Name.Equals(bot.Name));
+            return GetBoardBot(bot) != null;
+        }
+
+        private BoardBot GetBoardBot(Bot bot)
+        {
+            return Bots.SingleOrDefault(item => item.Name.Equals(bot.Name));
+        }
+
+        public bool CanMove(Bot bot)
+        {
+            return GetBoardBot(bot).CanMove();
         }
 
         private Position GetRandomPosition()
@@ -37,6 +48,9 @@ namespace Diamonds.Common.Entities
 
         // 1 minute (60 0000 ms) hard coded for now
         public static int TotalGameTime => 60 * 1000;
+
+        // 100ms delay required between each move, hard coded for now
+        public static int DefaultMinimumDelayBetweenMoves = 100;
  
         private BoardBot CreateBoardBot(Bot bot)
         {
