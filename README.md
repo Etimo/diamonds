@@ -13,11 +13,4 @@ Bring everything up locally:
 Bring everything down locally:
 
     docker-compose down
-    
-Deploy to etimo-app-server (only possible if you've been granted ssh access!):
 
-    ./deploy.sh
-    
-Take down on etimo-app-server:
-
-    ./undeploy.sh
