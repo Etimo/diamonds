@@ -27,3 +27,17 @@ When you have a token you can start a new game session (or continue an existing 
 The bot will play using the logic controller provided until game over. You can then run the bot again without having to register a new one.
 
 Register multiple bots and play them all at once if you like!
+
+
+Different logic controllers
+---------------------------
+
+Bots can play using different controllers (AI). There are two logic controllers implemented in this repository, namely:
+
+* `game/logic/first_diamond.py`
+* `game/logic/random.py`
+
+All controllers implement a method called `next_move` that is called to calculate the next move given a board state.
+
+You can use any of these two implementations as a start for your own implementation.
+
