@@ -6,6 +6,7 @@ class Board(object):
         self.height = data["height"]
         self.bots = data["bots"]
         self.diamonds = data["diamonds"]
+        self.data = data
 
     def get_bot(self, bot):
         for item in self.bots:
