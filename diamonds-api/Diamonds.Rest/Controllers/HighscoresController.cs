@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Diamonds.Rest.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class HighscoreController : Controller
     {
 

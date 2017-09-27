@@ -1,11 +1,14 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
+using Swashbuckle.AspNetCore.Swagger;
+
 using Diamonds.Common.Storage;
-using System;
 using Diamonds.Common.GameEngine.DiamondGenerator;
 using Diamonds.GameEngine;
 using Diamonds.Common.GameEngine.Move;
@@ -39,6 +42,12 @@ namespace Diamonds.Rest
 
             // Add framework services.
             services.AddMvc();
+
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "Etimo Diamonds API", Version = "v1" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,6 +57,15 @@ namespace Diamonds.Rest
             loggerFactory.AddDebug();
 
             app.UseMvc();
+
+            app.UseSwagger(swaggerOptions => {
+                swaggerOptions.RouteTemplate = "api/swagger/{documentName}/swagger.json";
+            });
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/api/swagger/v1/swagger.json", "Etimo Diamonds API V1");
+                c.RoutePrefix = "api/docs";
+            });
         }
     }
 }

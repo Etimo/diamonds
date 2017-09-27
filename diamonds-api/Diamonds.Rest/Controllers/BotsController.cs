@@ -8,7 +8,7 @@ using Diamonds.Common.Models;
 
 namespace Diamonds.Rest.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class BotsController : Controller
     {
         IStorage storage;
@@ -18,6 +18,7 @@ namespace Diamonds.Rest.Controllers
             this.storage = storage;
         }
 
+        [HttpGet]
         [Route("{id}")]
         public IActionResult Get(string id)
         {

@@ -12,7 +12,7 @@ using Diamonds.Common.GameEngine.DiamondGenerator;
 
 namespace Diamonds.Rest.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class BoardsController : Controller
     {
         IStorage _storage;
@@ -26,6 +26,7 @@ namespace Diamonds.Rest.Controllers
             this._diamondGeneratorService = diamondGeneratorService;
         }
 
+        [HttpGet]
         public IActionResult Get()
         {
             var boards = _storage.GetBoards();
@@ -49,6 +50,7 @@ namespace Diamonds.Rest.Controllers
             return Ok(board);
         }
 
+        [HttpPost]
         [Route("{id}/join")]
         public IActionResult Post([FromBody] JoinInput input, string id)
         {
@@ -134,6 +136,7 @@ namespace Diamonds.Rest.Controllers
             }
         }
 
+        [HttpPost]
         [Route("{id}/move")]
         public IActionResult Post([FromBody] MoveInput input, string id)
         {
