@@ -6,7 +6,7 @@ from game.bot import Bot
 from game.api import Api
 from game.util import *
 from game.logic.random import RandomLogic
-from game.logic.first_diamond import FirstDiamond
+from game.logic.first_diamond import FirstDiamondLogic
 from colorama import init, Fore, Back, Style
 
 init()
