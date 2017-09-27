@@ -8,5 +8,6 @@ namespace Diamonds.Common.GameEngine.Move
     {
         Ok,
         CanNotMoveInThatDirection,
+        InvalidMove
     }
 }
