@@ -89,7 +89,11 @@ namespace Diamonds.Common.Storage
         public void CreateBoard(Board board)
         {
             var collection = _database.GetCollection<Board>("Boards");
-            collection.InsertOne(board);
+            try {
+                collection.InsertOne(board);
+            } catch (MongoDB.Driver.MongoWriteException e) {
+                // More than one thread creating default board, ignore for now
+            }
         }
 
         public void UpdateBoard(Board board)
