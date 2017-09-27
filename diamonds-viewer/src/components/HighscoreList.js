@@ -4,7 +4,7 @@ import styles from '../styles/table.css';
 
 const HighscoreList = props => (
     <table className={styles.table}>
-      <caption>Highscore list</caption>
+      <caption>Highscore</caption>
         <thead>
           <tr>
             <th className={styles.thRadiusLeft}>Name</th>

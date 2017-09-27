@@ -10,11 +10,11 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  margin-bottom: 20px;
+  margin: 20px auto;
 }
 
 
-/*highscore, playerlist and update btn*/
+/*highscore and playerlist*/
 .info{
   /*width: auto;*/
   margin: 0 10px 10px;
@@ -54,10 +54,14 @@
 }
 
 
-@media (max-width: 760px) {
+/* screen portrait */
+@media only screen 
+and (-webkit-min-device-pixel-ratio: 2)
+and (orientation: portrait) {
 
   .container{
     flex-direction: column;
     justify-content: space-between;
   }
+
 }

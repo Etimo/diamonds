@@ -18,6 +18,7 @@ class App extends Component{
     this.props.actions.requestHighscoreUpdate();
   }
 
+
   render(){
     return (
       <div>

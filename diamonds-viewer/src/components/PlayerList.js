@@ -5,7 +5,7 @@ import imgDiamond from '../images/diamond.svg' // eslint-disable-line no-unused-
 
 const PlayerList = props => (
     <table className={styles.table}>
-      <caption className={playerlist.caption}>Players playing now</caption>
+      <caption className={playerlist.caption}>Active players</caption>
       <thead>
         <tr>
           <th className={styles.thRadiusLeft}>Name</th>

@@ -7,10 +7,22 @@
 
 }
 
+/* screen portrait */
+@media only screen 
+and (-webkit-min-device-pixel-ratio: 2)
+and (orientation: portrait) {
+
+  .board{
+    margin: auto;
+  }
+
+}
+
+/* 
 @media (max-width: 760px) {
 
   .board{
     height: 100%;
     margin: 0 10px 30px;
   }
-}
+} */
