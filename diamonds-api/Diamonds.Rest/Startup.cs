@@ -12,11 +12,16 @@ using Diamonds.Common.Storage;
 using Diamonds.Common.GameEngine.DiamondGenerator;
 using Diamonds.GameEngine;
 using Diamonds.Common.GameEngine.Move;
+using System.IO;
+using Microsoft.Extensions.PlatformAbstractions;
 
 namespace Diamonds.Rest
 {
     public class Startup
     {
+        private const string ApiName = "Etimo Diamonds API";
+        private const string VersionString = "v1";
+
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -46,7 +51,10 @@ namespace Diamonds.Rest
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "Etimo Diamonds API", Version = "v1" });
+                c.SwaggerDoc(VersionString, new Info { Title = ApiName, Version = VersionString });
+
+                var filePath = Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, "Diamonds.Rest.xml");
+                c.IncludeXmlComments(filePath);
             });
         }
 
@@ -63,7 +71,7 @@ namespace Diamonds.Rest
             });
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/api/swagger/v1/swagger.json", "Etimo Diamonds API V1");
+                c.SwaggerEndpoint($"/api/swagger/{VersionString}/swagger.json", ApiName);
                 c.RoutePrefix = "api/docs";
             });
         }

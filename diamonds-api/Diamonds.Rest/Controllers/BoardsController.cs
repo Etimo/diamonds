@@ -26,6 +26,10 @@ namespace Diamonds.Rest.Controllers
             this._diamondGeneratorService = diamondGeneratorService;
         }
 
+        /// <summary>
+        /// Get all boards
+        /// </summary>
+        [ProducesResponseType(typeof(IEnumerable<Board>), 200)]
         [HttpGet]
         public IActionResult Get()
         {
@@ -33,6 +37,11 @@ namespace Diamonds.Rest.Controllers
             return Ok(boards);
         }
 
+        /// <summary>
+        /// Get board by id
+        /// </summary>
+        [ProducesResponseType(typeof(Board), 200)]
+        [ProducesResponseType(typeof(void), 404)]
         [HttpGet]
         [Route("{id}")]
         public IActionResult GetBoard(string id)
@@ -50,6 +59,16 @@ namespace Diamonds.Rest.Controllers
             return Ok(board);
         }
 
+        /// <summary>
+        /// Join board
+        /// </summary>
+        /// <response code="403">Bot doesn't exist</response>
+        /// <response code="404">Board doesn't exist</response>
+        /// <response code="409">Board is full or bot is already on board</response>
+        [ProducesResponseType(typeof(void), 200)]
+        [ProducesResponseType(typeof(void), 403)]
+        [ProducesResponseType(typeof(void), 404)]
+        [ProducesResponseType(typeof(void), 409)]
         [HttpPost]
         [Route("{id}/join")]
         public IActionResult Post([FromBody] JoinInput input, string id)
@@ -89,6 +108,7 @@ namespace Diamonds.Rest.Controllers
 
             return Ok();
         }
+
         private void SetExpireCallbackForBot(Bot bot, string id)
         {
 
@@ -136,6 +156,17 @@ namespace Diamonds.Rest.Controllers
             }
         }
 
+        /// <summary>
+        /// Move bot
+        /// </summary>
+        /// <response code="403">Bot doesn't exist, bot is not on board or trying to move too quickly after previous move (100ms must pass)</response>
+        /// <response code="404">Board doesn't exist</response>
+        /// <response code="409">Invalid movement</response>
+        [ProducesResponseType(typeof(Board), 200)]
+        [ProducesResponseType(typeof(void), 400)]
+        [ProducesResponseType(typeof(void), 403)]
+        [ProducesResponseType(typeof(void), 404)]
+        [ProducesResponseType(typeof(void), 409)]
         [HttpPost]
         [Route("{id}/move")]
         public IActionResult Post([FromBody] MoveInput input, string id)
