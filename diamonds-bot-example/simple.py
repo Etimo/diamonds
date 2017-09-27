@@ -13,7 +13,7 @@ init()
 BASE_URL = "http://localhost/api"
 CONTROLLERS = {
     "Random": RandomLogic,
-    "FirstDiamond": FirstDiamond,
+    "FirstDiamond": FirstDiamondLogic,
 }
 
 ###############################################################################
