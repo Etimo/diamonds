@@ -7,6 +7,10 @@
 }
 
 .container{
+  margin: 10px;
+}
+
+.gameContainer{
   width: 100%;
   display: flex;
   justify-content: center;
@@ -17,7 +21,7 @@
 /*highscore and playerlist*/
 .info{
   /*width: auto;*/
-  margin: 0 10px 10px;
+  margin: 0 0 10px;
   flex: 0 0 1;
 }
 
@@ -59,7 +63,7 @@
 and (-webkit-min-device-pixel-ratio: 2)
 and (orientation: portrait) {
 
-  .container{
+  .gameContainer{
     flex-direction: column;
     justify-content: space-between;
   }

@@ -30,7 +30,7 @@ and (-webkit-min-device-pixel-ratio: 2)
 and (orientation: portrait) {
 
   .cell{
-    width: 10vw;
+    width: calc(10vw - 2px); /* 2px for margin 10px left/ right divided by 10cols*/
     height: calc((100vw - 20px)/10); /*20px for margin, 10 for 10 columns*/
   }
 

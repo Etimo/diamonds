@@ -18,3 +18,11 @@
 .logo{
   width: 100px;
 }
+
+
+@media (max-width: 630px) {
+  .header{
+    flex-direction: column;
+    padding-bottom: 20px;
+  }
+}

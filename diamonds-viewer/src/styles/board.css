@@ -13,7 +13,7 @@ and (-webkit-min-device-pixel-ratio: 2)
 and (orientation: portrait) {
 
   .board{
-    margin: auto;
+    margin: 0 auto 30px;
   }
 
 }

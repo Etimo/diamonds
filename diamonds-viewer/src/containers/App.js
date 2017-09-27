@@ -21,9 +21,9 @@ class App extends Component{
 
   render(){
     return (
-      <div>
+      <div className={styles.container}>
         <Header/>
-        <div className={styles.container}>
+        <div className={styles.gameContainer}>
           <Board rows={this.props.rows} />
 
           <div className={styles.info}>
