@@ -7,6 +7,7 @@ namespace Diamonds.Common.Entities
 {
     public class Board
     {
+        static Random _random = new Random();
         public string Id { get; set; }
         public int Width { get; set; }
         public int Height { get; set; }
@@ -38,14 +39,6 @@ namespace Diamonds.Common.Entities
             return GetBoardBot(bot).CanMove();
         }
 
-        private Position GetRandomPosition()
-        {
-            return new Position(
-                (int)(Width * new Random().NextDouble()),
-                (int)(Width * new Random().NextDouble())
-            );
-        }
-
         // 1 minute (60 0000 ms) hard coded for now
         public static int TotalGameTime => 60 * 1000;
 
@@ -54,12 +47,14 @@ namespace Diamonds.Common.Entities
  
         private BoardBot CreateBoardBot(Bot bot)
         {
+
+            var basePosition = GetRandomEmptyPosition();
             return new BoardBot
             {
                 BotId = bot.Id,
                 Name = bot.Name,
-                Base = GetRandomPosition(),
-                Position = GetRandomPosition(),
+                Base = basePosition,
+                Position = basePosition,
                 Score = 0,
                 Diamonds = 0,
                 TimeJoined = DateTime.UtcNow,
@@ -71,6 +66,38 @@ namespace Diamonds.Common.Entities
         {
             Bots.Add(CreateBoardBot(bot));
         }
-    }
 
+        public Position GetRandomEmptyPosition()
+        {
+            while (true)
+            {
+                var randomBoardPosition = GetRandomPosition(Height, Width);
+                var canPutDiamondInPosition = IsPositionEmpty(randomBoardPosition);
+
+                if (canPutDiamondInPosition)
+                {
+                    return randomBoardPosition;
+                }
+            }
+        }
+
+        private bool IsPositionEmpty(Position position)
+        {
+            var positionHasBot = Bots.Any(b => b.Position.Equals(position));
+            var positionHasBase = Bots.Any(b => b.Base.Equals(position));
+            var positionHasDiamond = Diamonds.Contains(position);
+
+            return positionHasBot == false
+                && positionHasBase == false
+                && positionHasDiamond == false;
+        }
+
+        private static Position GetRandomPosition(int height, int width)
+        {
+            var y = _random.Next(0, height);
+            var x = _random.Next(0, width);
+
+            return new Position(x, y);
+        }
+    }
 }
