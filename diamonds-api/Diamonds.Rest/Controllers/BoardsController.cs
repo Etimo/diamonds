@@ -108,23 +108,30 @@ namespace Diamonds.Rest.Controllers
 
         private void OnBotExpire(object stateObj)
         {
-            var state = (TimerState)stateObj;
-            var board = _storage.GetBoard(state.BoardId);
-
-            var bot = board.Bots.SingleOrDefault(b => !string.IsNullOrWhiteSpace(b.BotId) && b.BotId.Equals(state.BotId));
-            if (bot == null) return;
-
-            board.Bots.Remove(bot);
-            _storage.UpdateBoard(board);
-
-            var score = new Highscore
+            try
             {
-                Id = bot.Name,
-                BotName = bot.Name,
-                Score = bot.Score
-            };
+                var state = (TimerState)stateObj;
+                var board = _storage.GetBoard(state.BoardId);
 
-            _storage.SaveHighscore(score);
+                var bot = board.Bots.SingleOrDefault(b => !string.IsNullOrWhiteSpace(b.BotId) && b.BotId.Equals(state.BotId));
+                if (bot == null) return;
+
+                board.Bots.Remove(bot);
+                _storage.UpdateBoard(board);
+
+                var score = new Highscore
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    BotName = bot.Name,
+                    Score = bot.Score
+                };
+
+                _storage.SaveHighscore(score);
+            }
+            catch (Exception exc)
+            {
+                Console.WriteLine($"{nameof(OnBotExpire)} excpetion! {exc.ToString()}");
+            }
         }
 
         [Route("{id}/move")]
