@@ -200,7 +200,7 @@ namespace Diamonds.Rest.Controllers
 
             var moveResult = _moveService.Move(id, bot.Name, input.direction);
 
-            if (moveResult == MoveResultCode.CanNotMoveInThatDirection)
+            if (moveResult != MoveResultCode.Ok)
             {
                 return StatusCode(409);
             }
