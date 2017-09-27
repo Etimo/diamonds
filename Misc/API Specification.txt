@@ -117,3 +117,5 @@ Diskutera olika typer av boards, tex små/stora  crowded/mazes etc
 {token} expirerar efter X tid (5 min?)
 
 Can only join one board at a time.
+
+Add spec for throttling 
