@@ -20,7 +20,6 @@
 
 /*highscore and playerlist*/
 .info{
-  /*width: auto;*/
   margin: 0 0 10px;
   flex: 0 0 1;
 }
@@ -59,8 +58,7 @@
 
 
 /* screen portrait */
-@media only screen 
-and (-webkit-min-device-pixel-ratio: 2)
+@media only screen
 and (orientation: portrait) {
 
   .gameContainer{
