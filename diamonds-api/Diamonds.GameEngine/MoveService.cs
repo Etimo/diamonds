@@ -23,7 +23,6 @@ namespace Diamonds.GameEngine
 
         public MoveResultCode Move(string boardId, string botName, Direction direction)
         {
-            // TODO: This should be executed synchronously
             var board = _storage.GetBoard(boardId);
             var resultCode = PerformMoveAndUpdateBoard(board, botName, direction);
 
@@ -42,7 +41,9 @@ namespace Diamonds.GameEngine
 
         private MoveResultCode PerformMoveAndUpdateBoard(Board board, string botName, Direction direction)
         {
-            var bot = board.Bots.Single(b => b.Name == botName);
+            var bot = board.Bots.SingleOrDefault(b => b.Name == botName);
+
+            if(bot == null) return MoveResultCode.InvalidMove;
 
             var previousPosition = bot.Position;
             var attemptedNextPosition = CalculateNewPosition(previousPosition, direction);
@@ -64,7 +65,7 @@ namespace Diamonds.GameEngine
 
             return MoveResultCode.Ok;
         }
-        
+
         private void AttemptDeliverInBase(Position position, BoardBot bot)
         {
             var positionIsOwnBase = position.Equals(bot.Base);

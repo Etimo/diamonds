@@ -5,10 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Diamonds.Common.Storage;
 using Diamonds.Common.Models;
+using Diamonds.Common.Entities;
 
 namespace Diamonds.Rest.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class BotsController : Controller
     {
         IStorage storage;
@@ -18,6 +19,12 @@ namespace Diamonds.Rest.Controllers
             this.storage = storage;
         }
 
+        /// <summary>
+        /// Get bot by id
+        /// </summary>
+        [ProducesResponseType(typeof(Bot), 200)]
+        [ProducesResponseType(typeof(void), 404)]
+        [HttpGet]
         [Route("{id}")]
         public IActionResult Get(string id)
         {
@@ -30,6 +37,13 @@ namespace Diamonds.Rest.Controllers
             return Ok(bot);
         }
 
+        /// <summary>
+        /// Register bot
+        /// </summary>
+        /// <response code="409">Bot already exists</response>
+        [ProducesResponseType(typeof(Bot), 200)]
+        [ProducesResponseType(typeof(void), 409)]
+        [Route("{id}")]
         [HttpPost]
         public IActionResult Post([FromBody] BotRegistrationInput input)
         {
@@ -42,6 +56,5 @@ namespace Diamonds.Rest.Controllers
 
             return Ok(storage.AddBot(input));
         }
-
     }
 }

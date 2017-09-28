@@ -30,7 +30,7 @@ namespace Diamonds.Common.Entities
         public bool IsGameOver()
         {
             var endTime = TimeJoined.AddMilliseconds(Board.TotalGameTime);
-            var isGameOver = (endTime > DateTime.UtcNow);
+            var isGameOver = (DateTime.UtcNow > endTime);
 
             return isGameOver;
         }

@@ -4,7 +4,7 @@ Simple bot
 How to install
 --------------
 
-`pip install requests colorama`
+`pip install -r requirements.txt`
 
 
 Register bot
