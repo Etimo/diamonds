@@ -8,6 +8,11 @@
   flex-direction: column
 }
 
+.cell.cellHeight{
+  width: 7vh;
+  height: 7vh;
+}
+
 .cellImg{
   width: 80%;
 }
@@ -22,7 +27,6 @@
   font-size: 70%;
   line-height: 1;
 }
-
 
 /* screen portrait */
 @media only screen 

@@ -7,6 +7,7 @@ import PlayerList from '../components/PlayerList'
 import Board from '../components/Board'
 import HighscoreList from '../components/HighscoreList'
 import * as actions from '../actions/boardActions'
+import {changeWindowSize} from '../actions/windowActions' // combine actions to one file
 import styles from '../styles/style.css'
 import Header from '../components/Header'
 
@@ -14,8 +15,10 @@ import Header from '../components/Header'
 class App extends Component{
 
   componentWillMount(){
-    this.props.actions.requestBoardUpdate();
-    this.props.actions.requestHighscoreUpdate();
+    const {actions, changeWindowSize} = this.props;
+    actions.requestBoardUpdate();
+    actions.requestHighscoreUpdate();
+    window.addEventListener("resize", changeWindowSize); // for resizing window
   }
 
 
@@ -41,13 +44,14 @@ const mapStateToProps = (state) => {
   return {
     rows: state.gameboard.rows,
     bots: state.gameboard.bots,
-    highscores: state.gameboard.highscores
+    highscores: state.gameboard.highscores,
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    actions: bindActionCreators(actions, dispatch)
+    actions: bindActionCreators(actions, dispatch),
+    changeWindowSize: bindActionCreators(changeWindowSize, dispatch)
   }
 }
 

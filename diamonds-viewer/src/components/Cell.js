@@ -7,6 +7,7 @@ import imgBotBase from '../images/botBase.svg'
 import imgBotDiamond from '../images/botDiamond.svg'
 import imgBaseDiamond from '../images/baseDiamond.svg'
 import imgBotBaseDiamond from '../images/botBaseDiamond.svg'
+import { connect } from 'react-redux'
 
 const Cell = (props) => {
 
@@ -34,7 +35,7 @@ const Cell = (props) => {
     : ''
 
     return (
-        <div className={`cell ${styles.cell}`} >
+        <div className={`${styles.cell} ${props.windowSize.width/props.windowSize.height > 2 ? styles.cellHeight: null}`} >
           {name}
           {image}
           
@@ -42,4 +43,10 @@ const Cell = (props) => {
     )
 }
 
-export default Cell
+const mapStateToProps = (state) => {
+  return {
+    windowSize: state.windowSize
+  }
+}
+
+export default connect(mapStateToProps)(Cell)

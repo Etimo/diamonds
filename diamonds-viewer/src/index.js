@@ -6,13 +6,15 @@ import createSagaMiddleware from 'redux-saga'
 
 import { updateSaga, highscoreSaga } from './sagas'
 import boardReducer from './reducers/boardReducer'
+import windowReducer from './reducers/windowReducer'
 import App from './containers/App';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 const sagaMiddleware = createSagaMiddleware()
 
-const store = createStore(combineReducers({gameboard: boardReducer}),
+const store = createStore(combineReducers({windowSize: windowReducer, gameboard: boardReducer}),
         composeEnhancers(applyMiddleware(sagaMiddleware)))
+
 
 sagaMiddleware.run(updateSaga)
 sagaMiddleware.run(highscoreSaga)

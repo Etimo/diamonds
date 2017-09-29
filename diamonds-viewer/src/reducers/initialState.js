@@ -5,5 +5,9 @@ export default {
 
         ],
         highscores: []
+    },
+    windowSize: {
+        width: window.innerWidth,
+        height: window.innerHeight
     }
 }
