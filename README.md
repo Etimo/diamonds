@@ -9,7 +9,7 @@ The purpose of the game is to collect as many diamonds as possible and deliver t
 
 # API
 
-API documentation is available at http://diamonds.etimo.se/api/docs.
+The base url to the API is http://diamonds.etimo.se/api and API documentation is available at http://diamonds.etimo.se/api/docs.
 
 Here is some info to get you started:
 1. Use endpoint `Register Bot` to register a bot.
@@ -18,6 +18,6 @@ Here is some info to get you started:
 4. Use endpoint `Join board` to join the board.
 5. Use endpoint `Move bot` to move your bot one step in some direction.
 
-We also have some [example bots](diamonds-bot-example/README.md) to get you up and running faster!
+We also have some [example bots](diamonds-bot-example/README.md) to get you up and running faster.
 
 Have fun!
