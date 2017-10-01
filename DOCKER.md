@@ -1,4 +1,4 @@
-# diamonds
+# Etimo Diamonds Docker Readme
 
 Prerequisites:
 1. docker

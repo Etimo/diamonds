@@ -18,6 +18,5 @@ Here is some info to get you started:
 4. Use endpoint `Join board` to join the board.
 5. Use endpoint `Move bot` to move your bot one step in some direction.
 
+# Example bots
 We also have some [example bots](diamonds-bot-example/README.md) to get you up and running faster.
-
-Have fun!
