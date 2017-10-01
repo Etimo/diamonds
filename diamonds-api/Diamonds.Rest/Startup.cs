@@ -55,6 +55,8 @@ namespace Diamonds.Rest
 
                 var filePath = Path.Combine(PlatformServices.Default.Application.ApplicationBasePath, "Diamonds.Rest.xml");
                 c.IncludeXmlComments(filePath);
+                
+                c.DescribeAllEnumsAsStrings();
             });
         }
 
