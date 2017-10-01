@@ -7,7 +7,7 @@ const Header = () => {
     <div className={styles.header}>
       <a href="https://etimo.se/" target="_blank" rel="noopener"><img className={styles.logo} src={logo}/></a>
       <h1>Etimo Diamonds</h1>
-      <a className={styles.link} target="_blank" rel="noopener" href="https://github.com/Etimo/diamonds/blob/master/Doc/API%20Specification.txt">How to play</a>
+      <a className={styles.link} target="_blank" rel="noopener" href="https://github.com/Etimo/diamonds">How to play</a>
     </div>
   );
 }
