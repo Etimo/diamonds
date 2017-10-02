@@ -8,7 +8,7 @@ NR_LOGICS=${#LOGICS[@]}
 CHOSEN_LOGIC_INDEX=$(($RANDOM % $NR_LOGICS))
 CHOSEN_LOGIC=${LOGICS[$CHOSEN_LOGIC_INDEX]}
 TOKEN_FILENAME="./token/token.$INDEX"
-PYTHON=python3
+PYTHON=python
 if [ ! -f "$TOKEN_FILENAME" ]; then
     echo "Generating bot and token..."
     TOKEN=$($PYTHON main.py --host $HOST --email bot$INDEX@etimo.se --name Etimo$INDEX --time-factor=3 --logic $CHOSEN_LOGIC | grep "Bot registered" | awk '{print $4}')
