@@ -25,4 +25,8 @@
     flex-direction: column;
     padding-bottom: 20px;
   }
+
+  .title{
+    font-size: 2em;
+  }
 }
