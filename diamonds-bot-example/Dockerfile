@@ -7,4 +7,4 @@ RUN pip install -r requirements.txt
 
 ADD . .
 
-ENTRYPOINT ["sh", "./auto_play.sh"]
+ENTRYPOINT ["sh", "./auto_play_many.sh"]
