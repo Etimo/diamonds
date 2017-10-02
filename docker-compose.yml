@@ -1,4 +1,4 @@
-version: '2'
+version: '3.3'
 services:
     frontend:
         depends_on:
@@ -8,17 +8,28 @@ services:
             - '80:80'
         links:
             - api
+        restart: always
     api:
         depends_on:
             - 'mongo'
         build: ./diamonds-api
         links:
             - mongo
+        restart: always
     mongo:
         image: 'mongo:3.4.6'
         volumes:
             - 'mongo:/data/db'
+        restart: always
+    bot:
+        depends_on:
+            - frontend
+        build: ./diamonds-bot-example
+        volumes:
+            - 'bot:/app/token'
+        restart: always
 
 volumes:
     mongo:
+    bot:
 
