@@ -35,6 +35,10 @@ parser.add_argument("--email",
 parser.add_argument("--board",
     help="Id of the board to join",
     action="store")
+parser.add_argument("--time-factor",
+    help="A factor to multiply each move command with. If you want to run the bot in a slower mode e.g. use --time-factor=5 to multiply each delay with 5.",
+    default=1,
+    action="store")
 parser.add_argument("--logic",
     help="The logic controller to use. Valid options are: {}".format(", ".join(list(CONTROLLERS.keys()))),
     action="store")
@@ -42,6 +46,7 @@ group = parser.add_argument_group('API connection')
 group.add_argument('--host', action="store", default=BASE_URL, help="Default: {}".format(BASE_URL))
 args = parser.parse_args()
 
+time_factor = int(args.time_factor)
 api = Api(args.host)
 logic_controller = args.logic
 if logic_controller not in CONTROLLERS:
@@ -142,7 +147,7 @@ while True:
         break
 
     # Don't spam the board more than it allows!
-    sleep(move_delay)
+    sleep(move_delay * time_factor)
 
 ###############################################################################
 #
