@@ -33,8 +33,8 @@
 and (orientation: portrait) {
 
   .cell{
-    width: calc(10vw - 2px); /* 2px for margin 10px left/ right divided by 10cols*/
-    height: calc(10vw - 2px);
+    width: calc(10vw - 5px); /* 5px for margin 25px left & right divided by 10cols*/
+    height: calc(10vw - 5px);
   }
 
 }
