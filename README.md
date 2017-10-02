@@ -16,9 +16,9 @@ Here is some info to get you started:
 2. Use endpoint `Get all boards` to get the ID of the board. Currently there is only one board.
 3. Use endpoint `Get board by id` to get information about the board. You will need to call this endpoint quite often to get board information such as where diamonds are, where your bot is etc.
 
-   All bots on the board are returned in an array and you need to know the name of your bot to find your bot information in the array. You set the name of the bot when you registered the bot. If you forget the name, you can get it by using endpoint `Get bot by token`.
-
    Field `minimumDelayBetweenMoves` indicates how long time in milliseconds your bot must wait between each move.
+
+   All bots on the board are returned in an array and you need to know the name of your bot to find your bot in the array. You set the name of the bot when you registered the bot. If you forget the name, you can get it by using endpoint `Get bot by token`.
 4. Use endpoint `Join board` to join the board.
 5. Use endpoint `Move bot` to move your bot one step in some direction.
 
