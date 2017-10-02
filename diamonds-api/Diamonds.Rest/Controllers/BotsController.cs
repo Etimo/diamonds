@@ -20,21 +20,30 @@ namespace Diamonds.Rest.Controllers
         }
 
         /// <summary>
-        /// Get bot by id
+        /// Get bot by token
         /// </summary>
-        [ProducesResponseType(typeof(Bot), 200)]
+        /// <remarks>
+        /// If you forget the name of your bot, then you can get it here.
+        /// </remarks>
+        [ProducesResponseType(typeof(BotLight), 200)]
         [ProducesResponseType(typeof(void), 404)]
         [HttpGet]
-        [Route("{id}")]
-        public IActionResult Get(string id)
+        [Route("{token}")]
+        public IActionResult Get(string token)
         {
-            var bot = storage.GetBot(id);
+            var bot = storage.GetBot(token);
 
             if (bot == null)
             {
                 return NotFound();
             }
-            return Ok(bot);
+
+            var botLight = new BotLight()
+            {
+                Name = bot.Name
+            };
+
+            return Ok(botLight);
         }
 
         /// <summary>
