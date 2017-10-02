@@ -43,7 +43,6 @@ namespace Diamonds.Rest.Controllers
         /// <response code="409">Bot already exists</response>
         [ProducesResponseType(typeof(Bot), 200)]
         [ProducesResponseType(typeof(void), 409)]
-        [Route("{id}")]
         [HttpPost]
         public IActionResult Post([FromBody] BotRegistrationInput input)
         {

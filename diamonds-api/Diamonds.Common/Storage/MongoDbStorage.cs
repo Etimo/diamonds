@@ -93,6 +93,7 @@ namespace Diamonds.Common.Storage
                 collection.InsertOne(board);
             } catch (MongoDB.Driver.MongoWriteException e) {
                 // More than one thread creating default board, ignore for now
+                Console.WriteLine(e);
             }
         }
 
