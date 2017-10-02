@@ -1,8 +1,7 @@
 #!/bin/bash
 INDEX=$1
 HOST=http://diamonds.etimo.se/api
-LOGICS[0]="FirstDiamond"
-LOGICS[1]="RandomDiamond"
+LOGICS[0]="RandomDiamond"
 
 NR_LOGICS=${#LOGICS[@]}
 CHOSEN_LOGIC_INDEX=$(($RANDOM % $NR_LOGICS))
