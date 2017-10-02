@@ -3,7 +3,6 @@
 Prerequisites:
 1. docker
 2. docker-compose
-3. optional: docker-machine (necessary for remote deployment only)
 
 Bring everything up locally:
 
