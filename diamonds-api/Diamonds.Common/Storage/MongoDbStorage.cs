@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Diamonds.Common.Entities;
 using Diamonds.Common.Models;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 
 namespace Diamonds.Common.Storage
 {
@@ -110,10 +112,18 @@ namespace Diamonds.Common.Storage
         public IEnumerable<Highscore> GetHighscores()
         {
             var collection = _database.GetCollection<Highscore>("Highscores");
-            var result = collection
-                .Find(m => true).SortByDescending(h => h.Score)
-                .Limit(10);
-            var topTenHighscores = result.ToList();
+            var topTenHighscores = collection
+            .AsQueryable()
+            .GroupBy(highscore => highscore.BotName)
+            .Select(group => new Highscore()
+            {
+                BotName = group.Key,
+                Score = group.Select(highscore => highscore.Score).Max()
+            })
+            .OrderByDescending(highscore => highscore.Score)
+            .Take(10)
+            .ToListAsync()
+            .Result;
 
             return topTenHighscores;
         }
