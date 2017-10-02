@@ -14,7 +14,7 @@ class RandomDiamondLogic(object):
             # Move to base if we are full of diamonds
             base = board_bot["base"]
             self.goal_position = base
-        elif position_equals(current_position, self.goal_position):
+        elif self.goal_position is None or position_equals(current_position, self.goal_position):
             # Move towards a random diamond on board
             self.goal_position = board.diamonds[int(len(board.diamonds) * random.random())]
 
