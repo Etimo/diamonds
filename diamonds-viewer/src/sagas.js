@@ -15,8 +15,8 @@ function* pollForUpdates() {
           bots: board.data.bots,
           diamonds: board.data.diamonds,
           boardId: board.data.boardId,
-          width: 10,
-          height: 10
+          width: board.data.width,
+          height: board.data.height
         }
 
         yield put({type: actionTypes.BOARD_UPDATE_RECEIVED, gameboard: newGameboard})

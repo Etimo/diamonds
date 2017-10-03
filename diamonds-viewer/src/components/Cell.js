@@ -45,7 +45,9 @@ const Cell = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    windowSize: state.windowSize
+    windowSize: state.windowSize,
+    boardWidth: state.gameboard.width,
+    boardHeight: state.gameboard.height,
   }
 }
 

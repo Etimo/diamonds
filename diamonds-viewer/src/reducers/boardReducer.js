@@ -38,7 +38,9 @@ const boardReducer = (state = initialState.gameboard, action) => {
             return {
                 ...state,
                 bots: action.gameboard.bots,
-                rows: newGameboard
+                rows: newGameboard,
+                width: action.gameboard.width,
+                height: action.gameboard.height
             }
 
         case actionTypes.HIGHSCORE_UPDATE_RECEIVED:

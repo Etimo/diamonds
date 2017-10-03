@@ -36,11 +36,14 @@ and (orientation: portrait) {
     width: calc(10vw - 5px); /* 5px for margin 25px left & right divided by 10cols*/
     height: calc(10vw - 5px);
   }
+  .cellSign{
+    width: calc(10vw - 5px);
+  }
 
 }
 
 @media (max-width: 390px) {
     .cellSign{
-      font-size: 50%;
+      font-size: 40%;
     }
 }
