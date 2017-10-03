@@ -27,7 +27,6 @@ class Bot(object):
         if req.status_code == 200:
             result = req.json()
             self.name = result["name"]
-            self.email = result["email"]
 
     def register(self):
         req = self.api.bots_register(self.name, self.email)
