@@ -1,0 +1,39 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+BASE_URL	../simple.py	/^BASE_URL = "http:\/\/localhost\/api"$/;"	kind:variable	line:9
+Back	../simple.py	/^from colorama import init, Fore, Back, Style$/;"	kind:namespace	line:5
+Board	../simple.py	/^class Board(object):$/;"	kind:class	line:12
+Bot	../simple.py	/^class Bot(object):$/;"	kind:class	line:26
+Fore	../simple.py	/^from colorama import init, Fore, Back, Style$/;"	kind:namespace	line:5
+Style	../simple.py	/^from colorama import init, Fore, Back, Style$/;"	kind:namespace	line:5
+__init__	../simple.py	/^    def __init__(self, data):$/;"	kind:member	line:14
+__init__	../simple.py	/^    def __init__(self, email, name, url):$/;"	kind:member	line:28
+_get_direction	../simple.py	/^    def _get_direction(self, dx, dy):$/;"	kind:member	line:36
+_get_url	../simple.py	/^    def _get_url(self, endpoint):$/;"	kind:member	line:33
+_req	../simple.py	/^    def _req(self, endpoint, method, body):$/;"	kind:member	line:48
+board	../simple.py	/^board = bot.get_board(1)$/;"	kind:variable	line:121
+bot	../simple.py	/^    bot = Bot("", "", BASE_URL)$/;"	kind:variable	line:107
+bot	../simple.py	/^    bot = Bot("bot-1@etimo.se", "Bot 1", BASE_URL)$/;"	kind:variable	line:113
+current_direction	../simple.py	/^current_direction = 0$/;"	kind:variable	line:125
+current_position	../simple.py	/^current_position = None$/;"	kind:variable	line:124
+delta	../simple.py	/^    delta = directions[current_direction]$/;"	kind:variable	line:127
+directions	../simple.py	/^directions = [(1,0), (0,1), (-1,0), (0,-1)]$/;"	kind:variable	line:122
+get_board	../simple.py	/^    def get_board(self, board_id):$/;"	kind:member	line:93
+get_bot	../simple.py	/^    def get_bot(self, bot):$/;"	kind:member	line:21
+get_my_info	../simple.py	/^    def get_my_info(self):$/;"	kind:member	line:64
+goal_position	../simple.py	/^goal_position = None$/;"	kind:variable	line:123
+init	../simple.py	/^from colorama import init, Fore, Back, Style$/;"	kind:namespace	line:5
+join	../simple.py	/^    def join(self, board_id):$/;"	kind:member	line:88
+json	../simple.py	/^import json$/;"	kind:namespace	line:2
+list_boards	../simple.py	/^    def list_boards(self):$/;"	kind:member	line:82
+move	../simple.py	/^    def move(self, board_id, dx, dy):$/;"	kind:member	line:98
+random	../simple.py	/^import random$/;"	kind:namespace	line:3
+register	../simple.py	/^    def register(self):$/;"	kind:member	line:71
+requests	../simple.py	/^import requests$/;"	kind:namespace	line:1
+result	../simple.py	/^    result = bot.move(1, delta[0], delta[1])$/;"	kind:variable	line:139
+simple.py	../simple.py	1;"	kind:file	line:1
+sleep	../simple.py	/^from time import sleep$/;"	kind:namespace	line:4
