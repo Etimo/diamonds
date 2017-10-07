@@ -12,9 +12,18 @@ RUN dotnet restore
 
 COPY . .
 
-RUN dotnet publish --output /out/ --configuration Release
+RUN dotnet publish --output /out/ --configuration Debug
 
 FROM microsoft/aspnetcore:1.1.2
 WORKDIR /app
 COPY --from=0 /out .
+
+WORKDIR /vsdbg
+RUN apt-get update \
+&& apt-get install -y --no-install-recommends \
+unzip \
+&& rm -rf /var/lib/apt/lists/* \
+&& curl -sSL https://aka.ms/getvsdbgsh | bash /dev/stdin -v latest -l /vsdbg
+
+WORKDIR /app
 ENTRYPOINT ["dotnet", "Diamonds.Rest.dll"]
