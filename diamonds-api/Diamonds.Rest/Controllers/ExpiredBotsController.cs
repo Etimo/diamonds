@@ -26,13 +26,10 @@ namespace Diamonds.Rest.Controllers
             boards.ForEach(board =>
             {
                 var expiredBots = board.Bots.Where(bot => bot.IsGameOver()).ToList();
-                Console.WriteLine("expired: " + expiredBots.Count);
 
                 expiredBots.ForEach(expiredBot =>
                 {
-                    Console.WriteLine("contains: " + board.Bots.Contains(expiredBot).ToString());
                     var removed = board.Bots.Remove(expiredBot);
-                    Console.WriteLine("removed: " + removed.ToString());
                     _storage.UpdateBoard(board);
                 });
             });

@@ -43,7 +43,13 @@ namespace Diamonds.GameEngine
         {
             var bot = board.Bots.SingleOrDefault(b => b.Name == botName);
 
-            if(bot == null) return MoveResultCode.InvalidMove;
+            if (bot == null) return MoveResultCode.InvalidMove;
+
+            if (bot.IsGameOver())
+            {
+                RemoveBot(bot, board);
+                return MoveResultCode.InvalidMove;
+            }
 
             var previousPosition = bot.Position;
             var attemptedNextPosition = CalculateNewPosition(previousPosition, direction);
@@ -64,6 +70,12 @@ namespace Diamonds.GameEngine
             bot.NextMoveAvailableAt = DateTime.UtcNow.AddMilliseconds(board.MinimumDelayBetweenMoves);
 
             return MoveResultCode.Ok;
+        }
+
+        private void RemoveBot(BoardBot bot, Board board)
+        {
+            var removed = board.Bots.Remove(bot);
+            _storage.UpdateBoard(board);
         }
 
         private void AttemptDeliverInBase(Position position, BoardBot bot)
@@ -94,7 +106,7 @@ namespace Diamonds.GameEngine
             board.Diamonds = board.Diamonds
                 .Where(p => p.Equals(position) == false)
                 .ToList();
-            
+
             // TODO: Remember to generate new diamonds when the total diamond count is too low. We don't know yet where this should be in the code.
         }
 
@@ -132,7 +144,7 @@ namespace Diamonds.GameEngine
 
         private Position CalculateNewPosition(Position previousPosition, Direction direction)
         {
-            switch(direction)
+            switch (direction)
             {
                 case Direction.North:
                     return new Position(previousPosition.X, previousPosition.Y - 1);
