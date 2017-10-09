@@ -12,7 +12,9 @@ services:
     api:
         depends_on:
             - 'mongo'
-        build: ./diamonds-api
+        build:
+            context: ./diamonds-api
+            dockerfile: Dockerfile.${DIAMONDS_API_CONFIG}
         links:
             - mongo
         restart: always

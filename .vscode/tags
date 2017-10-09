@@ -1,0 +1,119 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+Api	../diamonds-bot-example/game/api.py	/^class Api(object):$/;"	kind:class	line:6
+Api	../diamonds-bot-example/main.py	/^from game.api import Api$/;"	kind:namespace	line:6
+BASE_URL	../diamonds-bot-example/main.py	/^BASE_URL = "http:\/\/localhost\/api"$/;"	kind:variable	line:14
+Back	../diamonds-bot-example/game/api.py	/^from colorama import init, Fore, Back, Style$/;"	kind:namespace	line:3
+Back	../diamonds-bot-example/main.py	/^from colorama import init, Fore, Back, Style$/;"	kind:namespace	line:11
+Board	../diamonds-bot-example/game/board.py	/^class Board(object):$/;"	kind:class	line:1
+Board	../diamonds-bot-example/game/bot.py	/^from .board import Board$/;"	kind:namespace	line:3
+Board	../diamonds-bot-example/main.py	/^from game.board import Board$/;"	kind:namespace	line:4
+Bot	../diamonds-bot-example/game/bot.py	/^class Bot(object):$/;"	kind:class	line:7
+Bot	../diamonds-bot-example/main.py	/^from game.bot import Bot$/;"	kind:namespace	line:5
+CONTROLLERS	../diamonds-bot-example/main.py	/^CONTROLLERS = {$/;"	kind:variable	line:15
+FirstDiamondLogic	../diamonds-bot-example/game/logic/first_diamond.py	/^class FirstDiamondLogic(object):$/;"	kind:class	line:5
+FirstDiamondLogic	../diamonds-bot-example/main.py	/^from game.logic.first_diamond import FirstDiamondLogic$/;"	kind:namespace	line:9
+Fore	../diamonds-bot-example/game/api.py	/^from colorama import init, Fore, Back, Style$/;"	kind:namespace	line:3
+Fore	../diamonds-bot-example/main.py	/^from colorama import init, Fore, Back, Style$/;"	kind:namespace	line:11
+RandomDiamondLogic	../diamonds-bot-example/game/logic/random_diamond.py	/^class RandomDiamondLogic(object):$/;"	kind:class	line:5
+RandomDiamondLogic	../diamonds-bot-example/main.py	/^from game.logic.random_diamond import RandomDiamondLogic$/;"	kind:namespace	line:10
+RandomLogic	../diamonds-bot-example/game/logic/random.py	/^class RandomLogic(object):$/;"	kind:class	line:5
+RandomLogic	../diamonds-bot-example/main.py	/^from game.logic.random import RandomLogic$/;"	kind:namespace	line:8
+Style	../diamonds-bot-example/game/api.py	/^from colorama import init, Fore, Back, Style$/;"	kind:namespace	line:3
+Style	../diamonds-bot-example/main.py	/^from colorama import init, Fore, Back, Style$/;"	kind:namespace	line:11
+__init__	../diamonds-bot-example/game/api.py	/^    def __init__(self, url):$/;"	kind:member	line:8
+__init__	../diamonds-bot-example/game/board.py	/^    def __init__(self, data):$/;"	kind:member	line:3
+__init__	../diamonds-bot-example/game/bot.py	/^    def __init__(self, email, name, api):$/;"	kind:member	line:9
+__init__	../diamonds-bot-example/game/logic/first_diamond.py	/^    def __init__(self):$/;"	kind:member	line:6
+__init__	../diamonds-bot-example/game/logic/random.py	/^    def __init__(self):$/;"	kind:member	line:6
+__init__	../diamonds-bot-example/game/logic/random_diamond.py	/^    def __init__(self):$/;"	kind:member	line:6
+__init__.py	../diamonds-bot-example/game/__init__.py	1;"	kind:file	line:1
+__init__.py	../diamonds-bot-example/game/logic/__init__.py	1;"	kind:file	line:1
+_get_direction	../diamonds-bot-example/game/bot.py	/^    def _get_direction(self, dx, dy):$/;"	kind:member	line:14
+_get_url	../diamonds-bot-example/game/api.py	/^    def _get_url(self, endpoint):$/;"	kind:member	line:11
+_req	../diamonds-bot-example/game/api.py	/^    def _req(self, endpoint, method, body):$/;"	kind:member	line:14
+action	../diamonds-bot-example/main.py	/^    action="store")$/;"	kind:variable	line:30
+action	../diamonds-bot-example/main.py	/^    action="store")$/;"	kind:variable	line:33
+action	../diamonds-bot-example/main.py	/^    action="store")$/;"	kind:variable	line:36
+action	../diamonds-bot-example/main.py	/^    action="store")$/;"	kind:variable	line:39
+action	../diamonds-bot-example/main.py	/^    action="store")$/;"	kind:variable	line:43
+action	../diamonds-bot-example/main.py	/^    action="store")$/;"	kind:variable	line:46
+api	../diamonds-bot-example/main.py	/^api = Api(args.host)$/;"	kind:variable	line:52
+api.py	../diamonds-bot-example/game/api.py	1;"	kind:file	line:1
+argparse	../diamonds-bot-example/main.py	/^import argparse$/;"	kind:namespace	line:2
+args	../diamonds-bot-example/main.py	/^args = parser.parse_args()$/;"	kind:variable	line:49
+board	../diamonds-bot-example/main.py	/^        board = Board(result.json())$/;"	kind:variable	line:143
+board	../diamonds-bot-example/main.py	/^        board = bot.get_board(current_board_id)$/;"	kind:variable	line:138
+board	../diamonds-bot-example/main.py	/^board = bot.get_board(current_board_id)$/;"	kind:variable	line:119
+board.py	../diamonds-bot-example/game/board.py	1;"	kind:file	line:1
+board_bot	../diamonds-bot-example/main.py	/^    board_bot = board.get_bot(bot)$/;"	kind:variable	line:129
+board_bot	../diamonds-bot-example/main.py	/^    board_bot = board.get_bot(bot)$/;"	kind:variable	line:146
+boards	../diamonds-bot-example/main.py	/^    boards = bot.list_boards()$/;"	kind:variable	line:96
+boards_get	../diamonds-bot-example/game/api.py	/^    def boards_get(self, board_id):$/;"	kind:member	line:47
+boards_join	../diamonds-bot-example/game/api.py	/^    def boards_join(self, board_id, bot_token):$/;"	kind:member	line:42
+boards_list	../diamonds-bot-example/game/api.py	/^    def boards_list(self):$/;"	kind:member	line:39
+boards_move	../diamonds-bot-example/game/api.py	/^    def boards_move(self, board_id, direction, bot_token):$/;"	kind:member	line:50
+bot	../diamonds-bot-example/main.py	/^    bot = Bot(args.email, args.name, api)$/;"	kind:variable	line:64
+bot	../diamonds-bot-example/main.py	/^bot = Bot("", "", api)$/;"	kind:variable	line:79
+bot.py	../diamonds-bot-example/game/bot.py	1;"	kind:file	line:1
+bot_logic	../diamonds-bot-example/main.py	/^bot_logic = logic_class()$/;"	kind:variable	line:86
+bots_get	../diamonds-bot-example/game/api.py	/^    def bots_get(self, bot_token):$/;"	kind:member	line:30
+bots_register	../diamonds-bot-example/game/api.py	/^    def bots_register(self, name, email):$/;"	kind:member	line:33
+clamp	../diamonds-bot-example/game/util.py	/^def clamp(n, smallest, largest):$/;"	kind:function	line:1
+current_board_id	../diamonds-bot-example/main.py	/^        current_board_id = None$/;"	kind:variable	line:107
+current_board_id	../diamonds-bot-example/main.py	/^        current_board_id = board.id$/;"	kind:variable	line:99
+current_board_id	../diamonds-bot-example/main.py	/^current_board_id = args.board$/;"	kind:variable	line:93
+default	../diamonds-bot-example/main.py	/^    default=1,$/;"	kind:variable	line:42
+first_diamond.py	../diamonds-bot-example/game/logic/first_diamond.py	1;"	kind:file	line:1
+get_board	../diamonds-bot-example/game/bot.py	/^    def get_board(self, board_id):$/;"	kind:member	line:48
+get_bot	../diamonds-bot-example/game/board.py	/^    def get_bot(self, bot):$/;"	kind:member	line:11
+get_direction	../diamonds-bot-example/game/logic/first_diamond.py	/^from ..util import get_direction$/;"	kind:namespace	line:2
+get_direction	../diamonds-bot-example/game/logic/random.py	/^from ..util import get_direction$/;"	kind:namespace	line:2
+get_direction	../diamonds-bot-example/game/logic/random_diamond.py	/^from ..util import get_direction, position_equals$/;"	kind:namespace	line:2
+get_direction	../diamonds-bot-example/game/util.py	/^def get_direction(current_x, current_y, dest_x, dest_y):$/;"	kind:function	line:4
+get_my_info	../diamonds-bot-example/game/bot.py	/^    def get_my_info(self):$/;"	kind:member	line:25
+group	../diamonds-bot-example/main.py	/^group = parser.add_argument_group('API connection')$/;"	kind:variable	line:47
+group	../diamonds-bot-example/main.py	/^group = parser.add_mutually_exclusive_group()$/;"	kind:variable	line:27
+hashlib	../diamonds-bot-example/game/bot.py	/^import hashlib$/;"	kind:namespace	line:4
+help	../diamonds-bot-example/main.py	/^    help="A bot token to use when running using an existing bot",$/;"	kind:variable	line:29
+help	../diamonds-bot-example/main.py	/^    help="Id of the board to join",$/;"	kind:variable	line:38
+help	../diamonds-bot-example/main.py	/^    help="The email of the bot to register",$/;"	kind:variable	line:35
+help	../diamonds-bot-example/main.py	/^    help="The logic controller to use. Valid options are: {}".format(", ".join(list(CONTROLLERS.keys()))),$/;"	kind:variable	line:45
+help	../diamonds-bot-example/main.py	/^    help="The name of the bot to register",$/;"	kind:variable	line:32
+init	../diamonds-bot-example/game/api.py	/^from colorama import init, Fore, Back, Style$/;"	kind:namespace	line:3
+init	../diamonds-bot-example/main.py	/^from colorama import init, Fore, Back, Style$/;"	kind:namespace	line:11
+join	../diamonds-bot-example/game/bot.py	/^    def join(self, board_id):$/;"	kind:member	line:45
+json	../diamonds-bot-example/game/api.py	/^import json$/;"	kind:namespace	line:2
+json	../diamonds-bot-example/game/bot.py	/^import json$/;"	kind:namespace	line:2
+list_boards	../diamonds-bot-example/game/bot.py	/^    def list_boards(self):$/;"	kind:member	line:39
+logic_class	../diamonds-bot-example/main.py	/^logic_class = CONTROLLERS[logic_controller]$/;"	kind:variable	line:85
+logic_controller	../diamonds-bot-example/main.py	/^logic_controller = args.logic$/;"	kind:variable	line:53
+main.py	../diamonds-bot-example/main.py	1;"	kind:file	line:1
+move	../diamonds-bot-example/game/bot.py	/^    def move(self, board_id, dx, dy):$/;"	kind:member	line:53
+move_delay	../diamonds-bot-example/main.py	/^move_delay = board.data["minimumDelayBetweenMoves"] \/ 1000$/;"	kind:variable	line:120
+next_move	../diamonds-bot-example/game/logic/first_diamond.py	/^    def next_move(self, board_bot, board):$/;"	kind:member	line:9
+next_move	../diamonds-bot-example/game/logic/random.py	/^    def next_move(self, board_bot, board):$/;"	kind:member	line:11
+next_move	../diamonds-bot-example/game/logic/random_diamond.py	/^    def next_move(self, board_bot, board):$/;"	kind:member	line:9
+parser	../diamonds-bot-example/main.py	/^parser = argparse.ArgumentParser(description="Diamonds example bot")$/;"	kind:variable	line:26
+position_equals	../diamonds-bot-example/game/logic/random_diamond.py	/^from ..util import get_direction, position_equals$/;"	kind:namespace	line:2
+position_equals	../diamonds-bot-example/game/util.py	/^def position_equals(a, b):$/;"	kind:function	line:11
+random	../diamonds-bot-example/game/logic/first_diamond.py	/^import random$/;"	kind:namespace	line:1
+random	../diamonds-bot-example/game/logic/random.py	/^import random$/;"	kind:namespace	line:1
+random	../diamonds-bot-example/game/logic/random_diamond.py	/^import random$/;"	kind:namespace	line:1
+random.py	../diamonds-bot-example/game/logic/random.py	1;"	kind:file	line:1
+random_diamond.py	../diamonds-bot-example/game/logic/random_diamond.py	1;"	kind:file	line:1
+register	../diamonds-bot-example/game/bot.py	/^    def register(self):$/;"	kind:member	line:31
+requests	../diamonds-bot-example/game/api.py	/^import requests$/;"	kind:namespace	line:1
+requests	../diamonds-bot-example/game/bot.py	/^import requests$/;"	kind:namespace	line:1
+result	../diamonds-bot-example/main.py	/^        result = bot.join(current_board_id)$/;"	kind:variable	line:100
+result	../diamonds-bot-example/main.py	/^    result = bot.join(current_board_id)$/;"	kind:variable	line:105
+result	../diamonds-bot-example/main.py	/^    result = bot.move(current_board_id, delta_x, delta_y)$/;"	kind:variable	line:135
+result	../diamonds-bot-example/main.py	/^    result = bot.register()$/;"	kind:variable	line:65
+sleep	../diamonds-bot-example/main.py	/^from time import sleep$/;"	kind:namespace	line:3
+sys	../diamonds-bot-example/main.py	/^import sys$/;"	kind:namespace	line:1
+time_factor	../diamonds-bot-example/main.py	/^time_factor = int(args.time_factor)$/;"	kind:variable	line:51
+util.py	../diamonds-bot-example/game/util.py	1;"	kind:file	line:1
