@@ -43,7 +43,7 @@
             "processId": "${command:pickProcess}"
         },
         {
-            "name": ".NET Core Remote Attach",
+            "name": "Docker - Local Attach",
             "type": "coreclr",
             "request": "attach",
             "processId": "${command:pickRemoteProcess}",
@@ -53,6 +53,22 @@
                 "debuggerPath": "/vsdbg/vsdbg",
                 "pipeCwd": "${workspaceRoot}",
                 "quoteArgs": false
+            },
+            "sourceFileMap": {
+                "/app": "${workspaceRoot}"
+            }
+        },
+        {
+            "name": "Docker - Remote Attach",
+            "type": "coreclr",
+            "request": "attach",
+            "processId": "${command:pickRemoteProcess}",
+            "pipeTransport": {
+                "pipeProgram": "ssh",
+                "pipeArgs": [ "-T", "username@45.77.89.90", "docker", "exec", "-i", "diamonds_api_1" ],
+                "debuggerPath": "/vsdbg/vsdbg",
+                "pipeCwd": "${workspaceRoot}",
+                "quoteArgs": true
             },
             "sourceFileMap": {
                 "/app": "${workspaceRoot}"
