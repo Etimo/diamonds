@@ -22,6 +22,7 @@ class Bot(object):
             return "South"
         else:
             raise Exception("Invalid move")
+
     def get_my_info(self):
         req = self.api.bots_get(self.bot_token)
         if req.status_code == 200:

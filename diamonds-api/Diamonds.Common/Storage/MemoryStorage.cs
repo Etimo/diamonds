@@ -30,7 +30,6 @@ namespace Diamonds.Common.Storage
                         Position = new Position(8, 0),
                         Score = 5,
                         Diamonds = 0,
-                        MillisecondsLeft = 5 * 60 * 1000
                     },
                     new BoardBot {
                         Name = "indrif",
@@ -38,7 +37,6 @@ namespace Diamonds.Common.Storage
                         Position = new Position(0, 0),
                         Score = 2,
                         Diamonds = 2,
-                        MillisecondsLeft = 5 * 60 * 1000
                     },
                     new BoardBot {
                         Name = "Elton Jan",
@@ -46,7 +44,6 @@ namespace Diamonds.Common.Storage
                         Position = new Position(2, 3),
                         Score = 8,
                         Diamonds = 5,
-                        MillisecondsLeft = 5 * 60 * 1000
                     }
                 },
                 Diamonds = new List<Position>

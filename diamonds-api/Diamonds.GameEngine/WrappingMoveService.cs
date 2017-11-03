@@ -10,18 +10,21 @@ using Diamonds.Common.GameEngine.DiamondGenerator;
 
 namespace Diamonds.GameEngine
 {
-    public class MoveService : IMoveService
+    /**
+    *The teleporting move-service wraps a bot around to the other side of the board
+    *when exiting. 
+    * As an example a move that would result x> board length will wrap around to x=0, 
+    * whereas X <0 will result in x=board.maxx
+     */
+    public class WrappingMoveService : MoveService
     {
-        protected readonly IStorage _storage;
-        protected readonly IDiamondGeneratorService _boardDiamondManager;
 
-        public MoveService(IStorage storage, IDiamondGeneratorService boardDiamondManager)
+        public WrappingMoveService(IStorage storage, IDiamondGeneratorService boardDiamondManager)
+          :base(storage,boardDiamondManager) //TODO: Remove inheritance, all methods are reimplemented.
         {
-            _storage = storage;
-            _boardDiamondManager = boardDiamondManager;
         }
 
-        public MoveResultCode Move(string boardId, string botName, Direction direction)
+        public new MoveResultCode Move(string boardId, string botName, Direction direction)
         {
             var board = _storage.GetBoard(boardId);
             var resultCode = PerformMoveAndUpdateBoard(board, botName, direction);
@@ -32,8 +35,7 @@ namespace Diamonds.GameEngine
             }
 
             // TODO: Consider moving the call to _boardDiamondManager away from this class
-            board.Diamonds = _boardDiamondManager.GenerateDiamondsIfNeeded(board);
-
+            board.Diamonds = _boardDiamondManager.GenerateDiamondsIfNeeded(board);  //TODO: Better place..
             _storage.UpdateBoard(board);
 
             return MoveResultCode.Ok;
@@ -42,9 +44,7 @@ namespace Diamonds.GameEngine
         private MoveResultCode PerformMoveAndUpdateBoard(Board board, string botName, Direction direction)
         {
             var bot = board.Bots.SingleOrDefault(b => b.Name == botName);
-
             if (bot == null) return MoveResultCode.InvalidMove;
-
             if (bot.IsGameOver())
             {
                 RemoveBot(bot, board);
@@ -52,9 +52,8 @@ namespace Diamonds.GameEngine
             }
 
             var previousPosition = bot.Position;
-            var attemptedNextPosition = CalculateNewPosition(previousPosition, direction);
+            var attemptedNextPosition = CalculateNewPosition(previousPosition, direction,board);
             var canMoveToAttemptedNextPosition = CanMoveToPosition(board, bot, attemptedNextPosition);
-
             if (canMoveToAttemptedNextPosition == false)
             {
                 return MoveResultCode.CanNotMoveInThatDirection;
@@ -66,7 +65,8 @@ namespace Diamonds.GameEngine
             bot.Position = attemptedNextPosition;
 
             // update timers on bot
-            bot.NextMoveAvailableAt = DateTime.UtcNow.AddMilliseconds(board.MinimumDelayBetweenMoves);
+            bot.NextMoveAvailableAt = 
+                DateTime.UtcNow.AddMilliseconds(board.MinimumDelayBetweenMoves);
 
             return MoveResultCode.Ok;
         }
@@ -89,7 +89,7 @@ namespace Diamonds.GameEngine
             bot.Score += bot.Diamonds;
             bot.Diamonds = 0;
         }
-
+        
         private void AttemptPickUpDiamond(Position position, Board board, BoardBot bot)
         {
             bool positionHasDiamond = board.Diamonds.Any(p => p.Equals(position));
@@ -107,8 +107,14 @@ namespace Diamonds.GameEngine
                 .ToList();
 
             // TODO: Remember to generate new diamonds when the total diamond count is too low. We don't know yet where this should be in the code.
+            //In general update method in board, to also regenerate other objects?
         }
 
+        /**
+        *Currently untriggerable. 
+        *Will be needed once walls, etc, 
+        *are incorporated into the board.
+         */
         private bool CanMoveToPosition(Board board, BoardBot bot, Position position)
         {
             return PositionIsInBoard(position, board)
@@ -141,25 +147,44 @@ namespace Diamonds.GameEngine
             return rangeMin <= numberToCheck && numberToCheck <= rangeMax;
         }
 
-        private Position CalculateNewPosition(Position previousPosition, Direction direction)
+    /**
+    *Wraps the provided position around the board if 
+    *it is larger or smaller than the board.
+    *@param pos Position calculated from previous position
+    *@param board The current game board.
+     */
+    private Position WrapPosition(Position pos,Board board){
+        var maxX = board.Width-1;
+        var maxY = board.Height-1;
+        var currentY = pos.Y > maxY ? 0 : (pos.Y<0 ? maxY : pos.Y);
+        var currentX = pos.X > maxX ? 0 : (pos.X<0 ? maxX : pos.X);
+        return new Position(currentX,currentY);
+    }
+        private Position CalculateNewPosition(Position previousPosition, Direction direction,Board board)
         {
+            Position IntermediatePosition;
             switch (direction)
             {
                 case Direction.North:
-                    return new Position(previousPosition.X, previousPosition.Y - 1);
+                    IntermediatePosition =  new Position(previousPosition.X, previousPosition.Y - 1);
+                    break;
 
                 case Direction.South:
-                    return new Position(previousPosition.X, previousPosition.Y + 1);
+                    IntermediatePosition =  new Position(previousPosition.X, previousPosition.Y + 1);
+                    break;
 
                 case Direction.East:
-                    return new Position(previousPosition.X + 1, previousPosition.Y);
+                    IntermediatePosition =  new Position(previousPosition.X + 1, previousPosition.Y);
+                    break;
 
                 case Direction.West:
-                    return new Position(previousPosition.X - 1, previousPosition.Y);
+                    IntermediatePosition =  new Position(previousPosition.X - 1, previousPosition.Y);
+                    break;
 
                 default:
                     throw new ArgumentException($"Argument direction har invalid value { direction }");
             }
+            return WrapPosition(IntermediatePosition,board);
         }
     }
 }
