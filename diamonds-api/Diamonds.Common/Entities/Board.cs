@@ -7,6 +7,7 @@ namespace Diamonds.Common.Entities
 {
     public class Board
     {
+
         static Random _random = new Random();
         public string Id { get; set; }
         public int Width { get; set; }
@@ -58,7 +59,6 @@ namespace Diamonds.Common.Entities
                 Score = 0,
                 Diamonds = 0,
                 TimeJoined = DateTime.UtcNow,
-                MillisecondsLeft = TotalGameTime
             };
         }
 

@@ -7,6 +7,7 @@ from game.api import Api
 from game.util import *
 from game.logic.random import RandomLogic
 from game.logic.first_diamond import FirstDiamondLogic
+from game.logic.crash_in_middle import CrashInMiddle
 from game.logic.random_diamond import RandomDiamondLogic
 from colorama import init, Fore, Back, Style
 
@@ -14,6 +15,7 @@ init()
 BASE_URL = "http://localhost/api"
 CONTROLLERS = {
     "Random": RandomLogic,
+    "CrashInMiddle": CrashInMiddle,
     "FirstDiamond": FirstDiamondLogic,
     "RandomDiamond": RandomDiamondLogic,
 }

@@ -16,7 +16,7 @@ const PlayerList = props => (
       </thead>
       <tbody>
         { props.bots.map((bot, num) => (
-          
+             
             <tr key={bot.name}>
               <td> { bot.name }</td>
               <td>{'*'.repeat(bot.diamonds)}</td>
