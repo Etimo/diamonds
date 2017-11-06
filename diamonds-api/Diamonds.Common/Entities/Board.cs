@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Diamonds.GameEngine.GameObjects;
 using Diamonds.Common.Models;
 
 namespace Diamonds.Common.Entities
@@ -9,6 +10,7 @@ namespace Diamonds.Common.Entities
     {
 
         static Random _random = new Random();
+        private List<GameObject> GameObjects  { get;set;}
         public string Id { get; set; }
         public int Width { get; set; }
         public int Height { get; set; }
@@ -73,7 +75,6 @@ namespace Diamonds.Common.Entities
             {
                 var randomBoardPosition = GetRandomPosition(Height, Width);
                 var canPutDiamondInPosition = IsPositionEmpty(randomBoardPosition);
-
                 if (canPutDiamondInPosition)
                 {
                     return randomBoardPosition;
