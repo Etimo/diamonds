@@ -21,6 +21,9 @@ namespace Diamonds.Common.Entities
                 }
                 return GetTimeLeft();
             }
+            set{
+
+            }
         }
         public int Score { get; set; }
         public string BotId { get; set; }
