@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Diamonds.Common.Entities;
 using Diamonds.Common.Models;
+using Diamonds.Common.GameEngine.GameObjects;
+using Diamonds.Common.GameEngine.GameObjects.Teleporters;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
@@ -18,7 +20,8 @@ namespace Diamonds.Common.Storage
             Height = 10,
             Width = 10,
             Bots = new List<BoardBot>(),
-            Diamonds = new List<Position>()
+            Diamonds = new List<Position>(),
+            GameObjects = new List<IGameObject>()
         };
 
         public static string ConnectionString { get; set; }
@@ -36,6 +39,7 @@ namespace Diamonds.Common.Storage
                 {
                     settings.SslSettings = new SslSettings { EnabledSslProtocols = System.Security.Authentication.SslProtocols.Tls12 };
                 }
+
                 var mongoClient = new MongoClient(settings);
                 _database = mongoClient.GetDatabase(DatabaseName);
 

@@ -31,7 +31,7 @@ namespace Diamonds.Common.GameEngine.GameObjects.Teleporters
         }
         public string LinkedTeleporterString { get; 
         set;} //Teleporters with the same string will link.
-        public string Name
+        public override string Name
         {
             get
             {
@@ -39,14 +39,14 @@ namespace Diamonds.Common.GameEngine.GameObjects.Teleporters
             }
         }
 
-        public Position Position { get; set; }
-        public bool IsBlocking
+        public override Position Position { get; set; }
+        public override bool IsBlocking
         {
             get { return false; }
             set { }
         }
 
-        public void PerformInteraction(Board board, BoardBot bot)
+        public override void PerformInteraction(Board board, BoardBot bot)
         {
             IGameObject targetTeleporter = board.GameObjects.Where(gf=>gf is Teleporter 
             && (gf as Teleporter).LinkedTeleporterString==this.LinkedTeleporterString 
