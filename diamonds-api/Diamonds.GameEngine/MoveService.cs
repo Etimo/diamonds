@@ -2,6 +2,7 @@
 using Diamonds.Common.Storage;
 using Diamonds.Common.Enums;
 using Diamonds.Common.GameEngine.Move;
+using Diamonds.Common.GameEngine.GameObjects;
 using System.Linq;
 using Diamonds.Common.Entities;
 using Diamonds.Common.Models;
@@ -62,6 +63,7 @@ namespace Diamonds.GameEngine
 
             AttemptPickUpDiamond(attemptedNextPosition, board, bot);
             AttemptDeliverInBase(attemptedNextPosition, bot);
+            AttemptTriggerGameObject(board,attemptedNextPosition, bot);
 
             bot.Position = attemptedNextPosition;
 
@@ -69,6 +71,13 @@ namespace Diamonds.GameEngine
             bot.NextMoveAvailableAt = DateTime.UtcNow.AddMilliseconds(board.MinimumDelayBetweenMoves);
 
             return MoveResultCode.Ok;
+        }
+
+        private void AttemptTriggerGameObject(Board board,Position attemptedNextPosition, BoardBot bot)
+        {
+            board.GameObjects.Where(gf => gf.Position.Equals(attemptedNextPosition)).
+            DefaultIfEmpty(new DoNothingGameObject()).FirstOrDefault();
+            
         }
 
         private void RemoveBot(BoardBot bot, Board board)
@@ -112,8 +121,8 @@ namespace Diamonds.GameEngine
         private bool CanMoveToPosition(Board board, BoardBot bot, Position position)
         {
             return PositionIsInBoard(position, board)
-                && PositionIsOpponentBase(position, bot.BotId, board.Bots) == false
-                && PositionHasBot(position, board.Bots) == false;
+                && PositionIsOpponentBase(position, bot.BotId, board.Bots) == false  
+                && board.IsPositionBlocked(position) == false; //Includes bots and GameObjects which return true for blockable.
         }
 
         private bool PositionHasBot(Position position, IEnumerable<BoardBot> bots)

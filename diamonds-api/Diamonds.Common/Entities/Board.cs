@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Diamonds.GameEngine.GameObjects;
+using Diamonds.Common.GameEngine.GameObjects;
 using Diamonds.Common.Models;
 
 namespace Diamonds.Common.Entities
@@ -10,7 +10,7 @@ namespace Diamonds.Common.Entities
     {
 
         static Random _random = new Random();
-        private List<GameObject> GameObjects  { get;set;}
+        public List<IGameObject> GameObjects  { get;set;}
         public string Id { get; set; }
         public int Width { get; set; }
         public int Height { get; set; }
@@ -87,10 +87,20 @@ namespace Diamonds.Common.Entities
             var positionHasBot = Bots.Any(b => b.Position.Equals(position));
             var positionHasBase = Bots.Any(b => b.Base.Equals(position));
             var positionHasDiamond = Diamonds.Contains(position);
+            var positionHasGameObject = GameObjects.Any(gi => gi.Position.Equals(position));
 
             return positionHasBot == false
                 && positionHasBase == false
-                && positionHasDiamond == false;
+                && positionHasDiamond == false
+                && positionHasGameObject == false;
+        }
+        public bool IsPositionBlocked(Position position)
+        {
+            var positionHasBot = Bots.Any(b => b.Position.Equals(position));
+            var positionHasBlockingGameObject = GameObjects.Any(gi => gi.IsBlocking && gi.Position.Equals(position));
+
+            return positionHasBot  &&
+                   positionHasBlockingGameObject;
         }
 
         private static Position GetRandomPosition(int height, int width)
