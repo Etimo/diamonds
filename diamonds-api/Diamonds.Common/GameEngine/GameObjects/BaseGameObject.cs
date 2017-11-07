@@ -8,7 +8,7 @@ namespace Diamonds.Common.GameEngine.GameObjects
 [MongoDB.Bson.Serialization.Attributes.BsonDiscriminator(RootClass = true)]
 [MongoDB.Bson.Serialization.Attributes.BsonKnownTypes(typeof(
     Diamonds.Common.GameEngine.GameObjects.Teleporters.Teleporter),typeof(DoNothingGameObject))]
-    public abstract class IGameObject
+    public abstract class BaseGameObject
     {
         public abstract string Name { get; }
         public abstract Position Position { get; set; }

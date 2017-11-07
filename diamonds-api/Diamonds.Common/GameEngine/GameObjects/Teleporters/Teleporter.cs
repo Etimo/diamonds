@@ -48,7 +48,7 @@ namespace Diamonds.Common.GameEngine.GameObjects.Teleporters
 
         public override void PerformInteraction(Board board, BoardBot bot)
         {
-            IGameObject targetTeleporter = board.GameObjects.Where(gf=>gf is Teleporter 
+            BaseGameObject targetTeleporter = board.GameObjects.Where(gf=>gf is Teleporter 
             && (gf as Teleporter).LinkedTeleporterString==this.LinkedTeleporterString 
             && !this.Position.Equals(gf.Position)).FirstOrDefault();
             if(targetTeleporter==null){

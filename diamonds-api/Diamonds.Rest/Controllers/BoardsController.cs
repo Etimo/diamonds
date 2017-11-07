@@ -42,7 +42,7 @@ namespace Diamonds.Rest.Controllers
             return Ok(boards);
         }
         private void regenerateBoardObjects(Board board){
-                board.GameObjects = new List<IGameObject>(); 
+                board.GameObjects = new List<BaseGameObject>(); 
                 board.Diamonds = _diamondGeneratorService.GenerateDiamondsIfNeeded(board);
                 if(_gameObjectGeneratorService==null)return;
                 var list = 

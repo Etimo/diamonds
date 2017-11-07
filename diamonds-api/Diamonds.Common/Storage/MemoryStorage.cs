@@ -25,7 +25,7 @@ namespace Diamonds.Common.Storage
             new Board
             {
                 Id = "1", Height = 10, Width = 10,
-                GameObjects = new List<IGameObject>{},
+                GameObjects = new List<BaseGameObject>{},
                 Bots = new List<BoardBot>{
                     new BoardBot {
                         Name = "Jane Jet",

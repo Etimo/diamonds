@@ -5,7 +5,7 @@ using Diamonds.Common.Entities;
 using Diamonds.Common.Models;
 namespace Diamonds.Common.GameEngine.GameObjects
 {
-    public class DoNothingGameObject : IGameObject
+    public class DoNothingGameObject : BaseGameObject
     {
         public override string Name => "Nothing";
 

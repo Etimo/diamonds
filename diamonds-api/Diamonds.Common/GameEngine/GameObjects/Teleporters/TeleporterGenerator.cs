@@ -8,9 +8,9 @@ using System.Linq;
 namespace Diamonds.Common.GameEngine.GameObjects.Teleporters{
 public class TeleporterGenerator : IGameObjectGenerator {
     private  const int TeleporterPairs  = 1;
-     public List<IGameObject> RegenerateObjects(Board board){
+     public List<BaseGameObject> RegenerateObjects(Board board){
 
-         List<IGameObject> teleporters = new List<IGameObject>();
+         List<BaseGameObject> teleporters = new List<BaseGameObject>();
         for(int i = 0; i< TeleporterPairs;i++){
             Teleporter teleporterOne = new Teleporter();
             Teleporter teleporterTwo = new Teleporter(teleporterOne.LinkedTeleporterString);
@@ -27,7 +27,7 @@ public class TeleporterGenerator : IGameObjectGenerator {
          return board.GameObjects.Where(go => go is Teleporter)
             .Select(go=>go.Position).ToList(); //TODO: Figure out good constant stor in dotnet.
      }
-     public List<IGameObject> GetGameObjectList(Board board){
+     public List<BaseGameObject> GetGameObjectList(Board board){
          return board.GameObjects.Where(go => go is Teleporter)
              .ToList();
      }

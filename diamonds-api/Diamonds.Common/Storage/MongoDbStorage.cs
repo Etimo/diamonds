@@ -21,7 +21,7 @@ namespace Diamonds.Common.Storage
             Width = 10,
             Bots = new List<BoardBot>(),
             Diamonds = new List<Position>(),
-            GameObjects = new List<IGameObject>()
+            GameObjects = new List<BaseGameObject>()
         };
 
         public static string ConnectionString { get; set; }

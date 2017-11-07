@@ -47,7 +47,7 @@ namespace Diamonds.Tests.ApiTests
                 Id = "2",
                 Height = 10,
                 Width = 10,
-                GameObjects = new List<IGameObject> { },
+                GameObjects = new List<BaseGameObject> { },
                 Bots = new List<BoardBot>{
                     new BoardBot {
                         Name = "Jane Jet",
