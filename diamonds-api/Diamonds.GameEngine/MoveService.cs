@@ -7,6 +7,7 @@ using System.Linq;
 using Diamonds.Common.Entities;
 using Diamonds.Common.Models;
 using System.Collections.Generic;
+using Diamonds.Common.GameEngine.GameObjects;
 using Diamonds.Common.GameEngine.DiamondGenerator;
 
 namespace Diamonds.GameEngine
@@ -63,9 +64,9 @@ namespace Diamonds.GameEngine
 
             AttemptPickUpDiamond(attemptedNextPosition, board, bot);
             AttemptDeliverInBase(attemptedNextPosition, bot);
-            AttemptTriggerGameObject(board,attemptedNextPosition, bot);
 
             bot.Position = attemptedNextPosition;
+            AttemptTriggerGameObject(board,attemptedNextPosition, bot);
 
             // update timers on bot
             bot.NextMoveAvailableAt = DateTime.UtcNow.AddMilliseconds(board.MinimumDelayBetweenMoves);
@@ -75,8 +76,9 @@ namespace Diamonds.GameEngine
 
         private void AttemptTriggerGameObject(Board board,Position attemptedNextPosition, BoardBot bot)
         {
-            board.GameObjects.Where(gf => gf.Position.Equals(attemptedNextPosition)).
+            var gameObject = board.GameObjects.Where(gf => gf.Position.Equals(attemptedNextPosition)).
             DefaultIfEmpty(new DoNothingGameObject()).FirstOrDefault();
+            gameObject.PerformInteraction(board,bot);
             
         }
 

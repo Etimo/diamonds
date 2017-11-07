@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from '../styles/cell.css'
+import gameObjecStyles from '../styles/gameobject.css'
 import imgDiamond from '../images/diamond.svg'
 import imgBase from '../images/home.svg'
 import imgRobot from '../images/robot.svg'
@@ -7,21 +8,25 @@ import imgBotBase from '../images/botBase.svg'
 import imgBotDiamond from '../images/botDiamond.svg'
 import imgBaseDiamond from '../images/baseDiamond.svg'
 import imgBotBaseDiamond from '../images/botBaseDiamond.svg'
+import imgTeleporter from '../images/Teleporter.svg'
 import { connect } from 'react-redux'
 
 const Cell = (props) => {
 
     const c = props.content;
+    const goImgMap = {
+        "Teleporter":imgTeleporter
+    };
 
-    const character = c.botName && c.diamond && c.base  ? imgBotBaseDiamond
+    const character = c.botName && c.diamond && c.base ? imgBotBaseDiamond
     : c.base && c.botName ? imgBotBase
-    // : c.botName && c.diamond ? imgBotDiamond
-    // : c.base && c.diamond ? imgBaseDiamond
+    : c.botName && c.diamond ? imgBotDiamond
+    : c.base && c.diamond ? imgBaseDiamond
     : c.base ? imgBase
     : c.botName ? imgRobot
     : c.diamond ? imgDiamond
-    : c.go && c.botName ? imgRobot
-    : c.go ? "/images/"+c.goName+".svg"
+    : c.botName && c.go ? imgRobot
+    : c.go ? goImgMap[c.goName]
     : ''
 
     let image = null;
@@ -29,7 +34,7 @@ const Cell = (props) => {
     // let base = null;
 
     if(character){
-      image = <img alt="Player" className={styles.cellImg} src={character}/>;
+      image = <img alt="Player" className={styles.cellImg+(c.goName && gameObjecStyles[c.goName]? " "+gameObjecStyles[c.goName] : "") }  src={character}/>;
     }
     
     name = c.botName ? <p className={styles.cellSign}>{c.botName}</p>

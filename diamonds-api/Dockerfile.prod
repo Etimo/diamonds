@@ -14,7 +14,6 @@ COPY . .
 
 RUN dotnet publish --output /out/ --configuration Release
 
-#FROM microsoft/aspnetcore:2.0.0
 FROM microsoft/dotnet:2.0.0-runtime-jessie
 WORKDIR /app
 COPY --from=0 /out .

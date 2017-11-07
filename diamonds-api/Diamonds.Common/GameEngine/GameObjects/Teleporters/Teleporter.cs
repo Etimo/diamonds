@@ -6,7 +6,7 @@ using Diamonds.Common.Models;
 using Diamonds.Common.GameEngine.GameObjects;
 namespace Diamonds.Common.GameEngine.GameObjects.Teleporters
 {
-    public class Teleporter : IGameObject
+    public class Teleporter : BaseGameObject
     {
         public const string NameString = "Teleporter";
         private string generateRandomString(){

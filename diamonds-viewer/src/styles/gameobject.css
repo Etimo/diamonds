@@ -1,0 +1,16 @@
+@keyframes spin{
+    from{
+        -ms-transform:rotate(0deg);
+        -webkit-transform:rotate(0deg);
+        transform:rotate(0deg);
+    }
+    to{
+        -ms-transform:rotate(360deg);
+        -webkit-transform:rotate(360deg);
+        transform:rotate(360deg);
+    }
+}
+.Teleporter{
+    animation:spin 10s infinite;
+    animation-timing-function:linear;
+}

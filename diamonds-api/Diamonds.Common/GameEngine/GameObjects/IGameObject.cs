@@ -5,9 +5,9 @@ using Diamonds.Common.GameEngine.GameObjects.Teleporters;
 using Diamonds.Common.Models;
 namespace Diamonds.Common.GameEngine.GameObjects
 {
-    [MongoDB.Bson.Serialization.Attributes.BsonDiscriminator(RootClass = true)]
-[MongoDB.Bson.Serialization.Attributes.BsonKnownTypes(typeof(Teleporter))]
-
+[MongoDB.Bson.Serialization.Attributes.BsonDiscriminator(RootClass = true)]
+[MongoDB.Bson.Serialization.Attributes.BsonKnownTypes(typeof(
+    Diamonds.Common.GameEngine.GameObjects.Teleporters.Teleporter),typeof(DoNothingGameObject))]
     public abstract class IGameObject
     {
         public abstract string Name { get; }

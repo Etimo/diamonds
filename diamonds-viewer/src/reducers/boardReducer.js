@@ -36,9 +36,9 @@ const boardReducer = (state = initialState.gameboard, action) => {
                 }
             })
             action.gameboard.gameObjects.forEach(go => {
-                newGameboard[go.y][go.x] = {
-                    ...newGameboard[go.y][go.x],
-                    goName:go.Name,
+                newGameboard[go.position.y][go.position.x] = {
+                    ...newGameboard[go.position.y][go.position.x],
+                    goName:go.name,
                     go: true,
                 }
             })

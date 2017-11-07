@@ -1,10 +1,10 @@
 export default {
     gameboard: {
         rows: [[]],
-        gameObjects: [],
         bots: [
 
         ],
+        gameObjects: [],
         highscores: []
     },
     windowSize: {

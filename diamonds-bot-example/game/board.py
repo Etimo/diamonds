@@ -5,6 +5,7 @@ class Board(object):
         self.width = data["width"]
         self.height = data["height"]
         self.bots = data["bots"]
+        self.gameObjects = data["gameObjects"]
         self.diamonds = data["diamonds"]
         self.data = data
 
