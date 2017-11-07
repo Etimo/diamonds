@@ -35,6 +35,13 @@ const boardReducer = (state = initialState.gameboard, action) => {
                     diamond: true,
                 }
             })
+            action.gameboard.gameObjects.forEach(go => {
+                newGameboard[go.y][go.x] = {
+                    ...newGameboard[go.y][go.x],
+                    goName:go.Name,
+                    go: true,
+                }
+            })
             return {
                 ...state,
                 bots: action.gameboard.bots,

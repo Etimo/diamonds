@@ -12,6 +12,7 @@ function* pollForUpdates() {
 
         const newGameboard = {
           bots: board.data.bots,
+          gameObjects: board.data.gameObjects,
           diamonds: board.data.diamonds,
           boardId: board.data.boardId,
           width: board.data.width,

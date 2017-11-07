@@ -13,13 +13,15 @@ const Cell = (props) => {
 
     const c = props.content;
 
-    const character = c.botName && c.diamond && c.base ? imgBotBaseDiamond
+    const character = c.botName && c.diamond && c.base  ? imgBotBaseDiamond
     : c.base && c.botName ? imgBotBase
     // : c.botName && c.diamond ? imgBotDiamond
     // : c.base && c.diamond ? imgBaseDiamond
     : c.base ? imgBase
     : c.botName ? imgRobot
     : c.diamond ? imgDiamond
+    : c.go && c.botName ? imgRobot
+    : c.go ? "/images/"+c.goName+".svg"
     : ''
 
     let image = null;

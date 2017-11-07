@@ -10,7 +10,7 @@ namespace Diamonds.Common.Entities
     {
 
         static Random _random = new Random();
-        public List<IGameObject> GameObjects  { get;set;}
+        public List<IGameObject> GameObjects  { get;set;} = new List<IGameObject>();
         public string Id { get; set; }
         public int Width { get; set; }
         public int Height { get; set; }

@@ -2,17 +2,15 @@
 using System.Collections.Generic;
 using Diamonds.Common.Entities;
 using Diamonds.Common.GameEngine.GameObjects;
+using Diamonds.Common.GameEngine.GameObjects.Teleporters;
 using Diamonds.Common.Models;
 using System.Linq;
-namespace Diamonds.GameEngine.GameObjects.Teleporter{
-public class TeleporterGenerator  : IGameObjectGenerator<Teleporter>{
+namespace Diamonds.Common.GameEngine.GameObjects.Teleporters{
+public class TeleporterGenerator : IGameObjectGenerator {
     private  const int TeleporterPairs  = 1;
-     public List<Teleporter> RegenerateObjects(Board board){
+     public List<IGameObject> RegenerateObjects(Board board){
 
-        List<IGameObject> gameObjects = 
-         board.GameObjects.Where(gf=>
-         { return (gf is Teleporter ? false : true);}).ToList(); //List with no teleporters.
-         List<Teleporter> teleporters = new List<Teleporter>();
+         List<IGameObject> teleporters = new List<IGameObject>();
         for(int i = 0; i< TeleporterPairs;i++){
             Teleporter teleporterOne = new Teleporter();
             Teleporter teleporterTwo = new Teleporter(teleporterOne.LinkedTeleporterString);
@@ -21,17 +19,17 @@ public class TeleporterGenerator  : IGameObjectGenerator<Teleporter>{
             teleporters.Add(teleporterOne);
             teleporters.Add(teleporterTwo);
         }
-            gameObjects.AddRange(teleporters);
-            board.GameObjects = gameObjects; //Modifies board,
+            //gameObjects.AddRange(teleporters);
+            //board.GameObjects = gameObjects; //Modifies board,
             return teleporters;
      }
      public List<Position> GetObjectPositions(Board board){
          return board.GameObjects.Where(go => go is Teleporter)
             .Select(go=>go.Position).ToList(); //TODO: Figure out good constant stor in dotnet.
      }
-     public List<Teleporter> GetGameObjectList(Board board){
+     public List<IGameObject> GetGameObjectList(Board board){
          return board.GameObjects.Where(go => go is Teleporter)
-             .Select(go => go as Teleporter).ToList();
+             .ToList();
      }
 
 }

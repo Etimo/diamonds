@@ -1,6 +1,7 @@
 export default {
     gameboard: {
         rows: [[]],
+        gameObjects: [],
         bots: [
 
         ],

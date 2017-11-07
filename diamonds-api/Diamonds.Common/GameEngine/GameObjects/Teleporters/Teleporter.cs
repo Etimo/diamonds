@@ -4,7 +4,7 @@ using Diamonds.Common.Entities;
 using System.Linq;
 using Diamonds.Common.Models;
 using Diamonds.Common.GameEngine.GameObjects;
-namespace Diamonds.GameEngine.GameObjects.Teleporter
+namespace Diamonds.Common.GameEngine.GameObjects.Teleporters
 {
     public class Teleporter : IGameObject
     {
