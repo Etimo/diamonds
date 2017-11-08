@@ -9,12 +9,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace Diamonds.Tests.ApiTests
 {
 
     public class BoardsControllerTests
     {
+        private readonly ITestOutputHelper output;
+
+        public BoardsControllerTests(ITestOutputHelper output)
+        {
+            this.output = output;
+        }
+
         [Fact]
         public void CanGetBoards()
         {
@@ -79,6 +87,10 @@ namespace Diamonds.Tests.ApiTests
             var board = boardResult.Value as Board;
             Assert.NotEmpty(board.GameObjects);
             Assert.True(board.GameObjects.Any(go => go.Name.Equals("Wall")));
+            var wall =
+                board.GameObjects.Where(go =>
+                    go.Name.Equals("Wall")).First();
+            Assert.True(board.IsPositionBlocked(wall.Position));
             Assert.Equal(2,
              board.GameObjects.Where(go =>
                  go.Name.Equals("Teleporter")).Count()

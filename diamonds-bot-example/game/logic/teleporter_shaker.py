@@ -1,12 +1,13 @@
 import random
 from ..util import get_direction
-
+from time import sleep
 
 class TeleporterShake(object):
     def __init__(self):
         self.goal_position = None
 
     def next_move(self, board_bot, board):
+        sleep(0.5);
         # Analyze new state
             # Move towards first diamond on board
         self.goal_position = board.gameObjects[0].get("position");
