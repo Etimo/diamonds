@@ -78,6 +78,7 @@ namespace Diamonds.Tests.ApiTests
             var boardResult = controller.GetBoard("2") as OkObjectResult;
             var board = boardResult.Value as Board;
             Assert.NotEmpty(board.GameObjects);
+            Assert.True(board.GameObjects.Any(go => go.Name.Equals("Wall")));
             Assert.Equal(2,
              board.GameObjects.Where(go =>
                  go.Name.Equals("Teleporter")).Count()

@@ -16,6 +16,9 @@ public class TeleporterGenerator : IGameObjectGenerator {
             Teleporter teleporterTwo = new Teleporter(teleporterOne.LinkedTeleporterString);
             teleporterOne.Position = board.GetRandomEmptyPosition();
             teleporterTwo.Position = board.GetRandomEmptyPosition();
+            while(teleporterOne.Position.Equals(teleporterTwo.Position)){
+                teleporterTwo.Position = board.GetRandomEmptyPosition(); //Could be same slot.
+            }
             teleporters.Add(teleporterOne);
             teleporters.Add(teleporterTwo);
         }

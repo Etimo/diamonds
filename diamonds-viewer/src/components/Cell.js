@@ -9,13 +9,15 @@ import imgBotDiamond from '../images/botDiamond.svg'
 import imgBaseDiamond from '../images/baseDiamond.svg'
 import imgBotBaseDiamond from '../images/botBaseDiamond.svg'
 import imgTeleporter from '../images/Teleporter.svg'
+import imgWall from '../images/wall.svg'
 import { connect } from 'react-redux'
 
 const Cell = (props) => {
 
     const c = props.content;
     const goImgMap = {
-        "Teleporter":imgTeleporter
+        "Teleporter":imgTeleporter,
+        "Wall":imgWall
     };
 
     const character = c.botName && c.diamond && c.base ? imgBotBaseDiamond

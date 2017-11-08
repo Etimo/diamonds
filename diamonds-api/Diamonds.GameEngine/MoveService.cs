@@ -7,7 +7,6 @@ using System.Linq;
 using Diamonds.Common.Entities;
 using Diamonds.Common.Models;
 using System.Collections.Generic;
-using Diamonds.Common.GameEngine.GameObjects;
 using Diamonds.Common.GameEngine.DiamondGenerator;
 
 namespace Diamonds.GameEngine
@@ -16,13 +15,31 @@ namespace Diamonds.GameEngine
     {
         protected readonly IStorage _storage;
         protected readonly IDiamondGeneratorService _boardDiamondManager;
+        protected readonly IGameObjectGeneratorService _boardObjectGenerator;
 
-        public MoveService(IStorage storage, IDiamondGeneratorService boardDiamondManager)
+        public MoveService(IStorage storage, 
+        IDiamondGeneratorService boardDiamondManager,
+        IGameObjectGeneratorService boardObjectGenerator)
         {
             _storage = storage;
             _boardDiamondManager = boardDiamondManager;
+            _boardObjectGenerator = boardObjectGenerator;
         }
 
+            // TODO: Consider moving the call to _boardDiamondManager away from this class
+        private void regenerateBoardObjects(Board board){
+                board.GameObjects = new List<BaseGameObject>(); 
+                board.Diamonds = _boardDiamondManager.GenerateDiamondsIfNeeded(board);
+                if(_boardObjectGenerator==null)return;
+                var list = 
+                 _boardObjectGenerator
+                 .getCurrentObjectGenerators()
+                 .SelectMany(
+                     gog=>
+                     gog.RegenerateObjects(board))
+                     .ToList();
+                 board.GameObjects = list;
+        }
         public MoveResultCode Move(string boardId, string botName, Direction direction)
         {
             var board = _storage.GetBoard(boardId);
@@ -33,9 +50,9 @@ namespace Diamonds.GameEngine
                 return resultCode;
             }
 
-            // TODO: Consider moving the call to _boardDiamondManager away from this class
-            board.Diamonds = _boardDiamondManager.GenerateDiamondsIfNeeded(board);
-
+            if(_boardDiamondManager.NeedToGenerateDiamonds(board)){
+                regenerateBoardObjects(board);
+            }
             _storage.UpdateBoard(board);
 
             return MoveResultCode.Ok;
