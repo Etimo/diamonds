@@ -4,9 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Diamonds.Common.Entities;
 using Diamonds.Common.Models;
+using Diamonds.Common.GameEngine.GameObjects;
 
 namespace Diamonds.Common.Storage
 {
+
     public class MemoryStorage : IStorage
     {
         private List<Bot> _bots = new List<Bot>
@@ -23,6 +25,7 @@ namespace Diamonds.Common.Storage
             new Board
             {
                 Id = "1", Height = 10, Width = 10,
+                GameObjects = new List<BaseGameObject>{},
                 Bots = new List<BoardBot>{
                     new BoardBot {
                         Name = "Jane Jet",

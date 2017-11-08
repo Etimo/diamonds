@@ -10,6 +10,7 @@ using Swashbuckle.AspNetCore.Swagger;
 
 using Diamonds.Common.Storage;
 using Diamonds.Common.GameEngine.DiamondGenerator;
+using Diamonds.Common.GameEngine.GameObjects;
 using Diamonds.GameEngine;
 using Diamonds.Common.GameEngine.Move;
 using System.IO;
@@ -44,6 +45,7 @@ namespace Diamonds.Rest
             services.AddScoped<IStorage, MongoDBStorage>();
             services.AddScoped<IMoveService, MoveService>();
             services.AddScoped<IDiamondGeneratorService, DiamondGeneratorService>();
+            services.AddScoped<IGameObjectGeneratorService, GameObjectGeneratorService>();
 
             // Add framework services.
             services.AddMvc();

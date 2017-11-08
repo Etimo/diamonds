@@ -2,6 +2,7 @@
 using Diamonds.Common.Storage;
 using Diamonds.Common.Enums;
 using Diamonds.Common.GameEngine.Move;
+using Diamonds.Common.GameEngine.GameObjects;
 using System.Linq;
 using Diamonds.Common.Entities;
 using Diamonds.Common.Models;
@@ -14,13 +15,31 @@ namespace Diamonds.GameEngine
     {
         protected readonly IStorage _storage;
         protected readonly IDiamondGeneratorService _boardDiamondManager;
+        protected readonly IGameObjectGeneratorService _boardObjectGenerator;
 
-        public MoveService(IStorage storage, IDiamondGeneratorService boardDiamondManager)
+        public MoveService(IStorage storage, 
+        IDiamondGeneratorService boardDiamondManager,
+        IGameObjectGeneratorService boardObjectGenerator)
         {
             _storage = storage;
             _boardDiamondManager = boardDiamondManager;
+            _boardObjectGenerator = boardObjectGenerator;
         }
 
+            // TODO: Consider moving the call to _boardDiamondManager away from this class
+        private void regenerateBoardObjects(Board board){
+                board.GameObjects = new List<BaseGameObject>(); 
+                board.Diamonds = _boardDiamondManager.GenerateDiamondsIfNeeded(board);
+                if(_boardObjectGenerator==null)return;
+                var list = 
+                 _boardObjectGenerator
+                 .getCurrentObjectGenerators()
+                 .SelectMany(
+                     gog=>
+                     gog.RegenerateObjects(board))
+                     .ToList();
+                 board.GameObjects = list;
+        }
         public MoveResultCode Move(string boardId, string botName, Direction direction)
         {
             var board = _storage.GetBoard(boardId);
@@ -31,9 +50,9 @@ namespace Diamonds.GameEngine
                 return resultCode;
             }
 
-            // TODO: Consider moving the call to _boardDiamondManager away from this class
-            board.Diamonds = _boardDiamondManager.GenerateDiamondsIfNeeded(board);
-
+            if(_boardDiamondManager.NeedToGenerateDiamonds(board)){
+                regenerateBoardObjects(board);
+            }
             _storage.UpdateBoard(board);
 
             return MoveResultCode.Ok;
@@ -64,11 +83,20 @@ namespace Diamonds.GameEngine
             AttemptDeliverInBase(attemptedNextPosition, bot);
 
             bot.Position = attemptedNextPosition;
+            AttemptTriggerGameObject(board,attemptedNextPosition, bot);
 
             // update timers on bot
             bot.NextMoveAvailableAt = DateTime.UtcNow.AddMilliseconds(board.MinimumDelayBetweenMoves);
 
             return MoveResultCode.Ok;
+        }
+
+        private void AttemptTriggerGameObject(Board board,Position attemptedNextPosition, BoardBot bot)
+        {
+            var gameObject = board.GameObjects.Where(gf => gf.Position.Equals(attemptedNextPosition)).
+            DefaultIfEmpty(new DoNothingGameObject()).FirstOrDefault();
+            gameObject.PerformInteraction(board,bot);
+            
         }
 
         private void RemoveBot(BoardBot bot, Board board)
@@ -112,8 +140,8 @@ namespace Diamonds.GameEngine
         private bool CanMoveToPosition(Board board, BoardBot bot, Position position)
         {
             return PositionIsInBoard(position, board)
-                && PositionIsOpponentBase(position, bot.BotId, board.Bots) == false
-                && PositionHasBot(position, board.Bots) == false;
+                && PositionIsOpponentBase(position, bot.BotId, board.Bots) == false  
+                && board.IsPositionBlocked(position) == false; //Includes bots and GameObjects which return true for blockable.
         }
 
         private bool PositionHasBot(Position position, IEnumerable<BoardBot> bots)

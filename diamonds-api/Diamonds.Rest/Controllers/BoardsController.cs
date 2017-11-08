@@ -7,6 +7,7 @@ using Diamonds.Common.Entities;
 using Diamonds.Common.Storage;
 using Diamonds.Common.Models;
 using Diamonds.Common.GameEngine.Move;
+using Diamonds.Common.GameEngine.GameObjects;
 using System.Threading;
 using Diamonds.Common.GameEngine.DiamondGenerator;
 
@@ -14,16 +15,20 @@ namespace Diamonds.Rest.Controllers
 {
     [Route("api/[controller]")]
     public class BoardsController : Controller
-    {
+    {   
+          IGameObjectGeneratorService _gameObjectGeneratorService;
         IStorage _storage;
         IMoveService _moveService;
         IDiamondGeneratorService _diamondGeneratorService;
 
-        public BoardsController(IStorage storage, IMoveService moveService, IDiamondGeneratorService diamondGeneratorService)
+        public BoardsController(IStorage storage, IMoveService moveService,
+         IDiamondGeneratorService diamondGeneratorService,
+         IGameObjectGeneratorService gameObjectGenerators)
         {
             this._storage = storage;
             this._moveService = moveService;
             this._diamondGeneratorService = diamondGeneratorService;
+            this._gameObjectGeneratorService = gameObjectGenerators;
         }
 
         /// <summary>
@@ -35,6 +40,19 @@ namespace Diamonds.Rest.Controllers
         {
             var boards = _storage.GetBoards();
             return Ok(boards);
+        }
+        private void regenerateBoardObjects(Board board){
+                board.GameObjects = new List<BaseGameObject>(); 
+                board.Diamonds = _diamondGeneratorService.GenerateDiamondsIfNeeded(board);
+                if(_gameObjectGeneratorService==null)return;
+                var list = 
+                 _gameObjectGeneratorService
+                 .getCurrentObjectGenerators()
+                 .SelectMany(
+                     gog=>
+                     gog.RegenerateObjects(board))
+                     .ToList();
+                 board.GameObjects = list;
         }
 
         /// <summary>
@@ -53,8 +71,10 @@ namespace Diamonds.Rest.Controllers
             {
                 return NotFound();
             }
-            board.Diamonds = _diamondGeneratorService.GenerateDiamondsIfNeeded(board);
-            _storage.UpdateBoard(board);
+            if(_diamondGeneratorService.NeedToGenerateDiamonds(board)){
+                regenerateBoardObjects(board);
+                _storage.UpdateBoard(board);
+            }
 
             return Ok(board);
         }

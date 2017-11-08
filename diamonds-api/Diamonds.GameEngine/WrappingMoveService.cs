@@ -2,6 +2,7 @@
 using Diamonds.Common.Storage;
 using Diamonds.Common.Enums;
 using Diamonds.Common.GameEngine.Move;
+using Diamonds.Common.GameEngine.GameObjects;
 using System.Linq;
 using Diamonds.Common.Entities;
 using Diamonds.Common.Models;
@@ -19,8 +20,10 @@ namespace Diamonds.GameEngine
     public class WrappingMoveService : MoveService
     {
 
-        public WrappingMoveService(IStorage storage, IDiamondGeneratorService boardDiamondManager)
-          :base(storage,boardDiamondManager) //TODO: Remove inheritance, all methods are reimplemented.
+        public WrappingMoveService(IStorage storage, 
+        IDiamondGeneratorService boardDiamondManager,
+        IGameObjectGeneratorService boardsObjectGenerator)
+          :base(storage,boardDiamondManager,boardsObjectGenerator) //TODO: Remove inheritance, all methods are reimplemented.
         {
         }
 

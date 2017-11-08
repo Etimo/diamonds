@@ -4,6 +4,7 @@ export default {
         bots: [
 
         ],
+        gameObjects: [],
         highscores: []
     },
     windowSize: {

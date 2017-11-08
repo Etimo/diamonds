@@ -11,16 +11,20 @@ namespace Diamonds.GameEngine
     {
         const decimal MinRatioOfDiamonds = 0.01m;
         const decimal MaxRatioOfDiamonds = 0.2m;
+        public bool NeedToGenerateDiamonds(Board board){
 
-        public List<Position> GenerateDiamondsIfNeeded(Board board)
-        {
             var numberOfBoardCells = board.Height * board.Width;
 
             var currentRatioOfDiamonds = (decimal) board.Diamonds.Count() / numberOfBoardCells;
 
-            var shouldGenerateDiamonds = currentRatioOfDiamonds < MinRatioOfDiamonds;
+             return  currentRatioOfDiamonds < MinRatioOfDiamonds;
 
-            if (shouldGenerateDiamonds == false)
+        }
+
+        public List<Position> GenerateDiamondsIfNeeded(Board board)
+        {
+            var numberOfBoardCells = board.Height * board.Width;
+            if (NeedToGenerateDiamonds(board) == false)
             {
                 return board.Diamonds;
             }
