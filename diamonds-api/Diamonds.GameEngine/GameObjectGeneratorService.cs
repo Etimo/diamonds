@@ -8,8 +8,7 @@ namespace Diamonds.GameEngine {
     public class GameObjectGeneratorService : IGameObjectGeneratorService
     {
         List<IGameObjectGenerator> _generators = new List<IGameObjectGenerator>(){
-            new TeleporterGenerator(),
-            new WallGenerator()
+            new TeleporterGenerator()
         };
         public List<IGameObjectGenerator> getCurrentObjectGenerators()
         {
