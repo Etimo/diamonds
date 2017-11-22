@@ -1,11 +1,11 @@
 # Etimo Diamonds
 
-This readme is for developers that want to develop a bot to play Etimo Diamonds. When your bot is playing, you can watch it in realtime at http://diamonds.etimo.se. 
+This readme is for developers that want to develop a bot to play Etimo Diamonds. When your bot is playing, you can watch it in realtime at http://diamonds.etimo.se.
 
 If you want to run the backend on your own computer (which you don't have to) then read the [docker readme](DOCKER.md) instead.
 
 # Game rules
-The purpose of the game is to collect as many diamonds as possible and deliver them in the base within one minute. The bot can carry at most 5 diamonds, so it needs to deliver the diamonds to the base often. The difficult part is to write an algorithm that calculates the most efficient path to diamonds and back to the base. 
+The purpose of the game is to collect as many diamonds as possible and deliver them in the base within one minute. The bot can carry at most 5 diamonds, so it needs to deliver the diamonds to the base often. The difficult part is to write an algorithm that calculates the most efficient path to diamonds and back to the base.
 
 # API
 
