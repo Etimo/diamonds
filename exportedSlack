@@ -1,0 +1,281 @@
+---
+layout: post
+title: Teknik-chatt 2017-12-13
+---
+### jenspeterolsson - 2017-12-13 08:28 56s
+Apropå parcel så har jag varken provat det eller brunch men jag hade gärna testat brunch i ett lite större projekt
+### oscarnylander - 2017-12-13 10:57 22s
+Försökte ta en titt igår på hur långt Rust kommit som språk för att skapa webapplikationer och drog snabbt slutsatsen att det inte ens är i närheten av vart det behöver vara för att kunna övervägas för webapplikationsutveckling.
+
+Så nu vet vi det!
+### oscarnylander - 2017-12-13 11:11 42s
+[http://www.michaelnygard.com/blog/2017/12/the-entity-service-antipattern/](http://www.michaelnygard.com/blog/2017/12/the-entity-service-antipattern/)
+
+Vad tycker ni, är entity services korrekt väg att gå eller ett anti-pattern?
+### oscarnylander - 2017-12-13 11:12 33s
+[https://blogs.technet.microsoft.com/dataplatforminsider/2017/12/12/try-mssql-cli-a-new-interactive-command-line-tool-for-sql-server/](https://blogs.technet.microsoft.com/dataplatforminsider/2017/12/12/try-mssql-cli-a-new-interactive-command-line-tool-for-sql-server/)
+
+Ett verktyg likt pgcli och mycli finns nu till mssql!
+
+`In order to install mssql-cli, you must have Python on your machine.` Oväntat för Microsoft-mjukvara!
+### jenspeterolsson - 2017-12-13 02:00 07s
+Frågan om entity services är intressant. Den stora fördelen med entiteter tycker jag är att rätt valda så kan man få ett gemensamt synsätt på systemet hela vägen från beställare via utvecklare till användare. Ju mer specifika och konkreta entiteter man använder, desto bättre. Jag tycker alltså att tydligheten är ett stort skäl till att det många gånger är bra att börja bygga tjänster utifrån entiteter. Å andra sidan, om det finns en entitet "Product" i ett e-handelssystem med ett mycket stort antal produkter och transaktioner så kommer knappast samma mikrotjänst på ett bra sätt kunna hantera CRUD, att hämta detaljer för en order och att göra en bred sökning bland alla produkter utifrån t.ex. en kategori. Det sista fallet med sök skulle t.ex. kunna vara en mikrotjänst som använder Elastic Search och heter "ProductSearch".  Så jag tror alltså inte på ett regelverk där det måste vara antingen eller. Och jag tror också att även om man väljer att designa utifrån processflöden så får man samma problem med dependencies (och dessutom vill processflöden gärna växa över tid både i omfattning och komplexitet). Och en ShoppingService kommer behöva info från en OrderService (och båda behöver i sin tur info från ProductSearchService o.s.v.).
+### jenspeterolsson - 2017-12-13 02:02 42s
+Den stora bristen i exemplet är att det inte analyserar hur man kan abstrahera kopplingarna mellan tjänster. Detta problem är i stort det samma oavsett entity services, men att inte ha direkta dependencies mellan url:er etc. är extremt viktigt i ett större system om man ska få mer av fördelarna och mindre av nackdelarna med micro services. Alltså API gateways, routing med proxies o.s.v.
+### jenspeterolsson - 2017-12-13 02:03 35s
+Med denna långa utläggning vill jag alltså ha sagt att det kan vara ett anti-pattern men att det inte behöver vara det :wink:
+
+---
+layout: post
+title: Teknik-chatt 2017-12-08
+---
+### oscarnylander - 2017-12-08 10:36 27s
+Dagens lösningsförslag för prod-issue:
+```Possible solutions:
+
+- Solve the root cause of this issue in remote apis
+- Use a retry strategy for all applicable cases (problem goes away after retrying)
+- Give up and cry```
+### oscarnylander - 2017-12-08 11:19 03s
+Dagens kommentar:
+`// DONT WASTE TIME HERE ANY MORE, HOURS SPENT: 8`
+följt av en utkommenterad SQL-query
+### erik.malm - 2017-12-08 11:20 02s
+Jag gillar era kommentarer, våra är mer corporate...
+### oscarnylander - 2017-12-08 11:20 32s
+Finns klara fördelar med att inte jobba i fintech :smirk:
+
+---
+layout: post
+title: Teknik-chatt 2017-12-14
+---
+### oscarnylander - 2017-12-14 03:08 08s
+Dagens commitmeddelande: `...`
+
+---
+layout: post
+title: Teknik-chatt 2017-12-07
+---
+### erik.malm - 2017-12-07 05:54 46s
+Coolt, att se någon göra en upsert till postgres förvirrar mitt MongoDB älskande hjärta. Bra jobbat med milstolparna @jenspeterolsson.
+### johanhazelius - 2017-12-07 01:24 02s
+Nu har vi överlämnat årets julgåva till Hand in Hand. Vi har köpt en andel i detta projekt: [https://www.handinhand.nu/wp-content/uploads/2017/10/JOBS_FOR_CHANGE_whitepaper.pdf](https://www.handinhand.nu/wp-content/uploads/2017/10/JOBS_FOR_CHANGE_whitepaper.pdf)
+### johanhazelius - 2017-12-07 01:24 18s
+God Jul (lite för tidigt men ändå:)
+### oscarnylander - 2017-12-07 01:24 37s
+God jul!
+### erik.malm - 2017-12-07 01:51 38s
+Aldrig för tidigt! God jul...
+### erik.malm - 2017-12-07 08:07 46s
+De tre av oss på SEB har genomgått registerkontroll, verkar dock som att riksbanken haft lite svårare med detta just på IT sidan.
+### erik.malm - 2017-12-07 08:07 47s
+[https://www.svd.se/allvarliga-brister-funna-i-riksbankens-it-sakerhet](https://www.svd.se/allvarliga-brister-funna-i-riksbankens-it-sakerhet)
+### johanhazelius - 2017-12-07 09:56 07s
+Verkligen. Verkar vara ett vanligt förekommande problem bland svenska myndigheter..
+
+---
+layout: post
+title: Teknik-chatt 2017-12-05
+---
+### daniel.winther - 2017-12-05 07:36 47s
+Ja det kan man fråga sig men tydligen fanns det lite info om klang i ord och hur det kopplas till deppighet/negativitet. Men självklart mest en kul grej :smile:
+### daniel.winther - 2017-12-05 07:38 32s
+För er som också använder vscode finns den här pluginen för att förhindra komplex kod:
+
+[https://marketplace.visualstudio.com/items?itemName=kisstkondoros.vscode-codemetrics](https://marketplace.visualstudio.com/items?itemName=kisstkondoros.vscode-codemetrics)
+
+Har kört den i hela projektet här på seb och tycker den bidrar en del till att hålla funktionerna små och testbara. 
+### oscarnylander - 2017-12-05 09:40 32s
+Show etimo: Flaskbuckle! (Swashbuckle för Flask) [https://github.com/oscarnyl/flaskbuckle](https://github.com/oscarnyl/flaskbuckle)
+
+Autogenererar swagger baserat på ett Flask-API och exponerar en SwaggerUI baserat på den genererade swaggerfilen.
+### oscarnylander - 2017-12-05 09:41 17s
+(det står `pip install flaskbuckle` i instruktionerna men jag har inte publicerat det som paket ännu - det kommer idag/ikväll)
+### jenspeterolsson - 2017-12-05 09:43 37s
+Snyggt @oscarnylander
+### oscarnylander - 2017-12-05 09:44 32s
+Tackar! Vill ni se det live kan ni:
+1. Klona repot
+2. `docker-compose up`
+3. [http://localhost:5000/api/docs](http://localhost:5000/api/docs)
+### oscarnylander - 2017-12-05 09:44 46s
+baserat på api:t som finns i src/app.py
+### oscarnylander - 2017-12-05 09:45 37s
+Fixade en knepig bugg igår som uppstod pga. pythons mutable-dicts. Immutable borde vara default, det sparar vi nog massor på i slutändan tror jag
+### erik.malm - 2017-12-05 09:48 06s
+Coolt @oscarnylander, nu behöver jag bara ett projekt jag kan dokumentera. Uppskattar också todo delen längst ned i readme.
+### erik.malm - 2017-12-05 10:01 10s
+Tyvärr verkar mitt försök att testköra ha utlöst livskris i min docker daemon. Blir lokal techsupport istället.
+
+---
+layout: post
+title: Teknik-chatt 2017-12-06
+---
+### daniel.winther - 2017-12-06 08:14 23s
+Google har en ai som bygger andra AIs (AIar? Hur skriver man ai i plural?) och den har byggt en som är bättre än alla andra på datorsyn, även alla som är skapade av människor. Början på slutet?
+
+[http://www.sciencealert.com/google-s-ai-built-it-s-own-ai-that-outperforms-any-made-by-humans](http://www.sciencealert.com/google-s-ai-built-it-s-own-ai-that-outperforms-any-made-by-humans)
+### oscarnylander - 2017-12-06 09:13 48s
+Higher-Order AI? :horse:
+### oscarnylander - 2017-12-06 09:15 29s
+Nån som har förslag på hur man representerar "dict-shapes" i python på ett cleant sätt? Kom på att det finns kritiska brister i min klassbaserade approach som gör många APIer orepresenterbara på ett väldigt obekvämt sätt (pga variabelnamnrestriktioner i python)
+### daniel.winther - 2017-12-06 09:28 22s
+Vad är dict shapes?
+### oscarnylander - 2017-12-06 09:29 24s
+Vill kunna representera en "typad dict", ala:```
+{
+    str "string_key": "example value",
+    int "int_key": "12345
+}```
+### oscarnylander - 2017-12-06 09:29 54s
+egentligen så att en swagger spec kan genereras utifrån den (ett json schema och ett example)
+### oscarnylander - 2017-12-06 09:30 30s
+trodde jag var klipsk när jag utformade min SwaggerModel-class i Flaskbuckle, men den var fundamentalt trasig kom jag fram till senare :disappointed:
+### oscarnylander - 2017-12-06 09:39 03s
+Kanske slutar med att jag får köra en dict med tuple-values (type, actual_value)
+### jenspeterolsson - 2017-12-06 03:52 50s
+Jag har lagt upp de milestones vi skrev om för någon vecka sedan och också några issues. Tanken är då att man navigerar via milestones och sedan ser de issues som är kopplade till varje milestone (och att man skapar nya issues kopplade till en viss milestone). Använd issue nr vid commit, alltså t.ex. git commit -m "#1 amazing test scenario for hello world"
+### jenspeterolsson - 2017-12-06 03:52 54s
+[https://github.com/Etimo/photo-garden/milestones](https://github.com/Etimo/photo-garden/milestones)
+### jenspeterolsson - 2017-12-06 03:55 19s
+Jag har också skapat en basic node app med en testsetup som är snodd till stor del från det Bonnier/Expressen använder. En kombination av TDD/BDD, skulle jag säga.  Dels tycker jag den är bra och reflekterar mycket av de tankar många utvecklare har om hur man vill jobba testdrivet (snabbt och pragmatiskt och utifrån scenarios snarare än tekniska krav på coverage), dels kan det ju vara bra att vara bekant med denna setup rent kompetensmässigt.
+### jenspeterolsson - 2017-12-06 03:56 08s
+Vill någon hugga tag i de issues som ligger eller skapa nya så är det såklart bara att köra, annars rivstartar vi under nästa challenge!
+### jenspeterolsson - 2017-12-06 04:03 11s
+Är någon nyfiken på det vi gör på Bonnier finns en del av det som open source på npm/github, t.ex. [https://www.npmjs.com/package/pg-doc-store](https://www.npmjs.com/package/pg-doc-store)
+
+---
+layout: post
+title: Teknik-chatt 2017-12-11
+---
+### jens.hunt - 2017-12-11 12:53 46s
+C# 7.1 ger oss en async main metod: [https://blogs.msdn.microsoft.com/benwilli/2017/12/08/async-main-is-available-but-hidden/](https://blogs.msdn.microsoft.com/benwilli/2017/12/08/async-main-is-available-but-hidden/)
+### oscarnylander - 2017-12-11 01:02 31s
+:+1: hur mycket vinner man på det?
+### jenspeterolsson - 2017-12-11 01:18 58s
+Man slipper göra wait el. dyl. själv inuti main när man anropar en annan asynkron metod. Spelar oftast ingen roll men ändå mer cleant och ger kanske nya möjligheter för azure functions, aws lambdas m.m.
+### erik.malm - 2017-12-11 02:58 24s
+Mmm för serverless känns en async main som ett väldigt cleant alternativ.
+
+---
+layout: post
+title: Teknik-chatt 2017-12-01
+---
+### daniel.winther - 2017-12-01 01:04 41s
+Exempel på annorlunda dataanalys:
+[https://techworld.idg.se/2.2524/1.693637/kent-deppigaste-laten](https://techworld.idg.se/2.2524/1.693637/kent-deppigaste-laten)
+### erik.malm - 2017-12-01 01:37 19s
+Den lär vara från "La Belle Epoque" albumet annars är det fel på analysen.
+### erik.malm - 2017-12-01 01:39 43s
+Har spenderat mycket tid med R under min doktorandtid men måste erkänna att jag aldrig såg den här möjligheten.
+### jenspeterolsson - 2017-12-01 01:44 41s
+Jag som gillar Kent åtminstone fram till ca 2002 läste artikeln och deppigaste låten var från Hagnesta Hill
+### jenspeterolsson - 2017-12-01 01:45 06s
+Sedan sätter jag frågetecken för hur man kan göra en objektiv analys i frågan :wink:
+
+---
+layout: post
+title: Teknik-chatt 2017-11-29
+---
+### jenspeterolsson - 2017-11-29 01:04 35s
+Verkar det vettigt?
+### johanhazelius - 2017-11-29 01:24 46s
+Tycker det låter vettigt @jenspeterolsson 
+### daniel.winther - 2017-11-29 03:20 44s
+Låter som en bra start!
+### jenspeterolsson - 2017-11-29 05:43 01s
+Har flyttat markdown om produkt som vi uppdaterade senaste Etimo challenge till github istället (kan då öppnas direkt i browser), ligger här:
+### jenspeterolsson - 2017-11-29 05:43 02s
+[https://github.com/Etimo/photo-garden/blob/master/Product%20draft.md](https://github.com/Etimo/photo-garden/blob/master/Product%20draft.md)
+
+---
+layout: post
+title: Teknik-chatt 2017-12-12
+---
+### daniel.winther - 2017-12-12 09:02 47s
+Nån som provat Parcel än?
+[https://github.com/parcel-bundler/parcel](https://github.com/parcel-bundler/parcel)
+### daniel.winther - 2017-12-12 09:03 33s
+Känns som en dröm att gå ifrån webpack så jag ska prova på en gång :joy:
+### oscarnylander - 2017-12-12 09:50 08s
+läste lite, så som jag förstod det så nådde det inte riktigt upp till vad det lovade (det var lätt att confa om du ville ha precis det som erbjöds - annars gick det helt enkelt bara inte för många cases)
+### oscarnylander - 2017-12-12 09:50 20s
+men har såklart inte testat själv så kan inte säga allt för mycket
+### daniel.winther - 2017-12-12 10:14 37s
+Nej precis det är ju en zero conf i princip så blir ju svårt om man vill ha speciallösningar men tanken är ju att det ska funka för många vanliga fall. 
+### daniel.winther - 2017-12-12 10:14 50s
+Verkar funka för angular iaf
+### daniel.winther - 2017-12-12 10:15 27s
+Men att komma ifrån evighetslånga byggen med webpack är lite av en dröm här
+### oscarnylander - 2017-12-12 10:16 15s
+tar byggen lång tid med webpack för er? tidsåtgången är sällan ett problem i de projekt jag har jobbat med, främst komplexiteten i att konfigurera som är knepigt med webpack här.
+### daniel.winther - 2017-12-12 10:18 41s
+Vi har helt tvärtom. Vi kör default config från angular cli så vi behöver aldrig röra nån config. Däremot tar byggen ibland flera minuter, speciellt jobbigt om man ska försöka köra tdd. Men även jobbigt när det tar 10-20 sekunder även för diffbygge när man sparar filer och ska vänta på reload i webbläsaren. 
+### daniel.winther - 2017-12-12 10:24 23s
+Sen är webpack dålig på att plocka upp större förändringar. Här får vi ofta byggfel när man byter brancher och det är större delar av koden som är annorlunda. Då måste man alltid bygga om helt. Vet inte om det beror på Windows mer dock än webpack. Windows är ingen höjdare på att hantera många filförändringar, inte om man är van vid unix. 
+### oscarnylander - 2017-12-12 10:26 14s
+håller med, windows är högst problematiskt för filewatching
+### oscarnylander - 2017-12-12 10:26 36s
+men det tar även mycket tid när ni kör webpack-dev-server?
+### daniel.winther - 2017-12-12 10:26 42s
+Till följd av sånt får vi också problem med att det tex inte går att byta branch samtidigt som man bygger koden i en annan flik etc. git ballar ur och hamnar i detachade state med halvgjorda merges/checkouts. 
+### oscarnylander - 2017-12-12 10:26 56s
+:windows:
+### daniel.winther - 2017-12-12 10:27 18s
+Jag saknar utveckling på min Mac 🤣
+### oscarnylander - 2017-12-12 10:27 24s
+förstår det :wink:
+### oscarnylander - 2017-12-12 10:27 39s
+själv saknar jag linux när jag sitter på macen, native docker är vad jag behöver
+### daniel.winther - 2017-12-12 10:27 43s
+Sen att min vänstra shifttangent har lossnat gör inte saken enklare :joy:
+### oscarnylander - 2017-12-12 10:27 57s
+:cry: :gun:
+### daniel.winther - 2017-12-12 10:28 41s
+Zsh på macen ger mig allt jag behöver. Klart man saknar vissa grejer i linux ändå men men, kompromiss som är klart mer värd än att jobba på Windows :smile:
+### oscarnylander - 2017-12-12 10:28 50s
+men som sagt, får ni även lång feedback-loop med webpack-dev-server?
+### oscarnylander - 2017-12-12 10:28 55s
+för den brukar vara ganska kvick
+### daniel.winther - 2017-12-12 10:29 23s
+Ja. Som jag skrev ovan så har vi långa feedbackloopar även i dev
+### oscarnylander - 2017-12-12 10:29 31s
+skumt
+### oscarnylander - 2017-12-12 10:29 46s
+vi hade ca. 5 sekunder som värst på qliro i den conf jag hade
+### oscarnylander - 2017-12-12 10:29 56s
+save -&gt; rebuilt and reloaded
+### daniel.winther - 2017-12-12 10:30 07s
+Njae, en stor bov är virusprogrammet som måste kolla allt som sker i processen :weary:
+### oscarnylander - 2017-12-12 10:32 18s
+:windows: :gun:
+### oscarnylander - 2017-12-12 10:32 23s
+känner igen det där
+### oscarnylander - 2017-12-12 10:32 47s
+antiviruset på qliro gjorde att `yarn install` tog tillräckligt med tid att man gick och hämtade kaffe varje gång man gjorde det
+### oscarnylander - 2017-12-12 10:33 05s
+samtidigt borde det gå att confa den till att köra bara in-memory (webpack-dev-server)
+### oscarnylander - 2017-12-12 10:33 11s
+så att inga filer emittas och inget problem uppstår
+### daniel.winther - 2017-12-12 10:49 14s
+Den ska fortfarande läsa filer dock.
+### oscarnylander - 2017-12-12 10:52 09s
+:thinking_face: Stäng av antiviruset :wink:
+### oscarnylander - 2017-12-12 10:52 24s
+blir det mac på nästa uppdrag?
+### daniel.winther - 2017-12-12 10:52 47s
+Ja det vore såklart skönt att stänga av men icke :wink:
+### daniel.winther - 2017-12-12 10:52 54s
+Jag vet inte än men tror det
+### oscarnylander - 2017-12-12 10:53 10s
+:ok_hand:
+### erik.malm - 2017-12-12 03:54 18s
+Det är ju en eller två mac:ar här på uppdraget nu så funderar själv på hur man ska få till ett platformsbyte. Tror det är ganska döfött att be om en linux-burk :cry:
+### daniel.winther - 2017-12-12 09:30 47s
+@erik.malm går det att fixa så smileys, bilder och formaterad text kommer ut i bloggen?
+### erik.malm - 2017-12-12 09:33 58s
+Bilder går att ordna på en timme eller så, markdown strular av någon anledning men borde gissningsvis gå rätt fort att ordna. Smileys vet jag inte om vi kan få in lagligt. Nån äger upphovsrätten  Funderar på att lägga in öppna motsvarigheter till de vanligaste och fylla på allt eftersom.
+### daniel.winther - 2017-12-12 09:34 21s
+Aha ok, coolers
+### erik.malm - 2017-12-12 09:39 50s
+Sen ska man bara hitta de där småtimmarna också. Men har ett par idéer jag gärna snackar igenom vid tillfälle.
