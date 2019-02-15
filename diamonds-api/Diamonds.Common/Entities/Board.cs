@@ -66,7 +66,7 @@ namespace Diamonds.Common.Entities
         }
 
         // 1 minute (60 0000 ms) hard coded for now
-        public static int TotalGameTime => 60 * 1000;
+        public static int TotalGameTime => (int)TimeSpan.FromMinutes(1).TotalMilliseconds;
 
         // 100ms delay required between each move, hard coded for now
         public static int DefaultMinimumDelayBetweenMoves = 100;
