@@ -47,11 +47,11 @@ namespace Diamonds.Common.Entities
 
         // 100ms delay required between each move, hard coded for now
         public static int DefaultMinimumDelayBetweenMoves = 100;
- 
+
         private BoardBot CreateBoardBot(Bot bot)
         {
 
-            var basePosition = GetRandomEmptyPosition();
+            var basePosition = GetRandomBasePosition();
             return new BoardBot
             {
                 BotId = bot.Id,
@@ -67,6 +67,49 @@ namespace Diamonds.Common.Entities
         public void AddBot(Bot bot)
         {
             Bots.Add(CreateBoardBot(bot));
+        }
+
+        public Position GetRandomBasePosition()
+        {
+            while (true)
+            {
+                /*
+                    0
+                  -----
+                3 |   | 1
+                  -----
+                    2
+                 */
+                // Randomize which side to spawn on
+                var side = _random.Next(4);
+                // Depending on side we need the length
+                var l = side % 2 == 0 ? Width : Height;
+                // Use X% of the side so we don't spawn too close to a corner
+                var p = _random.Next((int)(l * 0.8));
+                Position position = null;
+                switch (side) {
+                    case 0:
+                        position = new Position((int)(0.1 * l + p), 0);
+                        break;
+                    case 1:
+                        position = new Position(Width - 1, (int)(0.1 * l + p));
+                        break;
+                    case 2:
+                        position = new Position((int)(0.1 * l + p), Height - 1);
+                        break;
+                    case 3:
+                        position = new Position(0, (int)(0.1 * l + p));
+                        break;
+                }
+
+
+                var positionOk = IsPositionEmpty(position);
+                if (positionOk)
+                {
+                    return position;
+                }
+            }
+
         }
 
         public Position GetRandomEmptyPosition()
