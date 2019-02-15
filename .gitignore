@@ -205,6 +205,7 @@ src/Web.config
 src/Web.Debug.config
 src/Web.Local.config
 .vs/config/applicationhost.config
+.vs
 src/Web - Copy.config
 src/Web - Copy Nunit, itextsharp.config
 .bot_token
