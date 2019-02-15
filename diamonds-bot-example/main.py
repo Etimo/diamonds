@@ -10,16 +10,18 @@ from game.logic.first_diamond import FirstDiamondLogic
 from game.logic.crash_in_middle import CrashInMiddle
 from game.logic.random_diamond import RandomDiamondLogic
 from game.logic.teleporter_shaker import TeleporterShake
+from game.logic.button_madness import ButtonMadness
 from colorama import init, Fore, Back, Style
 
 init()
-BASE_URL = "http://localhost/api"
+BASE_URL = "http://localhost:81/api"
 CONTROLLERS = {
     "Random": RandomLogic,
     "CrashInMiddle": CrashInMiddle,
     "FirstDiamond": FirstDiamondLogic,
     "RandomDiamond": RandomDiamondLogic,
-    "Teleport": TeleporterShake
+    "Teleport": TeleporterShake,
+    "RedButton": ButtonMadness
 }
 
 ###############################################################################

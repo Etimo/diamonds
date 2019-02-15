@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Diamonds.Common.Entities;
 
 using Diamonds.Common.Models;
+using Diamonds.Common.Enums;
 namespace Diamonds.Common.GameEngine.GameObjects
 {
     public class DoNothingGameObject : BaseGameObject
@@ -12,8 +13,11 @@ namespace Diamonds.Common.GameEngine.GameObjects
         public override Position Position { get => new Position(0,0); set{} }
         public override bool IsBlocking { get => false; set {} }
 
-        public override void PerformInteraction(Board board, BoardBot bot)
+        public override void PerformInteraction(Board board, 
+                             BoardBot bot,
+                             Direction direction)
         {
+
         }
     }
 }

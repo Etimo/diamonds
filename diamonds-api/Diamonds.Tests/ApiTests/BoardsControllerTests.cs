@@ -1,4 +1,5 @@
-﻿using Diamonds.Common.Entities;
+﻿using Diamonds.Common.Enums;
+using Diamonds.Common.Entities;
 using Diamonds.Common.Storage;
 using Diamonds.Rest.Controllers;
 using Diamonds.GameEngine;
@@ -13,7 +14,6 @@ using Xunit.Abstractions;
 
 namespace Diamonds.Tests.ApiTests
 {
-
     public class BoardsControllerTests
     {
         private readonly ITestOutputHelper output;
@@ -77,12 +77,13 @@ namespace Diamonds.Tests.ApiTests
                 }
             };
             storage.UpdateBoard(testBoard);
-            var generatorService = new GameObjectGeneratorService();
+            var generatorService = new GameObjectGeneratorService(new DiamondGeneratorService());
             Assert.NotEmpty(generatorService.getCurrentObjectGenerators());
             var controller = new BoardsController(storage,
              null,
              new DiamondGeneratorService()
              , generatorService);
+             //GameObject related tests here. TODO: Break out into separate test-cases.
             var boardResult = controller.GetBoard("2") as OkObjectResult;
             var board = boardResult.Value as Board;
             Assert.NotEmpty(board.GameObjects);
@@ -90,6 +91,19 @@ namespace Diamonds.Tests.ApiTests
              board.GameObjects.Where(go =>
                  go.Name.Equals("Teleporter")).Count()
              );
+            Assert.Equal(1,
+             board.GameObjects.Where(go =>
+                 go.Name.Equals("DiamondButton")).Count()
+             );
+            Assert.False(
+             board.GameObjects.Where(go =>
+                 go.Name.Equals("DiamondButton")).First().IsBlocking
+            );
+            List<Position> oldDiamonds = new List<Position>(board.Diamonds);
+             board.GameObjects.Where(go =>
+                 go.Name.Equals("DiamondButton")).First().PerformInteraction(board,board.Bots.First(),Direction.North);
+            Assert.False(oldDiamonds.SequenceEqual(board.Diamonds));
+            Console.WriteLine("Regeneration in the nation!");
         }
     }
 }

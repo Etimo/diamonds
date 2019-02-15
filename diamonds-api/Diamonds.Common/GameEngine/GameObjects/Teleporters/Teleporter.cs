@@ -4,6 +4,7 @@ using Diamonds.Common.Entities;
 using System.Linq;
 using Diamonds.Common.Models;
 using Diamonds.Common.GameEngine.GameObjects;
+using Diamonds.Common.Enums;
 namespace Diamonds.Common.GameEngine.GameObjects.Teleporters
 {
     public class Teleporter : BaseGameObject
@@ -46,7 +47,7 @@ namespace Diamonds.Common.GameEngine.GameObjects.Teleporters
             set { }
         }
 
-        public override void PerformInteraction(Board board, BoardBot bot)
+        public override void PerformInteraction(Board board, BoardBot bot,Direction direction)
         {
             BaseGameObject targetTeleporter = board.GameObjects.Where(gf=>gf is Teleporter 
             && (gf as Teleporter).LinkedTeleporterString==this.LinkedTeleporterString 

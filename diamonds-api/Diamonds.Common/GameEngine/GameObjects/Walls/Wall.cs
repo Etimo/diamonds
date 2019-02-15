@@ -1,5 +1,5 @@
 using Diamonds.Common.Entities;
-
+using Diamonds.Common.Enums;
 namespace Diamonds.Common.GameEngine.GameObjects.Walls{
     public class Wall : BaseGameObject
     {
@@ -12,7 +12,7 @@ namespace Diamonds.Common.GameEngine.GameObjects.Walls{
 
         public override string Name =>  NameString;
 
-        public override void PerformInteraction(Board board, BoardBot bot)
+        public override void PerformInteraction(Board board, BoardBot bot,Direction Direction)
         {
             //No interaction, just block.
         }
