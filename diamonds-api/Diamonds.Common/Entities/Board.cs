@@ -17,6 +17,29 @@ namespace Diamonds.Common.Entities
         public List<BoardBot> Bots { get; set; }
         public List<Position> Diamonds { get; set; }
         public int MinimumDelayBetweenMoves { get; set; } = DefaultMinimumDelayBetweenMoves;
+        private const int EdgePositionsToSkipForBase = 2;
+        private Position[] _potentialBasePosition;
+        private Position[] PotentialBasePositions
+        {
+
+            get
+            {
+                return _potentialBasePosition = _potentialBasePosition ??
+                // Top and bottom
+                Enumerable.Range(EdgePositionsToSkipForBase, Width - EdgePositionsToSkipForBase).SelectMany(x => new[] {
+                    new Position(x, 0),
+                    new Position(x, Height - 1)
+                })
+                // Left and right
+                .Concat(
+                    Enumerable.Range(EdgePositionsToSkipForBase, Height - EdgePositionsToSkipForBase).SelectMany(y => new[] {
+                        new Position(0, y),
+                        new Position(Width - 1, y)
+                    })
+                )
+                .ToArray();
+            }
+        }
 
         public bool IsFull()
         {
@@ -73,44 +96,13 @@ namespace Diamonds.Common.Entities
         {
             while (true)
             {
-                /*
-                    0
-                  -----
-                3 |   | 1
-                  -----
-                    2
-                 */
-                // Randomize which side to spawn on
-                var side = _random.Next(4);
-                // Depending on side we need the length
-                var l = side % 2 == 0 ? Width : Height;
-                // Use X% of the side so we don't spawn too close to a corner
-                var p = _random.Next((int)(l * 0.8));
-                Position position = null;
-                var value = (int)(0.1 * l + p);
-                switch (side) {
-                    case 0:
-                        position = new Position(value, 0);
-                        break;
-                    case 1:
-                        position = new Position(Width - 1, value);
-                        break;
-                    case 2:
-                        position = new Position(value, Height - 1);
-                        break;
-                    case 3:
-                        position = new Position(0, value);
-                        break;
-                }
+                var randomBasePosition = PotentialBasePositions[_random.Next(PotentialBasePositions.Length)];
 
-
-                var positionOk = IsPositionEmpty(position);
-                if (positionOk)
+                if (IsPositionEmpty(randomBasePosition))
                 {
-                    return position;
+                    return randomBasePosition;
                 }
             }
-
         }
 
         public Position GetRandomEmptyPosition()

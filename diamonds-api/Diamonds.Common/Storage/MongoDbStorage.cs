@@ -18,7 +18,7 @@ namespace Diamonds.Common.Storage
         {
             Id = "1",
             Height = 10,
-            Width = 10,
+            Width = 15,
             Bots = new List<BoardBot>(),
             Diamonds = new List<Position>(),
             GameObjects = new List<BaseGameObject>()
