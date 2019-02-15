@@ -87,18 +87,19 @@ namespace Diamonds.Common.Entities
                 // Use X% of the side so we don't spawn too close to a corner
                 var p = _random.Next((int)(l * 0.8));
                 Position position = null;
+                var value = (int)(0.1 * l + p);
                 switch (side) {
                     case 0:
-                        position = new Position((int)(0.1 * l + p), 0);
+                        position = new Position(value, 0);
                         break;
                     case 1:
-                        position = new Position(Width - 1, (int)(0.1 * l + p));
+                        position = new Position(Width - 1, value);
                         break;
                     case 2:
-                        position = new Position((int)(0.1 * l + p), Height - 1);
+                        position = new Position(value, Height - 1);
                         break;
                     case 3:
-                        position = new Position(0, (int)(0.1 * l + p));
+                        position = new Position(0, value);
                         break;
                 }
 
