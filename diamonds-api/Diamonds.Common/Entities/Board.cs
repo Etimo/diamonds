@@ -17,6 +17,29 @@ namespace Diamonds.Common.Entities
         public List<BoardBot> Bots { get; set; }
         public List<Position> Diamonds { get; set; }
         public int MinimumDelayBetweenMoves { get; set; } = DefaultMinimumDelayBetweenMoves;
+        private const int EdgePositionsToSkipForBase = 2;
+        private Position[] _potentialBasePosition;
+        private Position[] PotentialBasePositions
+        {
+
+            get
+            {
+                return _potentialBasePosition = _potentialBasePosition ??
+                // Top and bottom
+                Enumerable.Range(EdgePositionsToSkipForBase, Width - EdgePositionsToSkipForBase).SelectMany(x => new[] {
+                    new Position(x, 0),
+                    new Position(x, Height - 1)
+                })
+                // Left and right
+                .Concat(
+                    Enumerable.Range(EdgePositionsToSkipForBase, Height - EdgePositionsToSkipForBase).SelectMany(y => new[] {
+                        new Position(0, y),
+                        new Position(Width - 1, y)
+                    })
+                )
+                .ToArray();
+            }
+        }
 
         public bool IsFull()
         {
@@ -43,15 +66,15 @@ namespace Diamonds.Common.Entities
         }
 
         // 1 minute (60 0000 ms) hard coded for now
-        public static int TotalGameTime => 60 * 1000;
+        public static int TotalGameTime => (int)TimeSpan.FromMinutes(1).TotalMilliseconds;
 
         // 100ms delay required between each move, hard coded for now
         public static int DefaultMinimumDelayBetweenMoves = 100;
- 
+
         private BoardBot CreateBoardBot(Bot bot)
         {
 
-            var basePosition = GetRandomEmptyPosition();
+            var basePosition = GetRandomBasePosition();
             return new BoardBot
             {
                 BotId = bot.Id,
@@ -67,6 +90,19 @@ namespace Diamonds.Common.Entities
         public void AddBot(Bot bot)
         {
             Bots.Add(CreateBoardBot(bot));
+        }
+
+        public Position GetRandomBasePosition()
+        {
+            while (true)
+            {
+                var randomBasePosition = PotentialBasePositions[_random.Next(PotentialBasePositions.Length)];
+
+                if (IsPositionEmpty(randomBasePosition))
+                {
+                    return randomBasePosition;
+                }
+            }
         }
 
         public Position GetRandomEmptyPosition()
