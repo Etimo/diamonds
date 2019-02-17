@@ -13,14 +13,11 @@ namespace Diamonds.GameEngine
         const decimal MaxRatioOfDiamonds = 0.2m;
         const decimal MaxRatioRedDiamonds = 0.5m; // 50% of diamonds generated
         static Random _random = new Random();
-        public bool NeedToGenerateDiamonds(Board board){
-
+        public bool NeedToGenerateDiamonds(Board board)
+        {
             var numberOfBoardCells = board.Height * board.Width;
-
-            var currentRatioOfDiamonds = (decimal) board.Diamonds.Count() / numberOfBoardCells;
-
-             return  currentRatioOfDiamonds < MinRatioOfDiamonds;
-
+            var currentRatioOfDiamonds = (decimal)board.Diamonds.Count() / numberOfBoardCells;
+            return currentRatioOfDiamonds < MinRatioOfDiamonds;
         }
 
         public List<DiamondPosition> GenerateDiamondsIfNeeded(Board board)
@@ -32,10 +29,8 @@ namespace Diamonds.GameEngine
             }
 
             var maxNumberOfDiamonds = (int)(MaxRatioOfDiamonds * numberOfBoardCells);
-
             var diamondPositions = board.Diamonds.ToList();
-
-            while(diamondPositions.Count < maxNumberOfDiamonds)
+            while (diamondPositions.Count < maxNumberOfDiamonds)
             {
                 var diamondPositionToAdd = board.GetRandomEmptyPosition();
                 diamondPositions.Add(new DiamondPosition(diamondPositionToAdd));
@@ -43,7 +38,8 @@ namespace Diamonds.GameEngine
 
             // Replace some diamonds with red ones
             var maxRedDiamonds = _random.Next((int)(maxNumberOfDiamonds * MaxRatioRedDiamonds));
-            for(var i = 0; i < maxRedDiamonds; i++) {
+            for (var i = 0; i < maxRedDiamonds; i++)
+            {
                 diamondPositions[i].Points = 2;
             }
 
