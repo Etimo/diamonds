@@ -17,7 +17,7 @@ namespace Diamonds.Common.GameEngine.GameObjects.DiamondButtons{
         public override void PerformInteraction(Board board, BoardBot bot,Direction direction)
         {
             //reset diamonds here...
-            board.Diamonds = new List<Position>(); //Trigger board rebuild
+            board.Diamonds = new List<DiamondPosition>(); //Trigger board rebuild
         //    generator.GenerateDiamondsIfNeeded(board);
         }
     }

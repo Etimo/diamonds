@@ -121,15 +121,19 @@ namespace Diamonds.GameEngine
         private void AttemptPickUpDiamond(Position position, Board board, BoardBot bot)
         {
             bool positionHasDiamond = board.Diamonds.Any(p => p.Equals(position));
-            bool hasLessThanFiveDiamond = bot.Diamonds < 5;
-            bool shouldPickUpDiamond = positionHasDiamond && hasLessThanFiveDiamond;
-
-            if (shouldPickUpDiamond == false)
+            if (positionHasDiamond == false)
             {
                 return;
             }
 
-            bot.Diamonds += 1;
+            DiamondPosition diamond = board.Diamonds.First(p => p.Equals(position));
+            bool hasEnoughSpace = bot.Diamonds <= (5 - diamond.Points);
+            if (hasEnoughSpace == false)
+            {
+                return;
+            }
+
+            bot.Diamonds += diamond.Points;
             board.Diamonds = board.Diamonds
                 .Where(p => p.Equals(position) == false)
                 .ToList();

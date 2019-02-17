@@ -15,7 +15,7 @@ namespace Diamonds.Common.Entities
         public int Width { get; set; }
         public int Height { get; set; }
         public List<BoardBot> Bots { get; set; }
-        public List<Position> Diamonds { get; set; }
+        public List<DiamondPosition> Diamonds { get; set; }
         public int MinimumDelayBetweenMoves { get; set; } = DefaultMinimumDelayBetweenMoves;
         private const int EdgePositionsToSkipForBase = 2;
         private Position[] _potentialBasePosition;

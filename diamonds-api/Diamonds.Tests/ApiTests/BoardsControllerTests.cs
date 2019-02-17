@@ -72,7 +72,7 @@ namespace Diamonds.Tests.ApiTests
                         Diamonds = 2,
                     },
                 },
-                Diamonds = new List<Position>
+                Diamonds = new List<DiamondPosition>
                 {
                 }
             };
@@ -99,7 +99,7 @@ namespace Diamonds.Tests.ApiTests
              board.GameObjects.Where(go =>
                  go.Name.Equals("DiamondButton")).First().IsBlocking
             );
-            List<Position> oldDiamonds = new List<Position>(board.Diamonds);
+            List<DiamondPosition> oldDiamonds = new List<DiamondPosition>(board.Diamonds);
              board.GameObjects.Where(go =>
                  go.Name.Equals("DiamondButton")).First().PerformInteraction(board,board.Bots.First(),Direction.North);
             Assert.False(oldDiamonds.SequenceEqual(board.Diamonds));
