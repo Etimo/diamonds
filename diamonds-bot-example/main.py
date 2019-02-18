@@ -14,7 +14,7 @@ from game.logic.button_madness import ButtonMadness
 from colorama import init, Fore, Back, Style
 
 init()
-BASE_URL = "http://localhost:81/api"
+BASE_URL = "http://diamonds.etimo.se/api"
 CONTROLLERS = {
     "Random": RandomLogic,
     "CrashInMiddle": CrashInMiddle,
