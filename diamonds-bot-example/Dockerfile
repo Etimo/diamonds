@@ -1,11 +1,13 @@
-#FROM python:3.7.0a1-alpine
-FROM jfloff/alpine-python:3.4-slim
+FROM python:3.7.2-alpine
+RUN apk add bash
+RUN pip install pipenv
 
 WORKDIR /app
-ADD ./requirements.txt .
+ADD ./Pipfile .
+ADD ./Pipfile.lock .
 
-RUN pip install -r requirements.txt
+RUN pipenv sync
 
 ADD . .
 
-ENTRYPOINT ["bash", "./auto_play_many.sh"]
+ENTRYPOINT ["pipenv", "run", "/app/auto_play_many.sh"]
