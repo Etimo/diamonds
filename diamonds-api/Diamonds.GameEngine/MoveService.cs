@@ -83,7 +83,7 @@ namespace Diamonds.GameEngine
             AttemptDeliverInBase(attemptedNextPosition, bot);
 
             bot.Position = attemptedNextPosition;
-            AttemptTriggerGameObject(board,direction,attemptedNextPosition, bot);
+            AttemptTriggerGameObject(board,direction,attemptedNextPosition, bot,_boardDiamondManager);
 
             // update timers on bot
             bot.NextMoveAvailableAt = DateTime.UtcNow.AddMilliseconds(board.MinimumDelayBetweenMoves);
@@ -91,11 +91,11 @@ namespace Diamonds.GameEngine
             return MoveResultCode.Ok;
         }
 
-        private void AttemptTriggerGameObject(Board board,Direction direction,Position attemptedNextPosition, BoardBot bot)
+        private void AttemptTriggerGameObject(Board board,Direction direction,Position attemptedNextPosition, BoardBot bot,IDiamondGeneratorService generator)
         {
             var gameObject = board.GameObjects.Where(gf => gf.Position.Equals(attemptedNextPosition)).
             DefaultIfEmpty(new DoNothingGameObject()).FirstOrDefault();
-            gameObject.PerformInteraction(board,bot,direction);
+            gameObject.PerformInteraction(board,bot,direction,generator);
             
         }
 

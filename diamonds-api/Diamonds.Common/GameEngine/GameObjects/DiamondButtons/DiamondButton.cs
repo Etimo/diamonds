@@ -2,6 +2,9 @@ using Diamonds.Common.Entities;
 using System.Collections.Generic;
 
 using Diamonds.Common.Enums;
+using Diamonds.Common.GameEngine.DiamondGenerator;
+using System.Linq;
+using System;
 
 namespace Diamonds.Common.GameEngine.GameObjects.DiamondButtons{
     public class DiamondButton : BaseGameObject
@@ -14,11 +17,22 @@ namespace Diamonds.Common.GameEngine.GameObjects.DiamondButtons{
         public override bool IsBlocking { get => false ; set {} }
         public override string Name =>  NameString;
 
-        public override void PerformInteraction(Board board, BoardBot bot,Direction direction)
+        public override void PerformInteraction(Board board,
+         BoardBot bot,
+         Direction direction,
+        IDiamondGeneratorService generator)
         {
             //reset diamonds here...
             board.Diamonds = new List<Position>(); //Trigger board rebuild
-        //    generator.GenerateDiamondsIfNeeded(board);
+            this.Position = board.GetRandomEmptyPosition();
+            generator.GenerateDiamondsIfNeeded(board);
+        }
+        public override void PerformInteraction(Board board,
+         BoardBot bot,
+         Direction direction
+       )
+        {
+            //Do nothing here. It's alright.
         }
     }
 

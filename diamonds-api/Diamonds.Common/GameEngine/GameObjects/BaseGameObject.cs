@@ -6,6 +6,7 @@ using Diamonds.Common.GameEngine.GameObjects.Walls;
 using Diamonds.Common.GameEngine.GameObjects.DiamondButtons;
 using Diamonds.Common.Models;
 using Diamonds.Common.Enums;
+using Diamonds.Common.GameEngine.DiamondGenerator;
 
 namespace Diamonds.Common.GameEngine.GameObjects
 {
@@ -20,7 +21,16 @@ namespace Diamonds.Common.GameEngine.GameObjects
     {
         public abstract string Name { get; }
         public abstract Position Position { get; set; }
-         public abstract void PerformInteraction(Board board, BoardBot bot,Direction direction);
+         public virtual void PerformInteraction(Board board,
+            BoardBot bot,
+            Direction direction,
+            IDiamondGeneratorService DiamondGenerator){
+                PerformInteraction(board,bot,direction);
+            }
+         public abstract void PerformInteraction(Board board,
+            BoardBot bot,
+            Direction direction
+            );
         public abstract bool IsBlocking { get; set; }
     }
 }

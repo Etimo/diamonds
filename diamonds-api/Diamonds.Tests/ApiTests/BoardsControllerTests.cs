@@ -77,7 +77,7 @@ namespace Diamonds.Tests.ApiTests
                 }
             };
             storage.UpdateBoard(testBoard);
-            var generatorService = new GameObjectGeneratorService(new DiamondGeneratorService());
+            var generatorService = new GameObjectGeneratorService();
             Assert.NotEmpty(generatorService.getCurrentObjectGenerators());
             var controller = new BoardsController(storage,
              null,
@@ -101,7 +101,7 @@ namespace Diamonds.Tests.ApiTests
             );
             List<Position> oldDiamonds = new List<Position>(board.Diamonds);
              board.GameObjects.Where(go =>
-                 go.Name.Equals("DiamondButton")).First().PerformInteraction(board,board.Bots.First(),Direction.North);
+                 go.Name.Equals("DiamondButton")).First().PerformInteraction(board,board.Bots.First(),Direction.North,new DiamondGeneratorService());
             Assert.False(oldDiamonds.SequenceEqual(board.Diamonds));
             Console.WriteLine("Regeneration in the nation!");
         }

@@ -10,7 +10,7 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceRoot}/Diamonds.Rest/bin/Debug/netcoreapp1.1/Diamonds.Rest.dll",
+            "program": "${workspaceRoot}/Diamonds.Rest/bin/Debug/netcoreapp2.0/Diamonds.Rest.dll",
             "args": [],
             "cwd": "${workspaceRoot}/Diamonds.Rest",
             "stopAtEntry": false,

@@ -22,7 +22,6 @@ namespace Diamonds.Common.GameEngine.GameObjects.DiamondButtons {
 
         public List<BaseGameObject> RegenerateObjects(Board board)
         {
-            
                  var diamondResetButtons= new List<BaseGameObject>()  {
                     new DiamondButton(board.GetRandomEmptyPosition())
                 };

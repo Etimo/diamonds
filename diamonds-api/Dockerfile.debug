@@ -1,6 +1,14 @@
-FROM microsoft/aspnetcore-build:2.0.0
+#FROM microsoft/aspnetcore-build:2.0.0
+FROM microsoft/dotnet:2.0-sdk
 
-RUN mkdir -p /app/Diamonds.Common /app/Diamonds.GameEngine /app/Diamonds.Rest
+RUN mkdir -p /app/Diamonds.Common /app/Diamonds.GameEngine /app/Diamonds.Rest /vsdbg
+
+WORKDIR /vsdbg
+RUN apt-get update \
+&& apt-get install -y --no-install-recommends \
+unzip \
+&& rm -rf /var/lib/apt/lists/* \
+&& curl -sSL https://aka.ms/getvsdbgsh | bash /dev/stdin -v latest -l /vsdbg
 
 WORKDIR /app
 COPY ./Diamonds.Api.sln .
@@ -15,16 +23,7 @@ COPY . .
 RUN dotnet publish --output /out/ --configuration Debug
 
 #FROM microsoft/aspnetcore:2.0.0
-FROM microsoft/dotnet:2.0.0-runtime-jessie
-WORKDIR /app
-COPY --from=0 /out .
+#FROM microsoft/dotnet:2.0.0-runtime-jessie
 
-WORKDIR /vsdbg
-RUN apt-get update \
-&& apt-get install -y --no-install-recommends \
-unzip \
-&& rm -rf /var/lib/apt/lists/* \
-&& curl -sSL https://aka.ms/getvsdbgsh | bash /dev/stdin -v latest -l /vsdbg
-
-WORKDIR /app
+WORKDIR /out
 ENTRYPOINT ["dotnet", "Diamonds.Rest.dll"]

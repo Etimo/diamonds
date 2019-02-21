@@ -45,7 +45,7 @@ namespace Diamonds.Rest
             services.AddScoped<IStorage, MongoDBStorage>();
             services.AddScoped<IMoveService, MoveService>();
             services.AddScoped<IDiamondGeneratorService, DiamondGeneratorService>();
-            services.AddScoped<IGameObjectGeneratorService, GameObjectGeneratorService>();
+            services.AddScoped<IGameObjectGeneratorService,GameObjectGeneratorService>();
 
             // Add framework services.
             services.AddMvc();
