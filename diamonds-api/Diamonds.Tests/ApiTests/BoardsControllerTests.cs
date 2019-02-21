@@ -37,7 +37,7 @@ namespace Diamonds.Tests.ApiTests
             var boards = (IEnumerable<Board>)versionResult.Value;
             Assert.Equal(1, boards.Count());
             Assert.Equal(3, boards.First().Bots.Count());
-            Assert.Equal(7, boards.First().Diamonds.Count());
+            Assert.Equal(8, boards.First().Diamonds.Count());
             /**
             * Induce game object generation
              */
