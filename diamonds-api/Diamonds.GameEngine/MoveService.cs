@@ -26,19 +26,20 @@ namespace Diamonds.GameEngine
             _boardObjectGenerator = boardObjectGenerator;
         }
 
-            // TODO: Consider moving the call to _boardDiamondManager away from this class
-        private void regenerateBoardObjects(Board board){
-                board.GameObjects = new List<BaseGameObject>(); 
-                board.Diamonds = _boardDiamondManager.GenerateDiamondsIfNeeded(board);
-                if(_boardObjectGenerator==null)return;
-                var list = 
-                 _boardObjectGenerator
-                 .getCurrentObjectGenerators()
-                 .SelectMany(
-                     gog=>
-                     gog.RegenerateObjects(board))
-                     .ToList();
-                 board.GameObjects = list;
+        // TODO: Consider moving the call to _boardDiamondManager away from this class
+        private void regenerateBoardObjects(Board board)
+        {
+            board.GameObjects = new List<BaseGameObject>();
+            board.Diamonds = _boardDiamondManager.GenerateDiamondsIfNeeded(board);
+            if (_boardObjectGenerator == null) return;
+            var list =
+             _boardObjectGenerator
+             .getCurrentObjectGenerators()
+             .SelectMany(
+                 gog =>
+                 gog.RegenerateObjects(board))
+                 .ToList();
+            board.GameObjects = list;
         }
         public MoveResultCode Move(string boardId, string botName, Direction direction)
         {
@@ -50,7 +51,8 @@ namespace Diamonds.GameEngine
                 return resultCode;
             }
 
-            if(_boardDiamondManager.NeedToGenerateDiamonds(board)){
+            if (_boardDiamondManager.NeedToGenerateDiamonds(board))
+            {
                 regenerateBoardObjects(board);
             }
             _storage.UpdateBoard(board);
@@ -121,15 +123,19 @@ namespace Diamonds.GameEngine
         private void AttemptPickUpDiamond(Position position, Board board, BoardBot bot)
         {
             bool positionHasDiamond = board.Diamonds.Any(p => p.Equals(position));
-            bool hasLessThanFiveDiamond = bot.Diamonds < 5;
-            bool shouldPickUpDiamond = positionHasDiamond && hasLessThanFiveDiamond;
-
-            if (shouldPickUpDiamond == false)
+            if (positionHasDiamond == false)
             {
                 return;
             }
 
-            bot.Diamonds += 1;
+            DiamondPosition diamond = board.Diamonds.First(p => p.Equals(position));
+            bool hasEnoughSpace = bot.Diamonds <= (5 - diamond.Points);
+            if (hasEnoughSpace == false)
+            {
+                return;
+            }
+
+            bot.Diamonds += diamond.Points;
             board.Diamonds = board.Diamonds
                 .Where(p => p.Equals(position) == false)
                 .ToList();

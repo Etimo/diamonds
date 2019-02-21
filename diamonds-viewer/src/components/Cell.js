@@ -2,6 +2,7 @@ import React from 'react'
 import styles from '../styles/cell.css'
 import gameObjecStyles from '../styles/gameobject.css'
 import imgDiamond from '../images/diamond.svg'
+import imgDiamondRed from '../images/diamondred.svg'
 import imgBase from '../images/home.svg'
 import imgRobot from '../images/robot.svg'
 import imgBotBase from '../images/botBase.svg'
@@ -28,7 +29,7 @@ const Cell = (props) => {
     : c.base && c.diamond ? imgBaseDiamond
     : c.base ? imgBase
     : c.botName ? imgRobot
-    : c.diamond ? imgDiamond
+    : c.diamond ? (c.points === 1 ? imgDiamond : imgDiamondRed)
     : c.botName && c.go ? imgRobot
     : c.go ? goImgMap[c.goName]
     : ''

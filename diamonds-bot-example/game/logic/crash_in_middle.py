@@ -1,14 +1,14 @@
 import random
 from ..util import get_direction, position_equals
-from random import randint
+import random
 
 
 class CrashInMiddle(object):
     def __init__(self):
         self.goal_position = None
     def plus_or_minus_one():
-            random = randint(0,9)
-            return 1 if random < 5 else -1 
+        value = random.randint(0,9)
+        return 1 if value < 5 else -1
     #This bot will move towards it's target square and will step out in a random direction once there.
     def next_move(self, board_bot, board):
         target= {

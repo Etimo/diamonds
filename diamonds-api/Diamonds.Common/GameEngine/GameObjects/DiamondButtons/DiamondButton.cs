@@ -23,7 +23,7 @@ namespace Diamonds.Common.GameEngine.GameObjects.DiamondButtons{
         IDiamondGeneratorService generator)
         {
             //reset diamonds here...
-            board.Diamonds = new List<Position>(); //Trigger board rebuild
+            board.Diamonds = new List<DiamondPosition>(); //Trigger board rebuild
             this.Position = board.GetRandomEmptyPosition();
             generator.GenerateDiamondsIfNeeded(board);
         }

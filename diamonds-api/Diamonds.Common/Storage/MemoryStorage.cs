@@ -49,15 +49,16 @@ namespace Diamonds.Common.Storage
                         Diamonds = 5,
                     }
                 },
-                Diamonds = new List<Position>
+                Diamonds = new List<DiamondPosition>
                 {
-                    new Position(1, 1),
-                    new Position(0, 0),
-                    new Position(8, 9),
-                    new Position(9, 9),
-                    new Position(5, 1),
-                    new Position(6, 2),
-                    new Position(1, 9)
+                    new DiamondPosition(1, 1),
+                    new DiamondPosition(0, 0),
+                    new DiamondPosition(8, 9),
+                    new DiamondPosition(9, 9),
+                    new DiamondPosition(5, 1),
+                    new DiamondPosition(6, 2),
+                    new DiamondPosition(1, 9),
+                    new DiamondPosition(5, 5, 2)
                 }
             }
         };

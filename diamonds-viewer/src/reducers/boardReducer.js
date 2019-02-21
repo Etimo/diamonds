@@ -33,6 +33,7 @@ const boardReducer = (state = initialState.gameboard, action) => {
                 newGameboard[diamond.y][diamond.x] = {
                     ...newGameboard[diamond.y][diamond.x],
                     diamond: true,
+                    points: diamond.points
                 }
             })
             action.gameboard.gameObjects.forEach(go => {

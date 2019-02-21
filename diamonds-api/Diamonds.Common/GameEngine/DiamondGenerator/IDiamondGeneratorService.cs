@@ -7,7 +7,7 @@ namespace Diamonds.Common.GameEngine.DiamondGenerator
 {
     public interface IDiamondGeneratorService
     {
-        List<Position> GenerateDiamondsIfNeeded(Board board);
+        List<DiamondPosition> GenerateDiamondsIfNeeded(Board board);
         bool NeedToGenerateDiamonds(Board board);
 
     }

@@ -7,6 +7,12 @@ If you want to run the backend on your own computer (which you don't have to) th
 # Game rules
 The purpose of the game is to collect as many diamonds as possible and deliver them in the base within one minute. The bot can carry at most 5 diamonds, so it needs to deliver the diamonds to the base often. The difficult part is to write an algorithm that calculates the most efficient path to diamonds and back to the base.
 
+The blue diamonds are worth 1 point each. Red diamonds are worth 2 points (and takes up 2 spaces in your inventory). The ratio between red and blue diamonds changes on each regeneration.
+
+There is a red button available on the board that, when stepped on, triggers a regeneration of all diamonds on the board.
+
+Diamonds will respawn whenever depleted.
+
 # API
 
 The base url to the API is http://diamonds.etimo.se/api and API documentation is available at http://diamonds.etimo.se/api/docs.
