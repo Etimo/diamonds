@@ -32,14 +32,11 @@ namespace Diamonds.GameEngine
             board.GameObjects = new List<BaseGameObject>();
             board.Diamonds = _boardDiamondManager.GenerateDiamondsIfNeeded(board);
             if (_boardObjectGenerator == null) return;
-            var list =
              _boardObjectGenerator
              .getCurrentObjectGenerators()
-             .SelectMany(
+             .ForEach(
                  gog =>
-                 gog.RegenerateObjects(board))
-                 .ToList();
-            board.GameObjects = list;
+                 board.GameObjects.AddRange(gog.RegenerateObjects(board))); 
         }
         public MoveResultCode Move(string boardId, string botName, Direction direction)
         {
