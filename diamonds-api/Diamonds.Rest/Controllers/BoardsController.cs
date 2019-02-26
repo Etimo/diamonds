@@ -16,6 +16,7 @@ namespace Diamonds.Rest.Controllers
     [Route("api/[controller]")]
     public class BoardsController : Controller
     {   
+        private readonly object boardLock = new object();
           IGameObjectGeneratorService _gameObjectGeneratorService;
         IStorage _storage;
         IMoveService _moveService;
@@ -203,28 +204,29 @@ namespace Diamonds.Rest.Controllers
                 return StatusCode(403);
             }
 
-            var board = _storage.GetBoard(id);
+            lock (boardLock) {
+                var board = _storage.GetBoard(id);
 
-            if (board == null)
-            {
-                return StatusCode(404);
-            }
-            if (board.HasBot(bot) == false)
-            {
-                return StatusCode(403);
-            }
-            if (board.CanMove(bot) == false)
-            {
-                return StatusCode(403);
-            }
+                if (board == null)
+                {
+                    return StatusCode(404);
+                }
+                if (board.HasBot(bot) == false)
+                {
+                    return StatusCode(403);
+                }
+                if (board.CanMove(bot) == false)
+                {
+                    return StatusCode(403);
+                }
 
-            var moveResult = _moveService.Move(id, bot.Name, input.direction);
+                var moveResult = _moveService.Move(id, bot.Name, input.direction);
 
-            if (moveResult != MoveResultCode.Ok)
-            {
-                return StatusCode(409);
+                if (moveResult != MoveResultCode.Ok)
+                {
+                    return StatusCode(409);
+                }
             }
-
             return GetBoard(id);
         }
     }
