@@ -9,6 +9,12 @@ namespace Diamonds.Common.Entities
         public int Score { get; set;}
         // The instant that the bot session on, in UTC.
         public DateTime? SessionFinishedAt { get; set; }
+
+        public Season Season {
+            get {
+                return Season.All.Find(season => SessionFinishedAt == null || season.EndsAt == null || SessionFinishedAt < season.EndsAt);
+            }
+        }
     }
 
 }
