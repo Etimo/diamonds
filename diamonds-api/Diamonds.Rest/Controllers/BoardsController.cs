@@ -15,7 +15,7 @@ namespace Diamonds.Rest.Controllers
 {
     [Route("api/[controller]")]
     public class BoardsController : Controller
-    {   
+    {
           IGameObjectGeneratorService _gameObjectGeneratorService;
         IStorage _storage;
         IMoveService _moveService;
@@ -42,10 +42,10 @@ namespace Diamonds.Rest.Controllers
             return Ok(boards);
         }
         private void regenerateBoardObjects(Board board){
-                board.GameObjects = new List<BaseGameObject>(); 
+                board.GameObjects = new List<BaseGameObject>();
                 board.Diamonds = _diamondGeneratorService.GenerateDiamondsIfNeeded(board);
                 if(_gameObjectGeneratorService==null)return;
-                var list = 
+                var list =
                  _gameObjectGeneratorService
                  .getCurrentObjectGenerators()
                  .SelectMany(
@@ -165,7 +165,8 @@ namespace Diamonds.Rest.Controllers
                 {
                     Id = Guid.NewGuid().ToString(),
                     BotName = bot.Name,
-                    Score = bot.Score
+                    Score = bot.Score,
+                    SessionFinishedAt = DateTime.UtcNow,
                 };
 
                 _storage.SaveHighscore(score);
