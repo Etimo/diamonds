@@ -8,7 +8,7 @@ namespace Diamonds.Common.Entities
         public string BotName { get; set;}
         public int Score { get; set;}
         // The instant that the bot session on, in UTC.
-        public DateTime SessionFinishedAt { get; set; }
+        public DateTime? SessionFinishedAt { get; set; }
     }
 
 }

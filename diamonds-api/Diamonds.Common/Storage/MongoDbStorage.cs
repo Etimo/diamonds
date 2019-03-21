@@ -116,20 +116,21 @@ namespace Diamonds.Common.Storage
         public IEnumerable<Highscore> GetHighscores()
         {
             var collection = _database.GetCollection<Highscore>("Highscores");
-            var topTenHighscores = collection
-            .AsQueryable()
-            .GroupBy(highscore => highscore.BotName)
-            .Select(group => new Highscore()
-            {
-                BotName = group.Key,
-                Score = group.Select(highscore => highscore.Score).Max()
-            })
-            .OrderByDescending(highscore => highscore.Score)
-            .Take(10)
-            .ToListAsync()
-            .Result;
-
-            return topTenHighscores;
+            return collection
+                .Aggregate()
+                // Get the top score for each bot
+                .SortByDescending(highscore => highscore.Score)
+                // NOTE: AFAICT This is equivalent to
+                // .Group(highscore => highscore.BotName, group => group.First())
+                // But for some reason that throws a NotSupportedException
+                // Maybe it requires a newer Mongo server?
+                .Group("{_id: \"$BotName\", TopScore: {$first: \"$$ROOT\"}}")
+                .ReplaceRoot<Highscore>("$TopScore")
+                // Re-sort (since the Group steps destroys the sorting)
+                .SortByDescending(highscore => highscore.Score)
+                .Limit(10)
+                .ToCursor()
+                .ToList();
         }
 
         public void UpdateBot(Bot bot)
