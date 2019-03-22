@@ -5,9 +5,9 @@ This readme is for developers that want to develop a bot to play Etimo Diamonds.
 If you want to run the backend on your own computer (which you don't have to) then read the [docker readme](DOCKER.md) instead.
 
 # Game rules
-The purpose of the game is to collect as many diamonds as possible and deliver them in the base within one minute. The bot can carry at most 5 diamonds, so it needs to deliver the diamonds to the base often. The difficult part is to write an algorithm that calculates the most efficient path to diamonds and back to the base.
+The purpose of the game is to collect as many diamonds as possible and deliver them in the base within one minute. The bot can carry at most 5 diamonds, so it needs to deliver the diamonds to the base often.
 
-The blue diamonds are worth 1 point each. Red diamonds are worth 2 points (and takes up 2 spaces in your inventory). The ratio between red and blue diamonds changes on each regeneration.
+Red diamonds count as 2 diamonds (and take up 2 spaces in your inventory) so they are twice as valuable as blue diamonds. The ratio between red and blue diamonds changes on each regeneration.
 
 There is a red button available on the board that, when stepped on, triggers a regeneration of all diamonds on the board.
 
