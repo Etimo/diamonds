@@ -30,3 +30,6 @@ Here is some info to get you started:
 
 # Example bots
 We also have some [example bots](diamonds-bot-example/README.md) to get you up and running faster.
+
+# Issues
+You can create issues at https://github.com/Etimo/diamonds/issues
