@@ -5,7 +5,10 @@ export default {
 
         ],
         gameObjects: [],
-        highscores: []
+        highscores: {
+            allSeasons: [],
+            currentSeason: [],
+        },
     },
     windowSize: {
         width: window.innerWidth,

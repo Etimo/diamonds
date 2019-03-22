@@ -31,7 +31,8 @@ class App extends Component{
 
           <div className={styles.info}>
             <PlayerList bots={this.props.bots} />
-            <HighscoreList highscores={this.props.highscores} />
+            <HighscoreList highscores={this.props.highscores.currentSeason} />
+            <HighscoreList showSeason={true} caption="All-Time Highscore" highscores={this.props.highscores.allSeasons} />
           </div>
         </div>
       </div>

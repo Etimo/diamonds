@@ -29,12 +29,11 @@ export function* updateSaga() {
 }
 
 function* pollForHighscores() {
-
   while(true) {
-    const player = yield call(axios.get, 'api/highscore');
-    const newHighscores = player.data;
+    const currentSeasonHighscores = (yield call(axios.get, 'api/highscore?season=current')).data;
+    const allSeasonsHighscores = (yield call(axios.get, 'api/highscore?season=all')).data;
 
-    yield put({type: actionTypes.HIGHSCORE_UPDATE_RECEIVED, highscores: newHighscores});
+      yield put({type: actionTypes.HIGHSCORE_UPDATE_RECEIVED, currentSeason: currentSeasonHighscores, allSeasons: allSeasonsHighscores});
     yield delay(5000);
   }
 }

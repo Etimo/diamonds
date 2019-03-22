@@ -54,7 +54,10 @@ const boardReducer = (state = initialState.gameboard, action) => {
         case actionTypes.HIGHSCORE_UPDATE_RECEIVED:
             return {
                 ...state,
-                highscores: action.highscores
+                highscores: {
+                    currentSeason: action.currentSeason,
+                    allSeasons: action.allSeasons,
+                },
             }
 
         default:
