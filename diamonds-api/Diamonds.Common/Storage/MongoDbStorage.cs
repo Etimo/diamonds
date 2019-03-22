@@ -117,7 +117,9 @@ namespace Diamonds.Common.Storage
         {
             var collection = _database.GetCollection<Highscore>("Highscores");
             return collection
-                .Aggregate()
+                .Aggregate(new AggregateOptions {
+                    AllowDiskUse = true,
+                })
                 // Get the top score for each bot
                 .SortByDescending(highscore => highscore.Score)
                 // NOTE: AFAICT This is equivalent to
