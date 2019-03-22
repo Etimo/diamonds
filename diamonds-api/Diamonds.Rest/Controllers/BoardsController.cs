@@ -161,20 +161,32 @@ namespace Diamonds.Rest.Controllers
                 board.Bots.Remove(bot);
                 _storage.UpdateBoard(board);
 
-                var score = new Highscore
+                if (ShouldSaveScore(bot.Name, bot.Score))
                 {
-                    Id = Guid.NewGuid().ToString(),
-                    BotName = bot.Name,
-                    Score = bot.Score,
-                    SessionFinishedAt = DateTime.UtcNow,
-                };
+                    var score = new Highscore
+                    {
+                        Id = Guid.NewGuid().ToString(),
+                        BotName = bot.Name,
+                        Score = bot.Score,
+                        SessionFinishedAt = DateTime.UtcNow,
+                    };
 
-                _storage.SaveHighscore(score);
+                    _storage.SaveHighscore(score);
+                }
             }
             catch (Exception exc)
             {
-                Console.WriteLine($"{nameof(OnBotExpire)} excpetion! {exc.ToString()}");
+                Console.WriteLine($"{nameof(OnBotExpire)} exception! {exc.ToString()}");
             }
+        }
+
+        private bool ShouldSaveScore(string botName, int score)
+        {
+            var highestScore = _storage
+                .GetHighscores(Common.Enums.SeasonSelector.Current, botName)
+                .FirstOrDefault();
+
+            return highestScore == null || score > highestScore.Score;
         }
 
         /// <summary>

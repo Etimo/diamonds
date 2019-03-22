@@ -114,7 +114,7 @@ namespace Diamonds.Common.Storage
             );
         }
 
-        public IEnumerable<Highscore> GetHighscores(SeasonSelector season)
+        public IEnumerable<Highscore> GetHighscores(SeasonSelector season, string botName = null)
         {
             var seasonPeriod = Season.SeasonPeriod(season);
             var seasonBeginning = seasonPeriod.Item1;
@@ -124,6 +124,7 @@ namespace Diamonds.Common.Storage
                 .Aggregate(new AggregateOptions {
                     AllowDiskUse = true,
                 })
+                .Match(highscore => botName == null || highscore.BotName == botName)
                 .Match(highscore => seasonBeginning == null || highscore.SessionFinishedAt >= seasonBeginning)
                 .Match(highscore => seasonEnd == null || highscore.SessionFinishedAt <= seasonEnd)
                 // Get the top score for each bot

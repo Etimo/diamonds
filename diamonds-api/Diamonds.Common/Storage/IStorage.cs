@@ -16,7 +16,7 @@ namespace Diamonds.Common.Storage
         void UpdateBoard(Board board);
         void CreateBoard(Board board);
 
-        IEnumerable<Highscore> GetHighscores(SeasonSelector season);
+        IEnumerable<Highscore> GetHighscores(SeasonSelector season, string botName = null);
         void SaveHighscore(Highscore score);
     }
 }

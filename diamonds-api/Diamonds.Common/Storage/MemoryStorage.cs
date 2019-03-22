@@ -106,7 +106,7 @@ namespace Diamonds.Common.Storage
             _boards.Add(board);
         }
 
-        public IEnumerable<Highscore> GetHighscores(SeasonSelector season)
+        public IEnumerable<Highscore> GetHighscores(SeasonSelector season, string botName = null)
         {
             throw new NotImplementedException();
         }
