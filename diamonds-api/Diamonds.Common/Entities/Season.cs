@@ -1,3 +1,4 @@
+using Diamonds.Common.Enums;
 using System;
 using System.Collections.Generic;
 
@@ -25,6 +26,19 @@ namespace Diamonds.Common.Entities
         public static Season Current {
             get {
                 return All[All.Count - 1];
+            }
+        }
+
+        public static Tuple<DateTime?, DateTime?> SeasonPeriod(SeasonSelector selector) {
+            switch(selector) {
+                case SeasonSelector.All:
+                    return new Tuple<DateTime?, DateTime?>(null, null);
+                case SeasonSelector.Current:
+                    var beginning = All[All.Count - 2].EndsAt;
+                    return new Tuple<DateTime?, DateTime?>(beginning, null);
+                default:
+                    // COMPLETENESS CHECKING, ANYONE?
+                    throw new InvalidOperationException("Invalid season selector: " + selector.ToString());
             }
         }
     }

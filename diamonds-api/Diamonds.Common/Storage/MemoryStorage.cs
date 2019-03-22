@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Diamonds.Common.Entities;
+using Diamonds.Common.Enums;
 using Diamonds.Common.Models;
 using Diamonds.Common.GameEngine.GameObjects;
 
@@ -93,7 +94,7 @@ namespace Diamonds.Common.Storage
         {
             return _bots.SingleOrDefault<Bot>(bot => bot.Token.Equals(token));
         }
-        
+
         public void UpdateBoard(Board board)
         {
             _boards.Remove(board);
@@ -105,7 +106,7 @@ namespace Diamonds.Common.Storage
             _boards.Add(board);
         }
 
-        public IEnumerable<Highscore> GetHighscores()
+        public IEnumerable<Highscore> GetHighscores(SeasonSelector season)
         {
             throw new NotImplementedException();
         }

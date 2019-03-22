@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Diamonds.Common.Entities;
+using Diamonds.Common.Enums;
 using Diamonds.Common.Models;
 using Diamonds.Common.GameEngine.GameObjects;
 using Diamonds.Common.GameEngine.GameObjects.Teleporters;
@@ -113,13 +114,18 @@ namespace Diamonds.Common.Storage
             );
         }
 
-        public IEnumerable<Highscore> GetHighscores()
+        public IEnumerable<Highscore> GetHighscores(SeasonSelector season)
         {
+            var seasonPeriod = Season.SeasonPeriod(season);
+            var seasonBeginning = seasonPeriod.Item1;
+            var seasonEnd = seasonPeriod.Item2;
             var collection = _database.GetCollection<Highscore>("Highscores");
             return collection
                 .Aggregate(new AggregateOptions {
                     AllowDiskUse = true,
                 })
+                .Match(highscore => seasonBeginning == null || highscore.SessionFinishedAt >= seasonBeginning)
+                .Match(highscore => seasonEnd == null || highscore.SessionFinishedAt <= seasonEnd)
                 // Get the top score for each bot
                 .SortByDescending(highscore => highscore.Score)
                 // NOTE: AFAICT This is equivalent to

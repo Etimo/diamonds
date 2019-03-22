@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Diamonds.Common.Entities;
+using Diamonds.Common.Enums;
 using Diamonds.Common.Models;
 
 namespace Diamonds.Common.Storage
@@ -15,7 +16,7 @@ namespace Diamonds.Common.Storage
         void UpdateBoard(Board board);
         void CreateBoard(Board board);
 
-        IEnumerable<Highscore> GetHighscores();
+        IEnumerable<Highscore> GetHighscores(SeasonSelector season);
         void SaveHighscore(Highscore score);
     }
 }
