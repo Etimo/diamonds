@@ -19,13 +19,14 @@
 
 .cellSign{
   text-overflow: ellipsis;
-  width: 4vw;
   white-space: nowrap;
-  overflow: hidden;
   text-overflow: ellipsis;
   text-align: center;
   font-size: 70%;
   line-height: 1;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 2px;
+  padding: 2px;
 }
 
 /* screen portrait */
