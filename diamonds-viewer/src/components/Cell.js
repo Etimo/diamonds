@@ -46,11 +46,20 @@ const Cell = (props) => {
     : c.base ? <p className={styles.cellSign}>{c.base}</p>
     : ''
 
+    if (props.windowSize.width > props.windowSize.height) {
+        var size = `calc(50vw / ${props.boardWidth})`;
+    } else {
+        var size = `calc(100vw / ${props.boardWidth} - 5px)`;
+    }
+     var cellStyle = {
+        width: size,
+        height: size
+    };
+
     return (
-        <div className={`${styles.cell} ${props.windowSize.width/props.windowSize.height > 2 ? styles.cellHeight: null}`} >
+        <div style={cellStyle} className={`${styles.cell} ${props.windowSize.width/props.windowSize.height > 2 ? styles.cellHeight: null}`} >
           {name}
           {image}
-          
         </div>
     )
 }
