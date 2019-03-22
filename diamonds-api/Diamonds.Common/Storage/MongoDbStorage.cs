@@ -137,7 +137,7 @@ namespace Diamonds.Common.Storage
                 .ReplaceRoot<Highscore>("$TopScore")
                 // Re-sort (since the Group steps destroys the sorting)
                 .SortByDescending(highscore => highscore.Score)
-                .Limit(10)
+                .Limit(30)
                 .ToCursor()
                 .ToList();
         }

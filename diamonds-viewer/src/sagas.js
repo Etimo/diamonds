@@ -34,7 +34,7 @@ function* pollForHighscores() {
     const allSeasonsHighscores = (yield call(axios.get, 'api/highscore?season=all')).data;
 
     yield put({type: actionTypes.HIGHSCORE_UPDATE_RECEIVED, currentSeason: currentSeasonHighscores, allSeasons: allSeasonsHighscores});
-    yield delay(5 * 60 * 1000);
+    yield delay(5 * 1000);
   }
 }
 
