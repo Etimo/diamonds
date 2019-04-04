@@ -22,4 +22,4 @@ else
 fi
 
 echo "Playing using token: $TOKEN"
-$PYTHON main.py --host $HOST --token $TOKEN --logic $CHOSEN_LOGIC --time-factor=3
+$PYTHON main.py --host $HOST --token $TOKEN --logic $CHOSEN_LOGIC --time-factor=3 --max-bots=3

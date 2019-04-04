@@ -50,11 +50,16 @@ parser.add_argument("--time-factor",
 parser.add_argument("--logic",
     help="The logic controller to use. Valid options are: {}".format(", ".join(list(CONTROLLERS.keys()))),
     action="store")
+parser.add_argument("--max-bots",
+    help="Limit for how many bots there should be after joining, otherwise the bot will simply wait",
+    default=None,
+    action="store")
 group = parser.add_argument_group('API connection')
 group.add_argument('--host', action="store", default=BASE_URL, help="Default: {}".format(BASE_URL))
 args = parser.parse_args()
 
 time_factor = int(args.time_factor)
+max_bots = int(args.max_bots)
 api = Api(args.host)
 logic_controller = args.logic
 if logic_controller not in CONTROLLERS:
@@ -103,7 +108,7 @@ if not current_board_id:
     for board in boards:
         # Try to join board
         current_board_id = board.id
-        if len(board.bots) < 3:
+        if max_bots is None or len(board.bots) < max_bots:
             result = bot.join(current_board_id)
             if result.status_code == 200:
                 break
