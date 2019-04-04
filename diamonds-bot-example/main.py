@@ -11,6 +11,7 @@ from game.logic.crash_in_middle import CrashInMiddle
 from game.logic.random_diamond import RandomDiamondLogic
 from game.logic.teleporter_shaker import TeleporterShake
 from game.logic.button_madness import ButtonMadness
+from game.logic.base_sitter import BaseSitter
 from colorama import init, Fore, Back, Style
 
 init()
@@ -21,7 +22,8 @@ CONTROLLERS = {
     "FirstDiamond": FirstDiamondLogic,
     "RandomDiamond": RandomDiamondLogic,
     "Teleport": TeleporterShake,
-    "RedButton": ButtonMadness
+    "RedButton": ButtonMadness,
+    "BaseSitter": BaseSitter
 }
 
 ###############################################################################
