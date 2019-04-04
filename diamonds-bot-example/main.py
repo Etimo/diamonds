@@ -103,9 +103,10 @@ if not current_board_id:
     for board in boards:
         # Try to join board
         current_board_id = board.id
-        result = bot.join(current_board_id)
-        if result.status_code == 200:
-            break
+        if len(board.bots) < 3:
+            result = bot.join(current_board_id)
+            if result.status_code == 200:
+                break
 else:
     # Try to join the one we specified
     result = bot.join(current_board_id)
