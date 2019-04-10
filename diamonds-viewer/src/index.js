@@ -1,27 +1,17 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux'
-import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
-import createSagaMiddleware from 'redux-saga'
+import React from "react";
+import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import { createStore, applyMiddleware } from "redux";
+import promise from "redux-promise";
+import reducers from "./reducers";
 
-import { updateSaga, highscoreSaga } from './sagas'
-import boardReducer from './reducers/boardReducer'
-import windowReducer from './reducers/windowReducer'
-import App from './containers/App';
+import App from "./App";
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
-const sagaMiddleware = createSagaMiddleware()
-
-const store = createStore(combineReducers({windowSize: windowReducer, gameboard: boardReducer}),
-        composeEnhancers(applyMiddleware(sagaMiddleware)))
-
-
-sagaMiddleware.run(updateSaga)
-sagaMiddleware.run(highscoreSaga)
+const store = createStore(reducers, applyMiddleware(promise));
 
 ReactDOM.render(
-    (<Provider store={store}>
-      <App />
-    </Provider>),
-  document.getElementById('root')
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById("root")
 );

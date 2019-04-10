@@ -1,8 +1,4 @@
-const defaultState = {
-  width: 0,
-  height: 0,
-  rows: [[]]
-};
+const defaultState = [];
 
 export default (state = defaultState, action) => {
   switch (action.type) {

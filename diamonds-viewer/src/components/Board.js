@@ -1,19 +1,21 @@
-import React from 'react'
-import Row from './Row'
-import styles from '../styles/board.css'
+import React from "react";
+import styled from "styled-components";
 
-const Board = (props) => {
+const Container = styled.div`
+  min-width: 800px;
+  border: solid red 1px;
+  margin: 1rem;
 
-    return (
-      <div className={styles.board}>
-      {
-        props.rows.map((content, key) => {
+  @media (max-width: 820px) {
+    min-width: initial;
+    width: 100%;
+  }
+`;
 
-          return (<Row key={key} content={content}/>)
-        })
-      }
-      </div>
-    )
+class Board extends React.Component {
+  render = () => {
+    return <Container>Board</Container>;
+  };
 }
 
 export default Board;

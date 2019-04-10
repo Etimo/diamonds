@@ -7,5 +7,5 @@ const Container = styled.div`
 `;
 
 export default props => {
-  return <Container>PlayerList</Container>;
+  return <Container>Highscore</Container>;
 };

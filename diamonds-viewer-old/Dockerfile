@@ -1,4 +1,4 @@
-FROM node:11.13-alpine
+FROM node:8.2.1-alpine
 
 RUN mkdir -p /build
 WORKDIR /build
@@ -8,7 +8,7 @@ RUN yarn install
 ADD . .
 RUN yarn build
 
-FROM nginx:mainline-alpine
+FROM nginx:1.13.3-alpine
 
 RUN rm /etc/nginx/conf.d/default.conf
 COPY ./nginx-conf/ /etc/nginx/conf.d/
