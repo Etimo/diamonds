@@ -156,7 +156,7 @@ namespace Diamonds.GameEngine
         {
             var opponentBots = allBots.Where(b => b.BotId != selfBotId);
 
-            var positionIsOpponentBase = opponentBots.Any(b => b.Position.Equals(position));
+            var positionIsOpponentBase = opponentBots.Any(b => b.Base.Equals(position));
 
             return positionIsOpponentBase;
         }

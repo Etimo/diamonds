@@ -20,6 +20,8 @@ class Bot(object):
             return "North"
         elif dx == 0 and dy == 1:
             return "South"
+        elif dx == 0 and dy == 0:
+            return None
         else:
             raise Exception("Invalid move")
 
@@ -52,4 +54,8 @@ class Bot(object):
             return Board(req.json())
 
     def move(self, board_id, dx, dy):
-        return self.api.boards_move(board_id, self._get_direction(dx, dy), self.bot_token)
+        direction = self._get_direction(dx, dy)
+        if direction is not None:
+            return self.api.boards_move(board_id, direction, self.bot_token)
+        else:
+            return self.api.boards_get(board_id)

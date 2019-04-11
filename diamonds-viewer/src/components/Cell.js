@@ -23,16 +23,21 @@ const Cell = (props) => {
         "DiamondButton":imgButton
     };
 
-    const character = c.botName && c.diamond && c.base ? imgBotBaseDiamond
-    : c.base && c.botName ? imgBotBase
-    : c.botName && c.diamond ? imgBotDiamond
-    : c.base && c.diamond ? imgBaseDiamond
-    : c.base ? imgBase
-    : c.botName ? imgRobot
-    : c.diamond ? (c.points === 1 ? imgDiamond : imgDiamondRed)
-    : c.botName && c.go ? imgRobot
-    : c.go ? goImgMap[c.goName]
-    : ''
+    const isBot = c.botName !== undefined;
+    const isBase = c.base !== undefined;
+    const isDiamond = c.diamond !== undefined;
+    const isGameObject = c.go || false;
+
+    const character = isBot && isDiamond && isBase ? imgBotBaseDiamond
+    : isBase && isBot ? imgBotBase
+    : isBot && isDiamond ? imgBotDiamond
+    : isBase && isDiamond ? imgBaseDiamond
+    : isBase ? imgBase
+    : isBot ? imgRobot
+    : isDiamond ? (c.points === 1 ? imgDiamond : imgDiamondRed)
+    : isBot && c.go ? imgRobot
+    : isGameObject ? goImgMap[c.goName]
+    : '';
 
     let image = null;
     let name = null;
@@ -42,8 +47,8 @@ const Cell = (props) => {
       image = <img alt="Player" className={styles.cellImg+(c.goName && gameObjecStyles[c.goName]? " "+gameObjecStyles[c.goName] : "") }  src={character}/>;
     }
     
-    name = c.botName ? <p className={styles.cellSign}>{c.botName}</p>
-    : c.base ? <p className={styles.cellSign}>{c.base}</p>
+    name = isBot ? <p className={styles.cellSign}>{c.botName}</p>
+    : isBase ? <p className={styles.cellSign}>{c.base}</p>
     : ''
 
     if (props.windowSize.width > props.windowSize.height) {

@@ -136,7 +136,7 @@ namespace Diamonds.Common.Entities
             var positionHasBlockingGameObject =
              this.GameObjects.Any(gi => gi.IsBlocking && gi.Position.Equals(position));
 
-            return //positionHasBot   &&
+            return positionHasBot   ||
                    positionHasBlockingGameObject;
         }
 
