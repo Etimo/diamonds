@@ -5,7 +5,7 @@ services:
             - 'api'
         build: ./diamonds-viewer
         ports:
-            - '81:80'
+            - '127.0.0.1:81:80'
         links:
             - api
         restart: always
@@ -22,6 +22,8 @@ services:
             - COMPlus_ForceMinWorkerThreads=40
     mongo:
         image: 'mongo:3.4.6'
+        ports:
+            - '127.0.0.1:27017:27017'
         volumes:
             - 'mongo:/data/db'
         restart: always
