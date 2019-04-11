@@ -33,7 +33,12 @@ namespace Diamonds.GameEngine
             while (diamondPositions.Count < maxNumberOfDiamonds)
             {
                 var diamondPositionToAdd = board.GetRandomEmptyPosition();
-                diamondPositions.Add(new DiamondPosition(diamondPositionToAdd));
+                var positionHasDiamond = diamondPositions.Contains(diamondPositionToAdd);
+
+                if (positionHasDiamond == false) 
+                {
+                    diamondPositions.Add(new DiamondPosition(diamondPositionToAdd));
+                }
             }
 
             // Replace some diamonds with red ones
