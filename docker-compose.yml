@@ -1,36 +1,36 @@
-version: '2'
+version: "3.4"
 services:
-    frontend:
-        depends_on:
-            - 'api'
-        build: ./diamonds-viewer
-        ports:
-            - '81:80'
-        links:
-            - api
-        restart: always
-    api:
-        depends_on:
-            - 'mongo'
-        build:
-            context: ./diamonds-api
-            dockerfile: Dockerfile.${DIAMONDS_API_CONFIG}
-        links:
-            - mongo
-        restart: always
-    mongo:
-        image: 'mongo:3.4.6'
-        volumes:
-            - 'mongo:/data/db'
-        restart: always
-    bot:
-        depends_on:
-            - frontend
-        build: ./diamonds-bot-example
-        volumes:
-            - 'bot:/app/token'
-        restart: always
+  frontend:
+    depends_on:
+      - "api"
+    build: ./diamonds-viewer
+    ports:
+      - "81:80"
+    links:
+      - api
+    restart: always
+  api:
+    depends_on:
+      - "mongo"
+    build:
+      context: ./diamonds-api
+      dockerfile: Dockerfile.${DIAMONDS_API_CONFIG}
+    links:
+      - mongo
+    restart: always
+  mongo:
+    image: "mongo:3.4.6"
+    volumes:
+      - "mongo:/data/db"
+    restart: always
+  bot:
+    depends_on:
+      - frontend
+    build: ./diamonds-bot-example
+    volumes:
+      - "bot:/app/token"
+    restart: always
 
 volumes:
-    mongo:
-    bot:
+  mongo:
+  bot:
