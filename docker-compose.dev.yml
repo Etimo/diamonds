@@ -16,7 +16,7 @@ services:
   api:
     build:
       context: ./diamonds-api
-      dockerfile: Dockerfile.${DIAMONDS_API_CONFIG}
+      dockerfile: Dockerfile.dev
     depends_on:
       - mongo
     restart: always
@@ -26,13 +26,13 @@ services:
       - mongo:/data/db
     restart: always
 
-  #bot:
-  #  build: ./diamonds-bot-example
-  #  depends_on:
-  #    - frontend
-  #  volumes:
-  #    - bot:/app/token
-  #  restart: always
+  bot:
+    build: ./diamonds-bot-example
+    depends_on:
+      - frontend
+    volumes:
+      - bot:/app/token
+    restart: always
 
 volumes:
   mongo:

@@ -1,6 +1,6 @@
 #!/bin/bash
 INDEX=$1
-HOST=http://frontend/api
+HOST=http://api:4000/api
 LOGICS[0]="RandomDiamond"
 
 NR_LOGICS=${#LOGICS[@]}
