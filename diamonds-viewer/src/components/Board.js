@@ -2,12 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import updateBoard from "../actions/updateBoard";
-import Row from "./Row";
+import BoardRow from "./BoardRow";
 
 const BoardContainer = styled.div`
   border: 1px solid #333;
   border-radius: 4px;
-  margin: 1rem;
   display: flex;
   flex-direction: column;
 `;
@@ -31,8 +30,8 @@ class Board extends React.Component {
   };
 
   renderRows = () => {
-    return this.props.board.rows.map((row, key) => (
-      <Row key={key} content={row} />
+    return this.props.board.rows.map((cells, key) => (
+      <BoardRow key={key} cells={cells} />
     ));
   };
 

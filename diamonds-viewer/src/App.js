@@ -12,6 +12,8 @@ const GlobalStyle = createGlobalStyle`
   }
   *, *:before, *:after {
     box-sizing: inherit;
+    font-family: 'PT Sans', sans-serif;
+    color: #2C3E50;
   }
 `;
 

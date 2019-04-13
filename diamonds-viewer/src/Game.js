@@ -11,33 +11,32 @@ const Container = styled.div`
 const Row = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: ${props =>
-    props.spaceBetween ? "space-between" : "center"};
-  flex-wrap: ${props => (props.nowrap ? "nowrap" : "wrap")};
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+
+  @media only screen and (max-width: 900px) {
+    flex-direction: column;
+  }
 `;
 
-const Col = styled.div`
+const ScoreContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
-  margin: 1rem;
+  flex: 1;
+  min-width: 320px;
+  margin: 0 2rem;
 `;
 
 export default () => {
   return (
     <Container>
-      <Col>
-        <Row nowrap spaceBetween>
-          <h2>Diamonds</h2>
-        </Row>
-        <Row>
-          <Board />
-          <Col>
-            <PlayerList />
-            <HighScore />
-          </Col>
-        </Row>
-      </Col>
+      <Row>
+        <Board />
+        <ScoreContainer>
+          <PlayerList />
+          <HighScore />
+        </ScoreContainer>
+      </Row>
     </Container>
   );
 };

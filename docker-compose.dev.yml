@@ -28,6 +28,8 @@ services:
 
   bot:
     build: ./diamonds-bot-example
+    logging:
+      driver: none
     depends_on:
       - frontend
     volumes:

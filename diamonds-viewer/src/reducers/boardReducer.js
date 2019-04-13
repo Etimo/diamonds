@@ -1,4 +1,3 @@
-import _ from "lodash";
 import { IS_FETCHING_BOARD, UPDATE_BOARD } from "../actions";
 
 const defaultState = {
