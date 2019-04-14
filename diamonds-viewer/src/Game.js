@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Board from "./components/Board";
+import GameBoard from "./components/GameBoard";
 import HighScore from "./components/HighScore";
 import PlayerList from "./components/PlayerList";
 
@@ -12,7 +12,7 @@ const Row = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
 
   @media only screen and (max-width: 900px) {
     flex-direction: column;
@@ -22,16 +22,18 @@ const Row = styled.div`
 const ScoreContainer = styled.div`
   display: flex;
   flex-direction: column;
-  flex: 1;
-  min-width: 320px;
-  margin: 0 2rem;
+  width: 30%;
+
+  @media only screen and (max-width: 900px) {
+    width: 100%;
+  }
 `;
 
 export default () => {
   return (
     <Container>
       <Row>
-        <Board />
+        <GameBoard />
         <ScoreContainer>
           <PlayerList />
           <HighScore />
