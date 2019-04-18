@@ -9,12 +9,7 @@ const Board = styled.div`
   border-radius: 4px;
   display: flex;
   flex-direction: column;
-  width: 65%;
   margin-bottom: 1.5rem;
-
-  @media only screen and (max-width: 900px) {
-    width: 100%;
-  }
 `;
 
 Board.Row = Row;

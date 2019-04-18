@@ -23,7 +23,7 @@ export default (state = defaultState, action) => {
     case IS_FETCHING_BOARD:
       return {
         ...state,
-        fetching: true
+        isFetching: true
       };
     case UPDATE_BOARD:
       const {
@@ -71,7 +71,7 @@ export default (state = defaultState, action) => {
         width,
         height,
         rows,
-        fetching: false
+        isFetching: false
       };
 
     default:

@@ -26,10 +26,10 @@ class GameBoard extends React.Component {
   };
 
   shouldUpdateBoard = () => {
-    const { fetching } = this.props.board;
+    const { isFetching } = this.props.board;
     const boardId = 1;
 
-    if (!fetching) {
+    if (!isFetching) {
       this.props.updateBoard(boardId);
     }
   };
@@ -76,8 +76,8 @@ class GameBoard extends React.Component {
 
   render = () => {
     const { rows, width } = this.props.board;
-    const bigCellSize = (100 / width).toFixed(2);
-    const smallCellSize = (65 / width).toFixed(2);
+    const bigCellSize = (90 / width).toFixed(2);
+    const smallCellSize = (60 / width).toFixed(2);
 
     return (
       <Board>

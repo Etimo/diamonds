@@ -18,7 +18,7 @@ namespace Diamonds.Common.Storage
         private readonly Board _defaultBoard = new Board
         {
             Id = "1",
-            Height = 10,
+            Height = 12,
             Width = 15,
             Bots = new List<BoardBot>(),
             Diamonds = new List<DiamondPosition>(),
