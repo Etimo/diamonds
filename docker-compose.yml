@@ -16,6 +16,8 @@ services:
     links:
       - mongo
     restart: always
+    environment:
+      - COMPlus_ForceMinWorkerThreads=40
   mongo:
     image: "mongo:3.4.6"
     volumes:

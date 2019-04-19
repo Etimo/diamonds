@@ -61,7 +61,7 @@ group.add_argument('--host', action="store", default=BASE_URL, help="Default: {}
 args = parser.parse_args()
 
 time_factor = int(args.time_factor)
-max_bots = int(args.max_bots)
+max_bots = None if args.max_bots is None else int(args.max_bots)
 api = Api(args.host)
 logic_controller = args.logic
 if logic_controller not in CONTROLLERS:
