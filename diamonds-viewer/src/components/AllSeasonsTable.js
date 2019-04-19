@@ -6,7 +6,7 @@ import Table from "../blocks/Table";
 class AllSeasonsTable extends React.Component {
   componentDidMount = () => {
     this.props.updateAllSeasons();
-    this.interval = setInterval(this.props.updateAllSeasons, 5000);
+    this.interval = setInterval(this.props.updateAllSeasons, 10000);
   };
 
   componentWillUnmount = () => {

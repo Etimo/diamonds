@@ -3,6 +3,7 @@ import { createGlobalStyle } from "styled-components";
 
 import Layout from "./blocks/Layout";
 import GameBoard from "./components/GameBoard";
+import Header from "./components/Header";
 import PlayerTable from "./components/PlayerTable";
 import HighScoreTable from "./components/HighScoreTable";
 import AllSeasonsTable from "./components/AllSeasonsTable";
@@ -27,6 +28,7 @@ export default () => {
     <React.Fragment>
       <GlobalStyle />
       <Layout>
+        <Header />
         <Layout.Game>
           <GameBoard />
           <Layout.Tables>

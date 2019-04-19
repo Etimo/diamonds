@@ -5,11 +5,18 @@ import CharacterName from "./CharacterName";
 import CharacterImg from "./CharacterImg";
 
 const Board = styled.div`
-  border: 1px solid #333;
+  position: sticky;
+  top: 40px;
+  height: 100%;
   border-radius: 4px;
   display: flex;
   flex-direction: column;
   margin-bottom: 1.5rem;
+
+  @media only screen and (max-width: 1050px) {
+    position: initial;
+    top: initial;
+  }
 `;
 
 Board.Row = Row;
