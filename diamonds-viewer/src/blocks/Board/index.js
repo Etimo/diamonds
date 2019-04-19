@@ -6,6 +6,7 @@ import CharacterImg from "./CharacterImg";
 
 const Board = styled.div`
   position: sticky;
+  border: 1px solid #707070;
   top: 40px;
   height: 100%;
   border-radius: 4px;
