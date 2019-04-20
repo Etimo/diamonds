@@ -2,12 +2,12 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import useInterval from "./useInterval";
 
-export default (url, delay, initialValue) => {
-  let [data, setData] = useState(initialValue);
+export default (url, delay, initialValue = null) => {
+  let [response, setResponse] = useState(initialValue);
 
   const fetch = async () => {
     const { data } = await axios.get(url);
-    setData(data);
+    setResponse(data);
   };
 
   useEffect(() => {
@@ -18,5 +18,5 @@ export default (url, delay, initialValue) => {
     fetch();
   }, delay);
 
-  return data;
+  return response;
 };
