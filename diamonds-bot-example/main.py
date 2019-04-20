@@ -54,7 +54,7 @@ parser.add_argument("--logic",
     action="store")
 parser.add_argument("--max-bots",
     help="Limit for how many bots there should be after joining, otherwise the bot will simply wait",
-    default=2,
+    default=None,
     action="store")
 group = parser.add_argument_group('API connection')
 group.add_argument('--host', action="store", default=BASE_URL, help="Default: {}".format(BASE_URL))

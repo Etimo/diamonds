@@ -1,55 +1,35 @@
 import React from "react";
-import { connect } from "react-redux";
-import { updateCurrentSeason } from "../actions/updateHighScores";
+import { useFetchRepeatedly } from "../utils";
 import Table from "../blocks/Table";
 
-class HighScoreTable extends React.Component {
-  componentDidMount = () => {
-    this.props.updateCurrentSeason();
-    this.interval = setInterval(this.props.updateCurrentSeason, 5000);
-  };
+const delay = 5000; // 5 sec
+const url = "api/highscore?season=current";
 
-  componentWillUnmount = () => {
-    clearInterval(this.interval);
-  };
+export default () => {
+  const highScores = useFetchRepeatedly(url, delay, []);
 
-  render = () => {
-    const {
-      highScores: { currentSeason }
-    } = this.props;
+  return (
+    <Table>
+      <Table.Caption>Highscore</Table.Caption>
+      <Table.Thead>
+        <Table.Tr>
+          <Table.Th radiusLeft width={70}>
+            Name
+          </Table.Th>
+          <Table.Th radiusRight>Score</Table.Th>
+        </Table.Tr>
+      </Table.Thead>
 
-    return (
-      <Table>
-        <Table.Caption>Highscore</Table.Caption>
-        <Table.Thead>
-          <Table.Tr>
-            <Table.Th radiusLeft width={70}>
-              Name
-            </Table.Th>
-            <Table.Th radiusRight>Score</Table.Th>
-          </Table.Tr>
-        </Table.Thead>
-
-        <Table.Tbody>
-          {currentSeason.map(bot => {
-            return (
-              <Table.Tr key={bot.botName}>
-                <Table.Td>{bot.botName}</Table.Td>
-                <Table.Td textRight>{bot.score}</Table.Td>
-              </Table.Tr>
-            );
-          })}
-        </Table.Tbody>
-      </Table>
-    );
-  };
-}
-
-const mapStateToProps = ({ highScores }) => {
-  return { highScores };
+      <Table.Tbody>
+        {highScores.map(bot => {
+          return (
+            <Table.Tr key={bot.botName}>
+              <Table.Td>{bot.botName}</Table.Td>
+              <Table.Td textRight>{bot.score}</Table.Td>
+            </Table.Tr>
+          );
+        })}
+      </Table.Tbody>
+    </Table>
+  );
 };
-
-export default connect(
-  mapStateToProps,
-  { updateCurrentSeason }
-)(HighScoreTable);

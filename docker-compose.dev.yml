@@ -9,7 +9,7 @@ services:
       - 3000:3000
     volumes:
       - ./diamonds-viewer:/usr/app
-      - /app/node_modules
+      - /usr/app/node_modules
     depends_on:
       - api
     restart: always

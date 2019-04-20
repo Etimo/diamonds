@@ -1,6 +1,5 @@
 FROM node:11.13-alpine
 
-RUN mkdir -p /build
 WORKDIR /build
 ADD ./package.json .
 RUN yarn install
