@@ -1,5 +1,5 @@
 import React from "react";
-import { useFetchRepeatedly } from "../utils";
+import { useFetchRepeatedly } from "../hooks";
 import Table from "../blocks/Table";
 
 const delay = 5000; // 5 sec
