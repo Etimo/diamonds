@@ -1,6 +1,5 @@
 import React from "react";
-import { createGlobalStyle } from "styled-components";
-
+import { useBoard } from "./hooks";
 import Layout from "./blocks/Layout";
 import GameBoard from "./components/GameBoard";
 import Header from "./components/Header";
@@ -8,36 +7,24 @@ import PlayerTable from "./components/PlayerTable";
 import HighScoreTable from "./components/HighScoreTable";
 import AllSeasonsTable from "./components/AllSeasonsTable";
 
-const GlobalStyle = createGlobalStyle`
-  html, body {
-    height: 100%;
-    margin: 0;
-  }
-  html {
-    box-sizing: border-box;
-  }
-  *, *:before, *:after {
-    box-sizing: inherit;
-    font-family: 'PT Sans', sans-serif;
-    color: #2C3E50;
-  }
-`;
+const boardId = 1;
+const url = `/api/boards/${boardId}`;
+const delay = 250; // 0.25 ms
 
 export default () => {
+  const [rows, bots] = useBoard(url, delay);
+
   return (
-    <React.Fragment>
-      <GlobalStyle />
-      <Layout>
-        <Header />
-        <Layout.Game>
-          <GameBoard />
-          <Layout.Tables>
-            <PlayerTable />
-            <HighScoreTable />
-            <AllSeasonsTable />
-          </Layout.Tables>
-        </Layout.Game>
-      </Layout>
-    </React.Fragment>
+    <Layout>
+      <Header />
+      <Layout.Game>
+        <GameBoard rows={rows} />
+        <Layout.Tables>
+          <PlayerTable bots={bots} />
+          <HighScoreTable />
+          <AllSeasonsTable />
+        </Layout.Tables>
+      </Layout.Game>
+    </Layout>
   );
 };

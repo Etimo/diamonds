@@ -1,18 +1,27 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Provider } from "react-redux";
-import { createStore, applyMiddleware } from "redux";
-import thunk from "redux-thunk";
-import promise from "redux-promise";
-import reducers from "./reducers";
-
+import { createGlobalStyle } from "styled-components";
 import App from "./App";
 
-const store = createStore(reducers, applyMiddleware(promise, thunk));
+const GlobalStyle = createGlobalStyle`
+  html, body {
+    height: 100%;
+    margin: 0;
+  }
+  html {
+    box-sizing: border-box;
+  }
+  *, *:before, *:after {
+    box-sizing: inherit;
+    font-family: 'PT Sans', sans-serif;
+    color: #2C3E50;
+  }
+`;
 
 ReactDOM.render(
-  <Provider store={store}>
+  <React.Fragment>
+    <GlobalStyle />
     <App />
-  </Provider>,
+  </React.Fragment>,
   document.getElementById("root")
 );

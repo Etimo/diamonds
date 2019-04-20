@@ -1,10 +1,9 @@
 import React from "react";
-import { connect } from "react-redux";
 import _ from "lodash";
 import { diamond } from "../images";
 import Table from "../blocks/Table";
 
-const PlayerList = ({ bots }) => {
+export default ({ bots }) => {
   return (
     <Table>
       <Table.Caption>Active Players</Table.Caption>
@@ -36,9 +35,3 @@ const PlayerList = ({ bots }) => {
     </Table>
   );
 };
-
-const mapStateToProps = ({ bots }) => {
-  return { bots };
-};
-
-export default connect(mapStateToProps)(PlayerList);

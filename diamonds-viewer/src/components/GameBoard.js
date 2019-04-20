@@ -1,7 +1,5 @@
 import React from "react";
-import { connect } from "react-redux";
 import _ from "lodash";
-import updateBoard from "../actions/updateBoard";
 import Board from "../blocks/Board";
 import {
   base,
@@ -16,25 +14,8 @@ import {
   redButton
 } from "../images";
 
-class GameBoard extends React.Component {
-  componentDidMount = () => {
-    this.interval = setInterval(this.shouldUpdateBoard, 250);
-  };
-
-  componentWillUnmount = () => {
-    clearInterval(this.interval);
-  };
-
-  shouldUpdateBoard = () => {
-    const { isFetching } = this.props.board;
-    const boardId = 1;
-
-    if (!isFetching) {
-      this.props.updateBoard(boardId);
-    }
-  };
-
-  decideCharacter = content => {
+export default ({ rows }) => {
+  const decideCharacter = content => {
     const goImgMap = {
       Teleporter: teleporter,
       Wall: wall,
@@ -64,7 +45,7 @@ class GameBoard extends React.Component {
     }
   };
 
-  decideCharacterName = content => {
+  const decideCharacterName = content => {
     if (_.has(content, "botName")) {
       return content.botName;
     } else if (_.has(content, "base")) {
@@ -74,53 +55,42 @@ class GameBoard extends React.Component {
     }
   };
 
-  render = () => {
-    const { rows, width } = this.props.board;
-    const bigCellSize = (90 / width).toFixed(2);
-    const smallCellSize = (60 / width).toFixed(2);
+  const width = rows.length;
+  const bigCellSize = (90 / width).toFixed(2);
+  const smallCellSize = (60 / width).toFixed(2);
 
-    return (
-      <Board>
-        {rows.map((cells, key) => {
-          return (
-            <Board.Row key={key}>
-              {cells.map((content, key) => {
-                const character = this.decideCharacter(content);
-                const characterName = this.decideCharacterName(content);
-                const shouldRotate = content.goName === "Teleporter" ? 1 : 0;
+  return (
+    <Board>
+      {rows.map((cells, key) => {
+        return (
+          <Board.Row key={key}>
+            {cells.map((content, key) => {
+              const character = decideCharacter(content);
+              const characterName = decideCharacterName(content);
+              const shouldRotate = content.goName === "Teleporter" ? 1 : 0;
 
-                return (
-                  <Board.Cell
-                    key={key}
-                    bigCellSize={bigCellSize}
-                    smallCellSize={smallCellSize}
-                  >
-                    {characterName && (
-                      <Board.CharacterName>{characterName}</Board.CharacterName>
-                    )}
-                    {character && (
-                      <Board.CharacterImg
-                        alt="player"
-                        src={character}
-                        rotate={shouldRotate}
-                      />
-                    )}
-                  </Board.Cell>
-                );
-              })}
-            </Board.Row>
-          );
-        })}
-      </Board>
-    );
-  };
-}
-
-const mapStateToProps = ({ board }) => {
-  return { board };
+              return (
+                <Board.Cell
+                  key={key}
+                  bigCellSize={bigCellSize}
+                  smallCellSize={smallCellSize}
+                >
+                  {characterName && (
+                    <Board.CharacterName>{characterName}</Board.CharacterName>
+                  )}
+                  {character && (
+                    <Board.CharacterImg
+                      alt="player"
+                      src={character}
+                      rotate={shouldRotate}
+                    />
+                  )}
+                </Board.Cell>
+              );
+            })}
+          </Board.Row>
+        );
+      })}
+    </Board>
+  );
 };
-
-export default connect(
-  mapStateToProps,
-  { updateBoard }
-)(GameBoard);
