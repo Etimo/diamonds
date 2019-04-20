@@ -4,14 +4,14 @@ import useInterval from "./useInterval";
 
 export default (url, delay, baseResponse = null) => {
   let [response, setResponse] = useState(baseResponse);
-  let [isFetching, setFetching] = useState(false);
+  let [isFetching, setIsFetching] = useState(false);
 
   const fetch = async () => {
     if (!isFetching) {
-      setFetching(true);
+      setIsFetching(true);
       const { data } = await axios.get(url);
       setResponse(data);
-      setFetching(false);
+      setIsFetching(false);
     }
   };
 
