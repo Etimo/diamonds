@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import useInterval from "./useInterval";
 import axios from "axios";
 
-export default (url, delay, baseResponse = null) => {
+export default (url, delay, baseResponse) => {
   let [response, setResponse] = useState(baseResponse);
   let [isFetching, setIsFetching] = useState(false);
 

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import useFetchRepeatedly from "./useFetchRepeatedly";
+import _ from "lodash";
 
 const createBoard = ({ width, height, bots, gameObjects, diamonds }) => {
   const rows = [];
@@ -43,23 +44,19 @@ const createBoard = ({ width, height, bots, gameObjects, diamonds }) => {
   return rows;
 };
 
-const baseResponse = {
-  width: 0,
-  height: 0,
-  bots: [],
-  gameObjects: [],
-  diamonds: []
-};
-
 export default (url, delay) => {
   let [rows, setRows] = useState([[]]);
   let [bots, setBots] = useState([]);
-  let boardData = useFetchRepeatedly(url, delay, baseResponse);
+  let boardData = useFetchRepeatedly(url, delay, {});
 
   useEffect(() => {
-    setRows(createBoard(boardData));
-    setBots(boardData.bots);
+    if (!_.isEmpty(boardData)) {
+      setRows(createBoard(boardData));
+      setBots(boardData.bots);
+    }
   }, [boardData]);
+
+  console.log(rows, bots);
 
   return [rows, bots];
 };
