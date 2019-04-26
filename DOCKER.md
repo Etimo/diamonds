@@ -25,6 +25,6 @@ The default is to use prod config and thus Dockerfile.prod for the API (this is 
 ## If you're running docker toolbox on Windows and can't connect to diamonds-viewer using the container ip address
 When using docker toolbox, docker is running in a virtual machine and you need to connect via the virtual machine. Find the ip of the virtual machine:
 
-    docker toolbox
+    docker-machine ip
     
 Also, temporarily modify docker-compose.yml by changing `- '127.0.0.1:81:80'` to `- '81:80'`. Do not commit this change.
