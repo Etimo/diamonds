@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Diamonds.Common.Entities;
 using Diamonds.Common.Enums;
 using Diamonds.Common.Models;
@@ -44,8 +45,8 @@ namespace Diamonds.Common.Storage
                 var mongoClient = new MongoClient(settings);
                 _database = mongoClient.GetDatabase(DatabaseName);
 
-                var board = GetBoard("1");
-                if (board == null) CreateBoard(_defaultBoard);
+                var board = GetBoardAsync("1").Result;
+                if (board == null) CreateBoardAsync(_defaultBoard).Wait();
             }
             catch (Exception ex)
             {
@@ -53,75 +54,78 @@ namespace Diamonds.Common.Storage
             }
         }
 
-        public Bot GetBot(BotRegistrationInput input)
+        public async Task<Bot> GetBotAsync(BotRegistrationInput input)
         {
             var collection = _database.GetCollection<Bot>("Bots");
-            var result = collection.Find(m => m.Name.Equals(input.Name) || m.Email.Equals(input.Email)).SingleOrDefault();
+            var result = (await collection.FindAsync(m =>
+                    m.Name.Equals(input.Name) || m.Email.Equals(input.Email)))
+                .SingleOrDefault();
             return result;
         }
 
-        public Bot GetBot(string token)
+        public async Task<Bot> GetBotAsync(string token)
         {
             var collection = _database.GetCollection<Bot>("Bots");
-            var result = collection.Find(m => m.Token.Equals(token)).SingleOrDefault();
+            var result = (await collection.FindAsync(m => m.Token.Equals(token))).SingleOrDefault();
             return result;
         }
 
-        public Bot AddBot(BotRegistrationInput input)
+        public async Task<Bot> AddBotAsync(BotRegistrationInput input)
         {
             Bot bot = new Bot
             {
                 Name = input.Name,
                 Email = input.Email
             };
-            _database.GetCollection<Bot>("Bots").InsertOne(bot);
+            await _database.GetCollection<Bot>("Bots").InsertOneAsync(bot);
             return bot;
         }
 
-        public IEnumerable<Board> GetBoards()
+        public async Task<IEnumerable<Board>> GetBoardsAsync()
         {
             var collection = _database.GetCollection<Board>("Boards");
-            var result = collection.Find(m => true);
+            var result = await collection.FindAsync(m => true);
             var boards = result.ToList();
             return boards;
         }
 
-        public Board GetBoard(string id)
+        public async Task<Board> GetBoardAsync(string id)
         {
             var collection = _database.GetCollection<Board>("Boards");
-            var result = collection.Find(m => m.Id.Equals(id)).SingleOrDefault();
+            var result = (await collection.FindAsync(m => m.Id.Equals(id))).SingleOrDefault();
             return result;
         }
 
-        public void CreateBoard(Board board)
+        public async Task CreateBoardAsync(Board board)
         {
             var collection = _database.GetCollection<Board>("Boards");
             try {
-                collection.InsertOne(board);
-            } catch (MongoDB.Driver.MongoWriteException e) {
+                await collection.InsertOneAsync(board);
+            } catch (MongoWriteException e) {
                 // More than one thread creating default board, ignore for now
                 Console.WriteLine(e);
             }
         }
 
-        public void UpdateBoard(Board board)
+        public async Task UpdateBoardAsync(Board board)
         {
             var collection = _database.GetCollection<Board>("Boards");
-            collection.ReplaceOne(
+            await collection.ReplaceOneAsync(
                 new BsonDocument("_id", board.Id),
                 board,
                 new UpdateOptions { IsUpsert = true }
             );
         }
 
-        public IEnumerable<Highscore> GetHighscores(SeasonSelector season, string botName = null)
+        public Task<IEnumerable<Highscore>> GetHighscoresAsync(SeasonSelector season, string botName = null)
         {
             var seasonPeriod = Season.SeasonPeriod(season);
             var seasonBeginning = seasonPeriod.Item1;
             var seasonEnd = seasonPeriod.Item2;
             var collection = _database.GetCollection<Highscore>("Highscores");
-            return collection
-                .Aggregate(new AggregateOptions {
+            var highscores = collection
+                .Aggregate(new AggregateOptions
+                {
                     AllowDiskUse = true,
                 })
                 .Match(highscore => botName == null || highscore.BotName == botName)
@@ -139,27 +143,28 @@ namespace Diamonds.Common.Storage
                 .SortByDescending(highscore => highscore.Score)
                 .Limit(30)
                 .ToCursor()
-                .ToList();
+                .ToEnumerable();
+            return Task.FromResult(highscores);
         }
 
-        public void UpdateBot(Bot bot)
+        public async Task UpdateBotAsync(Bot bot)
         {
             var collection = _database.GetCollection<Bot>("Bots");
-            collection.ReplaceOne(
+            await collection.ReplaceOneAsync(
                 new BsonDocument("_id", bot.Id),
                 bot,
                 new UpdateOptions { IsUpsert = true }
             );
         }
 
-        public void SaveHighscore(Highscore score)
+        public async Task SaveHighscoreAsync(Highscore score)
         {
             if(string.IsNullOrWhiteSpace(score.Id)) {
                 score.Id = Guid.NewGuid().ToString();
             }
 
             var collection = _database.GetCollection<Highscore>("Highscores");
-            collection.ReplaceOne(
+            await collection.ReplaceOneAsync(
                 new BsonDocument("_id", score.Id),
                 score,
                 new UpdateOptions { IsUpsert = true }

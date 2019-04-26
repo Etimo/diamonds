@@ -12,7 +12,7 @@ namespace Diamonds.Common.Storage
 
     public class MemoryStorage : IStorage
     {
-        private List<Bot> _bots = new List<Bot>
+        private IEnumerable<Bot> _bots = new List<Bot>
         {
             new Bot
             {
@@ -64,59 +64,63 @@ namespace Diamonds.Common.Storage
             }
         };
 
-        public Bot AddBot(BotRegistrationInput input)
+        public Task<Bot> AddBotAsync(BotRegistrationInput input)
         {
             var bot = new Bot
             {
                 Name = input.Name,
                 Email = input.Email
             };
-            _bots.Add(bot);
-            return bot;
+            (_bots as List<Bot>)?.Add(bot);
+            return Task.FromResult(bot);
         }
 
-        public IEnumerable<Board> GetBoards()
+        public Task<IEnumerable<Board>> GetBoardsAsync()
         {
-            return _boards;
+            return Task.FromResult(_boards as IEnumerable<Board>);
         }
 
-        public Board GetBoard(string id)
+        public Task<Board> GetBoardAsync(string id)
         {
-            return _boards.SingleOrDefault<Board>(board => board.Id.Equals(id));
+            return Task.FromResult(_boards.SingleOrDefault<Board>(board => board.Id.Equals(id)));
         }
 
-        public Bot GetBot(BotRegistrationInput input)
+        public Task<Bot> GetBotAsync(BotRegistrationInput input)
         {
-            return _bots.SingleOrDefault<Bot>(bot => bot.Name.Equals(input.Name) || bot.Email.Equals(input.Email));
+            return Task.FromResult(_bots.SingleOrDefault<Bot>(bot => bot.Name.Equals(input.Name) || bot.Email.Equals(input.Email)));
         }
 
-        public Bot GetBot(string token)
+        public Task<Bot> GetBotAsync(string token)
         {
-            return _bots.SingleOrDefault<Bot>(bot => bot.Token.Equals(token));
+            return Task.FromResult(_bots.SingleOrDefault<Bot>(bot => bot.Token.Equals(token)));
         }
 
-        public void UpdateBoard(Board board)
+        public Task UpdateBoardAsync(Board board)
         {
             _boards.Remove(board);
             _boards.Add(board);
+
+            return Task.FromResult(new object());
         }
 
-        public void CreateBoard(Board board)
+        public Task CreateBoardAsync(Board board)
         {
             _boards.Add(board);
+
+            return Task.FromResult(new object());
         }
 
-        public IEnumerable<Highscore> GetHighscores(SeasonSelector season, string botName = null)
+        public Task<IEnumerable<Highscore>> GetHighscoresAsync(SeasonSelector season, string botName = null)
         {
             throw new NotImplementedException();
         }
 
-        public void UpdateBot(Bot bot)
+        public Task UpdateBotAsync(Bot bot)
         {
             throw new NotImplementedException();
         }
 
-        public void SaveHighscore(Highscore score)
+        public Task SaveHighscoreAsync(Highscore score)
         {
             throw new NotImplementedException();
         }

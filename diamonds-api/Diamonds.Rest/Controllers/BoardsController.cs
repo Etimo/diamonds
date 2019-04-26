@@ -36,11 +36,12 @@ namespace Diamonds.Rest.Controllers
         /// </summary>
         [ProducesResponseType(typeof(IEnumerable<Board>), 200)]
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> GetAsync()
         {
-            var boards = _storage.GetBoards();
+            var boards = await _storage.GetBoardsAsync();
             return Ok(boards);
         }
+
         private void regenerateBoardObjects(Board board){
                 board.GameObjects = new List<BaseGameObject>();
                 board.Diamonds = _diamondGeneratorService.GenerateDiamondsIfNeeded(board);
@@ -62,9 +63,9 @@ namespace Diamonds.Rest.Controllers
         [ProducesResponseType(typeof(void), 404)]
         [HttpGet]
         [Route("{id}")]
-        public IActionResult GetBoard(string id)
+        public async Task<IActionResult> GetBoardAsync(string id)
         {
-            var board = GetAndGenerateBoard(id);
+            var board = await GetAndGenerateBoardAsync(id);
             if (board == null)
             {
                 return NotFound();
@@ -73,9 +74,9 @@ namespace Diamonds.Rest.Controllers
             return Ok(board);
         }
 
-        private Board GetAndGenerateBoard(string id)
+        private async Task<Board> GetAndGenerateBoardAsync(string id)
         {
-            var board = _storage.GetBoard(id);
+            var board = await _storage.GetBoardAsync(id);
             if(board == null)
             {
                 return null;
@@ -84,7 +85,7 @@ namespace Diamonds.Rest.Controllers
             if(_diamondGeneratorService.NeedToGenerateDiamonds(board))
             {
                 regenerateBoardObjects(board);
-                _storage.UpdateBoard(board);
+                await _storage.UpdateBoardAsync(board);
             }
             return board;
         }
@@ -101,10 +102,10 @@ namespace Diamonds.Rest.Controllers
         [ProducesResponseType(typeof(void), 409)]
         [HttpPost]
         [Route("{id}/join")]
-        public IActionResult Post([FromBody] JoinInput input, string id)
+        public async Task<IActionResult> PostAsync([FromBody] JoinInput input, string id)
         {
             // Check if bot exists
-            var bot = _storage.GetBot(input.BotToken);
+            var bot = await _storage.GetBotAsync(input.BotToken);
             if (bot == null)
             {
                 // Invalid bot token
@@ -112,7 +113,7 @@ namespace Diamonds.Rest.Controllers
             }
 
             // Check for correct board
-            var board = _storage.GetBoard(id);
+            var board = await _storage.GetBoardAsync(id);
             if (board == null)
             {
                 // Invalid board id
@@ -132,7 +133,7 @@ namespace Diamonds.Rest.Controllers
             }
 
             board.AddBot(bot);
-            _storage.UpdateBoard(board);
+            await _storage.UpdateBoardAsync(board);
 
             SetExpireCallbackForBot(bot, id);
 
@@ -145,7 +146,7 @@ namespace Diamonds.Rest.Controllers
             // intermediate solution to terminate bot when time expires
             // maybe replace with endpoint like /end or /score in the future
             var timerState = new TimerState { BotId = bot.Id, BoardId = id };
-            var onExpireCallback = new TimerCallback(OnBotExpire);
+            var onExpireCallback = new TimerCallback(async x => await OnBotExpireAsync(x));
 
             var timer = new Timer(onExpireCallback, timerState, Board.TotalGameTime, Timeout.Infinite);
             timerState.TimerReference = timer;
@@ -158,20 +159,20 @@ namespace Diamonds.Rest.Controllers
             public Timer TimerReference { get; set; }
         }
 
-        private void OnBotExpire(object stateObj)
+        private async Task OnBotExpireAsync(object stateObj)
         {
             try
             {
                 var state = (TimerState)stateObj;
-                var board = _storage.GetBoard(state.BoardId);
+                var board = await _storage.GetBoardAsync(state.BoardId);
 
                 var bot = board.Bots.SingleOrDefault(b => !string.IsNullOrWhiteSpace(b.BotId) && b.BotId.Equals(state.BotId));
                 if (bot == null) return;
 
                 board.Bots.Remove(bot);
-                _storage.UpdateBoard(board);
+                await _storage.UpdateBoardAsync(board);
 
-                if (ShouldSaveScore(bot.Name, bot.Score))
+                if (await ShouldSaveScoreAsync(bot.Name, bot.Score))
                 {
                     var score = new Highscore
                     {
@@ -181,19 +182,19 @@ namespace Diamonds.Rest.Controllers
                         SessionFinishedAt = DateTime.UtcNow,
                     };
 
-                    _storage.SaveHighscore(score);
+                    await _storage.SaveHighscoreAsync(score);
                 }
             }
             catch (Exception exc)
             {
-                Console.WriteLine($"{nameof(OnBotExpire)} exception! {exc.ToString()}");
+                Console.WriteLine($"{nameof(OnBotExpireAsync)} exception! {exc.ToString()}");
             }
         }
 
-        private bool ShouldSaveScore(string botName, int score)
+        private async Task<bool> ShouldSaveScoreAsync(string botName, int score)
         {
-            var highestScore = _storage
-                .GetHighscores(Common.Enums.SeasonSelector.Current, botName)
+            var highestScore = (await _storage
+                .GetHighscoresAsync(Common.Enums.SeasonSelector.Current, botName))
                 .FirstOrDefault();
 
             return highestScore == null || score > highestScore.Score;
@@ -212,21 +213,21 @@ namespace Diamonds.Rest.Controllers
         [ProducesResponseType(typeof(Board), 409)]
         [HttpPost]
         [Route("{id}/move")]
-        public IActionResult Post([FromBody] MoveInput input, string id)
+        public async Task<IActionResult> PostAsync([FromBody] MoveInput input, string id)
         {
             if (input.isValid() == false)
             {
                 return StatusCode(400);
             }
 
-            var bot = _storage.GetBot(input.botToken);
+            var bot = await _storage.GetBotAsync(input.botToken);
 
             if (bot == null)
             {
                 return StatusCode(403);
             }
 
-            var board = _storage.GetBoard(id);
+            var board = await _storage.GetBoardAsync(id);
 
             if (board == null)
             {
@@ -241,13 +242,14 @@ namespace Diamonds.Rest.Controllers
                 return StatusCode(403);
             }
 
-            var moveResult = _moveService.Move(id, bot.Name, input.direction);
+            var moveResult = await _moveService.MoveAsync(id, bot.Name, input.direction);
+
             if (moveResult != MoveResultCode.Ok)
             {
-                return StatusCode(409, GetAndGenerateBoard(id));
+                return StatusCode(409, GetAndGenerateBoardAsync(id));
             }
 
-            return Ok(GetAndGenerateBoard(id));
+            return Ok(GetAndGenerateBoardAsync(id));
         }
     }
 }

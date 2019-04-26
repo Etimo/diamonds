@@ -7,30 +7,31 @@ using System.Linq;
 using Diamonds.Common.Entities;
 using Diamonds.Common.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Diamonds.Common.GameEngine.DiamondGenerator;
 
 namespace Diamonds.GameEngine
 {
     /**
     *The teleporting move-service wraps a bot around to the other side of the board
-    *when exiting. 
-    * As an example a move that would result x> board length will wrap around to x=0, 
+    *when exiting.
+    * As an example a move that would result x> board length will wrap around to x=0,
     * whereas X <0 will result in x=board.maxx
      */
     public class WrappingMoveService : MoveService
     {
 
-        public WrappingMoveService(IStorage storage, 
+        public WrappingMoveService(IStorage storage,
         IDiamondGeneratorService boardDiamondManager,
         IGameObjectGeneratorService boardsObjectGenerator)
           :base(storage,boardDiamondManager,boardsObjectGenerator) //TODO: Remove inheritance, all methods are reimplemented.
         {
         }
 
-        public new MoveResultCode Move(string boardId, string botName, Direction direction)
+        public new async Task<MoveResultCode> MoveAsync(string boardId, string botName, Direction direction)
         {
-            var board = _storage.GetBoard(boardId);
-            var resultCode = PerformMoveAndUpdateBoard(board, botName, direction);
+            var board = await _storage.GetBoardAsync(boardId);
+            var resultCode = await PerformMoveAndUpdateBoardAsync(board, botName, direction);
 
             if (resultCode != MoveResultCode.Ok)
             {
@@ -39,18 +40,18 @@ namespace Diamonds.GameEngine
 
             // TODO: Consider moving the call to _boardDiamondManager away from this class
             board.Diamonds = _boardDiamondManager.GenerateDiamondsIfNeeded(board);  //TODO: Better place..
-            _storage.UpdateBoard(board);
+            await _storage.UpdateBoardAsync(board);
 
             return MoveResultCode.Ok;
         }
 
-        private MoveResultCode PerformMoveAndUpdateBoard(Board board, string botName, Direction direction)
+        private async Task<MoveResultCode> PerformMoveAndUpdateBoardAsync(Board board, string botName, Direction direction)
         {
             var bot = board.Bots.SingleOrDefault(b => b.Name == botName);
             if (bot == null) return MoveResultCode.InvalidMove;
             if (bot.IsGameOver())
             {
-                RemoveBot(bot, board);
+                await RemoveBotAsync(bot, board);
                 return MoveResultCode.InvalidMove;
             }
 
@@ -68,16 +69,16 @@ namespace Diamonds.GameEngine
             bot.Position = attemptedNextPosition;
 
             // update timers on bot
-            bot.NextMoveAvailableAt = 
+            bot.NextMoveAvailableAt =
                 DateTime.UtcNow.AddMilliseconds(board.MinimumDelayBetweenMoves);
 
             return MoveResultCode.Ok;
         }
 
-        private void RemoveBot(BoardBot bot, Board board)
+        private async Task RemoveBotAsync(BoardBot bot, Board board)
         {
-            var removed = board.Bots.Remove(bot);
-            _storage.UpdateBoard(board);
+            board.Bots.Remove(bot);
+            await _storage.UpdateBoardAsync(board);
         }
 
         private void AttemptDeliverInBase(Position position, BoardBot bot)
@@ -92,7 +93,7 @@ namespace Diamonds.GameEngine
             bot.Score += bot.Diamonds;
             bot.Diamonds = 0;
         }
-        
+
         private void AttemptPickUpDiamond(Position position, Board board, BoardBot bot)
         {
             bool positionHasDiamond = board.Diamonds.Any(p => p.Equals(position));
@@ -114,8 +115,8 @@ namespace Diamonds.GameEngine
         }
 
         /**
-        *Currently untriggerable. 
-        *Will be needed once walls, etc, 
+        *Currently untriggerable.
+        *Will be needed once walls, etc,
         *are incorporated into the board.
          */
         private bool CanMoveToPosition(Board board, BoardBot bot, Position position)
@@ -151,7 +152,7 @@ namespace Diamonds.GameEngine
         }
 
     /**
-    *Wraps the provided position around the board if 
+    *Wraps the provided position around the board if
     *it is larger or smaller than the board.
     *@param pos Position calculated from previous position
     *@param board The current game board.

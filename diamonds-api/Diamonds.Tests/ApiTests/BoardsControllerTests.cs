@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -30,7 +31,7 @@ namespace Diamonds.Tests.ApiTests
             var controller = new BoardsController(new MemoryStorage(), null, null, null);
 
             // Act
-            var response = controller.Get();
+            var response = controller.GetAsync().Result;
 
             // Assert
             var versionResult = (OkObjectResult)response;
@@ -76,7 +77,7 @@ namespace Diamonds.Tests.ApiTests
                 {
                 }
             };
-            storage.UpdateBoard(testBoard);
+            storage.UpdateBoardAsync(testBoard).Wait();
             var generatorService = new GameObjectGeneratorService();
             Assert.NotEmpty(generatorService.getCurrentObjectGenerators());
             var controller = new BoardsController(storage,
@@ -84,8 +85,8 @@ namespace Diamonds.Tests.ApiTests
              new DiamondGeneratorService()
              , generatorService);
              //GameObject related tests here. TODO: Break out into separate test-cases.
-            var boardResult = controller.GetBoard("2") as OkObjectResult;
-            var board = boardResult.Value as Board;
+            var boardResult = controller.GetBoardAsync("2").Result as OkObjectResult;
+            var board = boardResult?.Value as Board;
             Assert.NotEmpty(board.GameObjects);
             Assert.Equal(2,
              board.GameObjects.Where(go =>

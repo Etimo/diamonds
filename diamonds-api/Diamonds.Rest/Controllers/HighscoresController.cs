@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Diamonds.Common.Entities;
 using Diamonds.Common.Enums;
 using Diamonds.Common.Storage;
@@ -23,9 +24,9 @@ namespace Diamonds.Rest.Controllers
         [ProducesResponseType(typeof(IEnumerable<Highscore>), 200)]
         [ProducesResponseType(typeof(void), 204)]
         [HttpGet]
-        public IActionResult Get(SeasonSelector season = SeasonSelector.Current)
+        public async Task<IActionResult> GetAsync(SeasonSelector season = SeasonSelector.Current)
         {
-            var highscores = _storage.GetHighscores(season);
+            var highscores = await _storage.GetHighscoresAsync(season);
 
             if (highscores == null) {
                 return NoContent();

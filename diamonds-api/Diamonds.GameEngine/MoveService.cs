@@ -7,6 +7,7 @@ using System.Linq;
 using Diamonds.Common.Entities;
 using Diamonds.Common.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Diamonds.Common.GameEngine.DiamondGenerator;
 
 namespace Diamonds.GameEngine
@@ -17,7 +18,7 @@ namespace Diamonds.GameEngine
         protected readonly IDiamondGeneratorService _boardDiamondManager;
         protected readonly IGameObjectGeneratorService _boardObjectGenerator;
 
-        public MoveService(IStorage storage, 
+        public MoveService(IStorage storage,
         IDiamondGeneratorService boardDiamondManager,
         IGameObjectGeneratorService boardObjectGenerator)
         {
@@ -31,17 +32,16 @@ namespace Diamonds.GameEngine
         {
             board.GameObjects = new List<BaseGameObject>();
             board.Diamonds = _boardDiamondManager.GenerateDiamondsIfNeeded(board);
-            if (_boardObjectGenerator == null) return;
-             _boardObjectGenerator
-             .getCurrentObjectGenerators()
-             .ForEach(
-                 gog =>
-                 board.GameObjects.AddRange(gog.RegenerateObjects(board))); 
+            _boardObjectGenerator?
+                .getCurrentObjectGenerators()
+                .ForEach(gog =>
+                    board.GameObjects.AddRange(gog.RegenerateObjects(board)));
         }
-        public MoveResultCode Move(string boardId, string botName, Direction direction)
+
+        public async Task<MoveResultCode> MoveAsync(string boardId, string botName, Direction direction)
         {
-            var board = _storage.GetBoard(boardId);
-            var resultCode = PerformMoveAndUpdateBoard(board, botName, direction);
+            var board = await _storage.GetBoardAsync(boardId);
+            var resultCode = await PerformMoveAndUpdateBoardAsync(board, botName, direction);
 
             if (resultCode != MoveResultCode.Ok)
             {
@@ -52,12 +52,12 @@ namespace Diamonds.GameEngine
             {
                 regenerateBoardObjects(board);
             }
-            _storage.UpdateBoard(board);
+            await _storage.UpdateBoardAsync(board);
 
             return MoveResultCode.Ok;
         }
 
-        private MoveResultCode PerformMoveAndUpdateBoard(Board board, string botName, Direction direction)
+        private async Task<MoveResultCode> PerformMoveAndUpdateBoardAsync(Board board, string botName, Direction direction)
         {
             var bot = board.Bots.SingleOrDefault(b => b.Name == botName);
 
@@ -65,7 +65,7 @@ namespace Diamonds.GameEngine
 
             if (bot.IsGameOver())
             {
-                RemoveBot(bot, board);
+                await RemoveBotAsync(bot, board);
                 return MoveResultCode.InvalidMove;
             }
 
@@ -95,13 +95,13 @@ namespace Diamonds.GameEngine
             var gameObject = board.GameObjects.Where(gf => gf.Position.Equals(attemptedNextPosition)).
             DefaultIfEmpty(new DoNothingGameObject()).FirstOrDefault();
             gameObject.PerformInteraction(board,bot,direction,generator);
-            
+
         }
 
-        private void RemoveBot(BoardBot bot, Board board)
+        private async Task RemoveBotAsync(BoardBot bot, Board board)
         {
             var removed = board.Bots.Remove(bot);
-            _storage.UpdateBoard(board);
+            await _storage.UpdateBoardAsync(board);
         }
 
         private void AttemptDeliverInBase(Position position, BoardBot bot)
@@ -143,7 +143,7 @@ namespace Diamonds.GameEngine
         private bool CanMoveToPosition(Board board, BoardBot bot, Position position)
         {
             return PositionIsInBoard(position, board)
-                && PositionIsOpponentBase(position, bot.BotId, board.Bots) == false  
+                && PositionIsOpponentBase(position, bot.BotId, board.Bots) == false
                 && board.IsPositionBlocked(position) == false; //Includes bots and GameObjects which return true for blockable.
         }
 

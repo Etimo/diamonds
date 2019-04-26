@@ -19,18 +19,18 @@ namespace Diamonds.Rest.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> GetAsync()
         {
-            var boards = _storage.GetBoards().ToList();
+            var boards = (await _storage.GetBoardsAsync()).ToList();
 
             boards.ForEach(board =>
             {
                 var expiredBots = board.Bots.Where(bot => bot.IsGameOver()).ToList();
 
-                expiredBots.ForEach(expiredBot =>
+                expiredBots.ForEach(async expiredBot =>
                 {
-                    var removed = board.Bots.Remove(expiredBot);
-                    _storage.UpdateBoard(board);
+                    board.Bots.Remove(expiredBot);
+                    await _storage.UpdateBoardAsync(board);
                 });
             });
             return Ok();

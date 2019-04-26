@@ -2,11 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Diamonds.Common.GameEngine.Move
 {
     public interface IMoveService
     {
-        MoveResultCode Move(string boardId, string botId, Direction direction);
+        Task<MoveResultCode> MoveAsync(string boardId, string botId, Direction direction);
     }
 }

@@ -29,9 +29,9 @@ namespace Diamonds.Rest.Controllers
         [ProducesResponseType(typeof(void), 404)]
         [HttpGet]
         [Route("{token}")]
-        public IActionResult Get(string token)
+        public async Task<IActionResult> GetAsync(string token)
         {
-            var bot = storage.GetBot(token);
+            var bot = await storage.GetBotAsync(token);
 
             if (bot == null)
             {
@@ -53,16 +53,16 @@ namespace Diamonds.Rest.Controllers
         [ProducesResponseType(typeof(Bot), 200)]
         [ProducesResponseType(typeof(void), 409)]
         [HttpPost]
-        public IActionResult Post([FromBody] BotRegistrationInput input)
+        public async Task<IActionResult> PostAsync([FromBody] BotRegistrationInput input)
         {
-            var bot = storage.GetBot(input);
+            var bot = await storage.GetBotAsync(input);
 
             if (bot != null)
             {
                 return StatusCode(409);
             }
 
-            return Ok(storage.AddBot(input));
+            return Ok(await storage.AddBotAsync(input));
         }
     }
 }

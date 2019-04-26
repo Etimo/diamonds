@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Diamonds.Common.Entities;
 using Diamonds.Common.Enums;
 using Diamonds.Common.Models;
@@ -7,16 +8,16 @@ namespace Diamonds.Common.Storage
 {
     public interface IStorage
     {
-        Bot GetBot(BotRegistrationInput input);
-        Bot GetBot(string token);
-        Bot AddBot(BotRegistrationInput input);
-        void UpdateBot(Bot bot);
-        IEnumerable<Board> GetBoards();
-        Board GetBoard(string id);
-        void UpdateBoard(Board board);
-        void CreateBoard(Board board);
+        Task<Bot> GetBotAsync(BotRegistrationInput input);
+        Task<Bot> GetBotAsync(string token);
+        Task<Bot> AddBotAsync(BotRegistrationInput input);
+        Task UpdateBotAsync(Bot bot);
+        Task<IEnumerable<Board>> GetBoardsAsync();
+        Task<Board> GetBoardAsync(string id);
+        Task UpdateBoardAsync(Board board);
+        Task CreateBoardAsync(Board board);
 
-        IEnumerable<Highscore> GetHighscores(SeasonSelector season, string botName = null);
-        void SaveHighscore(Highscore score);
+        Task<IEnumerable<Highscore>> GetHighscoresAsync(SeasonSelector season, string botName = null);
+        Task SaveHighscoreAsync(Highscore score);
     }
 }
