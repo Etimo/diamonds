@@ -64,19 +64,29 @@ namespace Diamonds.Rest.Controllers
         [Route("{id}")]
         public IActionResult GetBoard(string id)
         {
-
-            var board = _storage.GetBoard(id);
-
+            var board = GetAndGenerateBoard(id);
             if (board == null)
             {
                 return NotFound();
             }
-            if(_diamondGeneratorService.NeedToGenerateDiamonds(board)){
+
+            return Ok(board);
+        }
+
+        private Board GetAndGenerateBoard(string id)
+        {
+            var board = _storage.GetBoard(id);
+            if(board == null)
+            {
+                return null;
+            }
+
+            if(_diamondGeneratorService.NeedToGenerateDiamonds(board))
+            {
                 regenerateBoardObjects(board);
                 _storage.UpdateBoard(board);
             }
-
-            return Ok(board);
+            return board;
         }
 
         /// <summary>
@@ -232,13 +242,12 @@ namespace Diamonds.Rest.Controllers
             }
 
             var moveResult = _moveService.Move(id, bot.Name, input.direction);
-
             if (moveResult != MoveResultCode.Ok)
             {
-                return StatusCode(409);
+                return StatusCode(409, GetAndGenerateBoard(id));
             }
 
-            return GetBoard(id);
+            return Ok(GetAndGenerateBoard(id));
         }
     }
 }
