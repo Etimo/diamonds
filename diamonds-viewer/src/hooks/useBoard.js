@@ -45,9 +45,9 @@ const createBoard = ({ width, height, bots, gameObjects, diamonds }) => {
 };
 
 export default (url, delay) => {
-  let [rows, setRows] = useState([[]]);
-  let [bots, setBots] = useState([]);
-  let boardData = useFetchRepeatedly(url, delay, {});
+  const [rows, setRows] = useState([[]]);
+  const [bots, setBots] = useState([]);
+  const boardData = useFetchRepeatedly(url, delay, {});
 
   useEffect(() => {
     if (!_.isEmpty(boardData)) {
@@ -55,8 +55,6 @@ export default (url, delay) => {
       setBots(boardData.bots);
     }
   }, [boardData]);
-
-  console.log(rows, bots);
 
   return [rows, bots];
 };

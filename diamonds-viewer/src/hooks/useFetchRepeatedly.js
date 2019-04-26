@@ -3,8 +3,8 @@ import useInterval from "./useInterval";
 import axios from "axios";
 
 export default (url, delay, baseResponse) => {
-  let [response, setResponse] = useState(baseResponse);
-  let [isFetching, setIsFetching] = useState(false);
+  const [response, setResponse] = useState(baseResponse);
+  const [isFetching, setIsFetching] = useState(false);
 
   useEffect(() => {
     const fetch = async () => {
