@@ -209,7 +209,7 @@ namespace Diamonds.Rest.Controllers
         [ProducesResponseType(typeof(void), 400)]
         [ProducesResponseType(typeof(void), 403)]
         [ProducesResponseType(typeof(void), 404)]
-        [ProducesResponseType(typeof(void), 409)]
+        [ProducesResponseType(typeof(Board), 409)]
         [HttpPost]
         [Route("{id}/move")]
         public IActionResult Post([FromBody] MoveInput input, string id)
