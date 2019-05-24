@@ -1,0 +1,61 @@
+# This documentation is written in the Org format: https://orgmode.org/
+# Basics: *bold*, ~code~, [[link]]
+
+# The table of contents is automatically updated by [[https://github.com/snosov1/toc-org][toc-org]] after each save, if you have it installed and enabled.
+
+# You'll need to regenerate the diagrams after editing their source code, you can run all such tasks by performing an export (in Emacs: M-x, org-html-export-to-html)
+# If you don't do this then the rendered diagrams will not be updated, and instead keep showing the old version.
+
+#+Title: Diamonds V2
+
+
+
+# Kept up-to-date by [[https://github.com/snosov1/toc-org][toc-org]].
+# Ignored for local exports, since real (Emacs) Org provides its own table of contents.
+* Table of Contents                                                   :TOC_3_gh:QUOTE:noexport:
+#+BEGIN_QUOTE
+- [[#backend-application-architecture][Backend Application Architecture]]
+#+END_QUOTE
+
+* Backend Application Architecture
+
+   #+begin_src plantuml :file Architecture.png
+     @startuml
+     rectangle "Boards Controller" as BoardsController #FF0000
+     rectangle "Bots Controller" as BotsController #FF0000
+     rectangle "Highscores Controller" as HighscoresController #FF0000
+     
+     rectangle "Boards Service" as BoardsService #00FF00
+     rectangle "Game Service" as GameService #00FF00
+     rectangle "Bots Service" as BotsService #00FF00
+     rectangle "Highscores Service" as HighscoresService #00FF00
+
+     rectangle "Game engine" as GameEngine 
+
+     rectangle "Boards Repo (in memory)" as BoardsRepo #0000FF
+     rectangle "Bots Repo" as BotsRepo #0000FF
+     rectangle "Highscores Repo" as HighscoresRepo #0000FF
+
+     database "Database (SQL)" as Database
+
+     BoardsController --> BoardsService
+     BoardsController --> GameService
+     BotsController --> BotsService
+     HighscoresController --> HighscoresService
+    
+     BoardsService --> BoardsRepo
+     BotsService --> BotsRepo
+     GameService --> BotsRepo
+     GameService --> BoardsRepo
+     GameService --> GameEngine
+     HighscoresService --> HighscoresRepo
+     
+     BotsRepo --> Database
+     HighscoresRepo --> Database
+     @enduml
+   #+end_src
+
+   #+RESULTS:
+   [[file:Architecture.png]]
+
+[[./Architecture.png]]
