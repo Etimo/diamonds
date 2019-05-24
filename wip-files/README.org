@@ -32,9 +32,9 @@
 
      rectangle "Game engine" as GameEngine 
 
-     rectangle "Boards Repo (in memory)" as BoardsRepo #0000FF
-     rectangle "Bots Repo" as BotsRepo #0000FF
-     rectangle "Highscores Repo" as HighscoresRepo #0000FF
+     rectangle "<color:#FFFFFF> Boards Repo (in memory)" as BoardsRepo #0000FF
+     rectangle "<color:#FFFFFF> Bots Repo" as BotsRepo #0000FF
+     rectangle "<color:#FFFFFF> Highscores Repo" as HighscoresRepo #0000FF
 
      database "Database (SQL)" as Database
 
