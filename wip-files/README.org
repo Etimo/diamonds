@@ -48,6 +48,7 @@
      GameService --> BotsRepo
      GameService --> BoardsRepo
      GameService --> GameEngine
+     GameService --> HighscoresRepo
      HighscoresService --> HighscoresRepo
      
      BotsRepo --> Database
