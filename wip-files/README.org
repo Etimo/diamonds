@@ -61,4 +61,4 @@
 
 [[./Architecture.png]]
 
-Read more about the game engine draft [here](./diamonds-ts-server).
+Read more about the game engine draft [[./diamonds-ts-server][here]].
