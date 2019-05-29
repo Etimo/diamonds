@@ -1,0 +1,19 @@
+import { AbstractGameObject } from "../abstract-game-object";
+import { Board } from "src/game-engine/board";
+import { BotGameObject } from "../bot/bot";
+
+export class BaseGameObject extends AbstractGameObject {
+  protected type: string = "base";
+
+  toChar() {
+    return "B";
+  }
+
+  onGameObjectEntered(gameObject: AbstractGameObject, board: Board) {
+    if (gameObject instanceof BotGameObject) {
+      const bot = gameObject as BotGameObject;
+      bot.score += bot.diamonds;
+      bot.diamonds = 0;
+    }
+  }
+}
