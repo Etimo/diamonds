@@ -62,3 +62,6 @@
 [[./Architecture.png]]
 
 Read more about the game engine draft [[./diamonds-ts-server][here]].
+
+Suggestion is to put lock handling in game service. Perhaps use following lock system:
+https://www.npmjs.com/package/live-mutex
