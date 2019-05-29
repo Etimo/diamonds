@@ -5,6 +5,7 @@ import { BaseProvider } from "./game-objects/base/base-provider";
 import { BotProvider } from "./game-objects/bot/bot-provider";
 import { DiamondProvider } from "./game-objects/diamond/diamond-provider";
 import { DummyBotProvider } from "./game-objects/dummy-bot/dummy-bot-provider";
+import { CustomLogger } from "src/common/logger";
 
 // log.debug("init");
 
@@ -23,7 +24,7 @@ const config: BoardConfig = {
   minimumDelayBetweenMoves: 100,
   maxCarryingDiamonds: 5,
 };
-const board = new Board(config, providers, console);
+const board = new Board(config, providers, new CustomLogger());
 
 const bot1 = {
   id: "id1",
