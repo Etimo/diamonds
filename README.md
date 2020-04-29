@@ -17,7 +17,7 @@ The multi-colored discs are teleporters.
 
 # API
 
-The base url to the API is http://diamonds.etimo.se/api and API documentation is available at http://diamonds.etimo.se/api/docs.
+The base url to the API is http://diamonds.etimo.se/api and API documentation is available at http://diamonds.etimo.se/docs.
 
 Here is some info to get you started:
 1. Use endpoint `Register Bot` to register a bot. The endpoint returns a token that you should keep and treat as a password.
